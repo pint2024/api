@@ -12,22 +12,19 @@ app.use((req, res, next) => {
 });
 
 //Configurações
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT || 3001);
 
 //Middlewares
 app.use(express.json());
 
 //Rotas
-app.use('/teste', (req, res) => {
-	res.send("Rota TESTE.");
-});
-
 app.use('/employee', employeeRoutes)
 
-/*app.use('/', (req, res) => {
-	res.send("Hello World");
-});*/
 
 app.listen(app.get('port'), () => {
 	console.log("Start server on port " + app.get('port'))
 })
+
+const models = initModels(sequelize);
+
+module.exports = { sequelize, models };

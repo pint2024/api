@@ -1,12 +1,14 @@
-const { Model, DataTypes } = require("sequelize");
-const sequelize = require("../config/sequelize");
+const DataTypesUtils = require('../utils/modelsDataTypes');
 
 const categoria = sequelize.define(
 	"categoria",
 	{
-		id: null,
-		data_criacao: null,
-		categoria: null,
+		id: DataTypesUtils.primaryKeyDataType(),
+		data_criacao: DataTypesUtils.dataCriacaoDataType(),
+		categoria: {
+			type: DataTypes.STRING(50),
+			allowNull: false,
+		},
 	},
 	{
 		timestamps: false,

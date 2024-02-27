@@ -1,6 +1,10 @@
+const { sequelize, models } = require('./config/database.config.js');
 const express = require('express');
+const { SV_PORT } = require('./data/constants');
+const dotenv = require('dotenv').config();
 const app = express();
-const employeeRoutes = require('./routes/employeeRoute.js')
+const bodyParser = require('body-parser');
+
 
 // Configurar CORS
 app.use((req, res, next) => {
@@ -12,19 +16,16 @@ app.use((req, res, next) => {
 });
 
 //Configurações
-app.set('port', process.env.PORT || 3001);
+app.set('port', SV_PORT);
 
 //Middlewares
-app.use(express.json());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 //Rotas
-app.use('/employee', employeeRoutes)
+//app.use('/employee', employeeRoutes)
 
-
+//Listen
 app.listen(app.get('port'), () => {
 	console.log("Start server on port " + app.get('port'))
 })
-
-const models = initModels(sequelize);
-
-module.exports = { sequelize, models };

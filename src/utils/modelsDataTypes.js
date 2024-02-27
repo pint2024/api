@@ -1,13 +1,13 @@
-function attributeDataType(tipo, allowNull = true, autoIncrement = false, defaultValue = null) {
-	return { type: tipo, allowNull: allowNull, autoIncrement: autoIncrement, defaultValue: defaultValue };
+function dataCriacaoDataType() {
+	return attributeDataType(DataTypes.DATE, Sequelize.Sequelize.fn('now'));
 }
 
-function primaryKeyDataType(tipo, autoIncrement = true) {
-	return { type: tipo, allowNull: false, autoIncrement, primaryKey: true };
+function primaryKeyDataType() {
+	return { type: DataTypes.INTEGER, allowNull: false, primaryKey: true };
 }
 
-function foreignKeyDataType(tipo, allowNull = false, defaultValue = null, referenciaModelo, referenciaColuna) {
-	return { type: tipo, allowNull, defaultValue: defaultValue, references: { model: referenciaModelo, key: referenciaColuna } };
+function foreignKeyDataType({ allowNull = false, defaultValue = null }) {
+	return { type: DataTypes.INTEGER, allowNull: allowNull, defaultValue: defaultValue };
 }
 
-export default { attributeDataType, primaryKeyDataType, foreignKeyDataType }
+module.exports = { dataCriacaoDataType, primaryKeyDataType, foreignKeyDataType }

@@ -1,18 +1,27 @@
-const { Model, DataTypes } = require("sequelize");
-const sequelize = require("../config/sequelize");
+const DataTypesUtils = require('../utils/modelsDataTypes');
 
 const classificacao = sequelize.define(
 	"classificacao",
 	{
-		id: null,
-		data_criacao: null,
-		classificacao: null,
-		atividade: null,
-		utilizador: null,
+		id: DataTypesUtils.primaryKeyDataType(),
+		data_criacao: DataTypesUtils.dataCriacaoDataType(),
+		classificacao: {
+			type: DataTypes.SMALLINT,
+			allowNull: false,
+		},
+		atividade: DataTypesUtils.foreignKeyDataType(),
+		utilizador: DataTypesUtils.foreignKeyDataType(),
 	},
 	{
 		timestamps: false,
 		freezeTableName: true,
+		validate: {
+			isValidClassificacao(value) {
+				if (value < 0 || value > 10) {
+					throw new Error("A classificação deve estar entre 0 e 10.");
+				}
+			},
+		},
 	}
 );
 

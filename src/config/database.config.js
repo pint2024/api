@@ -1,47 +1,39 @@
-const { Sequelize } = require('sequelize');
-const initModels = require('../models/init-models');
-const { DB_CONFIG } = require('../data/constants').default;
+const { Sequelize } = require("sequelize");
+const { DB_CONFIG } = require("../data/constants");
 
-
-const sequelize = new Sequelize(
-	DB_CONFIG.DATABASE,
-	DB_CONFIG.USERNAME,
-	DB_CONFIG.PASSWORD,
-	{
-		host: DB_CONFIG.HOST,
-		port: DB_CONFIG.PORT,
-		dialect: DB_CONFIG.DIALECT,
-		logging: false,
-		dialectOptions: {
-			ssl: { require: true, rejectUnauthorized: false }
-		}
-	}
-);
-
-sequelize.addHook('beforeDefine', (attributes, options) => {
-	options.defaultScope = {
-		/*attributes: { exclude: ['excluido'] },
-		where: { ['excluido']: false },*/
-	};
+const sequelize = new Sequelize(DB_CONFIG.DATABASE, DB_CONFIG.USERNAME, DB_CONFIG.PASSWORD, {
+	host: DB_CONFIG.HOST,
+	port: DB_CONFIG.PORT,
+	dialect: DB_CONFIG.DIALECT,
 });
 
-sequelize.authenticate()
+/*sequelize.addHook('beforeDefine', (attributes, options) => {
+	options.defaultScope = { };
+});*/
+
+sequelize
+	.authenticate()
 	.then(() => {
-		console.log('Autenticado à base de dados.');
+		console.log("Autenticado à base de dados.");
+
+		const initModels = require("../model/init.models");
+		// Chama initModels aqui, pois a autenticação foi bem-sucedida
+		const models = initModels(sequelize);
+
+		// Prossegue com a sincronização ou outras operações, se necessário
+		sequelize
+			.sync()
+			.then(() => {
+				console.log("Base de dados sincronizada com sucesso.");
+			})
+			.catch((error) => {
+				console.error("Error ao sincronizar a base de dados: ", error);
+			});
 	})
 	.catch((error) => {
-		console.error('Error ao conectar à base de dados: ', error);
+		console.error("Error ao conectar à base de dados: ", error);
 	});
 
+//const models = initModels(sequelize);
 
-sequelize.sync()
-	.then(() => {
-		console.log('Base de dados sincronizada com sucesso.');
-	})
-	.catch((error) => {
-		console.error('Error ao sincronizar a base de dados: ', error);
-	});
-
-const models = initModels(sequelize);
-
-module.exports = { sequelize, models };
+module.exports = { sequelize };

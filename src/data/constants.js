@@ -22,10 +22,31 @@ const DB_CONFIG = {
 	DIALECT: "postgres",
 };
 
+
+const FUNCION_NAMING = {
+	LIST: "list",
+	GET: "get",
+	CREATE: "create",
+	UPDATE: "update",
+	DELETE: "delete",
+}
+
+
+const URL_NAMING = {
+	LIST: "/list",
+	GET: "/get/:id",
+	CREATE: "/create",
+	UPDATE: "/update/:id",
+	DELETE: "/delete/:id",
+};
+
+
 module.exports = {
 	JWT_CONFIG,
 	SV_PORT,
 	EMAIL_INFO,
 	FRONTEND_URL,
 	DB_CONFIG,
+	FUNCION_NAMING,
+	URL_NAMING,
 };

@@ -4,6 +4,7 @@ const { SV_PORT } = require('./data/constants');
 const dotenv = require('dotenv').config();
 const app = express();
 const bodyParser = require('body-parser');
+const Routes = require('./routes/init.routes.js');
 
 
 // Configurar CORS
@@ -23,7 +24,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 //Rotas
-//app.use('/employee', employeeRoutes)
+app.use('/', Routes)
 
 //Listen
 app.listen(app.get('port'), () => {

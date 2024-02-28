@@ -1,12 +1,15 @@
+const DataTypes = require("sequelize").DataTypes;
+const Sequelize = require('sequelize');
+
 function dataCriacaoDataType() {
-	return attributeDataType(DataTypes.DATE, Sequelize.Sequelize.fn('now'));
+	return { type: DataTypes.DATE, defaultValue: Sequelize.Sequelize.fn('now') };
 }
 
 function primaryKeyDataType() {
 	return { type: DataTypes.INTEGER, allowNull: false, primaryKey: true };
 }
 
-function foreignKeyDataType({ allowNull = false, defaultValue = null }) {
+function foreignKeyDataType(allowNull = false, defaultValue = null) {
 	return { type: DataTypes.INTEGER, allowNull: allowNull, defaultValue: defaultValue };
 }
 

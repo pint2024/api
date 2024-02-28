@@ -1,7 +1,7 @@
-const { sequelize } = require("../config/database.config");
+const Sequelize = require('sequelize');
 const DataTypesUtils = require('../utils/modelsDataTypes');
-
-const perfil = sequelize.define(
+module.exports = function (sequelize, DataTypes) {
+	return sequelize.define(
 	"perfil",
 	{
 		id: DataTypesUtils.primaryKeyDataType(),
@@ -12,9 +12,17 @@ const perfil = sequelize.define(
 		},
 	},
 	{
+		sequelize,
 		timestamps: false,
 		freezeTableName: true,
-	}
-);
-
-module.exports = perfil;
+		indexes: [
+			{
+				name: "pk_perfil",
+				unique: true,
+				fields: [
+					{ name: "id" },
+				]
+			},
+		]
+	});
+}

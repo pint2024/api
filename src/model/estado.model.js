@@ -1,6 +1,7 @@
+const Sequelize = require('sequelize');
 const DataTypesUtils = require('../utils/modelsDataTypes');
-
-const estado = sequelize.define(
+module.exports = function (sequelize, DataTypes) {
+	return sequelize.define(
 	"estado",
 	{
 		id: DataTypesUtils.primaryKeyDataType(),
@@ -10,7 +11,14 @@ const estado = sequelize.define(
 	{
 		timestamps: false,
 		freezeTableName: true,
-	}
-);
-
-module.exports = estado;
+		indexes: [
+			{
+				name: "pk_estado",
+				unique: true,
+				fields: [
+					{ name: "id" },
+				]
+			},
+		]
+	});
+}

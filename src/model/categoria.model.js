@@ -1,6 +1,7 @@
+const Sequelize = require('sequelize');
 const DataTypesUtils = require('../utils/modelsDataTypes');
-
-const categoria = sequelize.define(
+module.exports = function (sequelize, DataTypes) {
+	return sequelize.define(
 	"categoria",
 	{
 		id: DataTypesUtils.primaryKeyDataType(),
@@ -13,7 +14,14 @@ const categoria = sequelize.define(
 	{
 		timestamps: false,
 		freezeTableName: true,
-	}
-);
-
-module.exports = categoria;
+		indexes: [
+			{
+				name: "pk_categoria",
+				unique: true,
+				fields: [
+					{ name: "id" },
+				]
+			},
+		]
+	});
+}

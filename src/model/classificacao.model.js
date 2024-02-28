@@ -1,6 +1,7 @@
+const Sequelize = require('sequelize');
 const DataTypesUtils = require('../utils/modelsDataTypes');
-
-const classificacao = sequelize.define(
+module.exports = function (sequelize, DataTypes) {
+	return sequelize.define(
 	"classificacao",
 	{
 		id: DataTypesUtils.primaryKeyDataType(),
@@ -22,7 +23,14 @@ const classificacao = sequelize.define(
 				}
 			},
 		},
-	}
-);
-
-module.exports = classificacao;
+		indexes: [
+			{
+				name: "pk_classificacao",
+				unique: true,
+				fields: [
+					{ name: "id" },
+				]
+			},
+		]
+	});
+}

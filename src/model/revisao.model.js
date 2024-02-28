@@ -1,6 +1,7 @@
+const Sequelize = require('sequelize');
 const DataTypesUtils = require('../utils/modelsDataTypes');
-
-const revisao = sequelize.define(
+module.exports = function (sequelize, DataTypes) {
+	return sequelize.define(
 	"revisao",
 	{
 		id: DataTypesUtils.primaryKeyDataType(),
@@ -10,12 +11,19 @@ const revisao = sequelize.define(
 			allowNull: false,
 		},
 		utilizador: DataTypesUtils.foreignKeyDataType(),
-		estado: DataTypesUtils.foreignKeyDataType({ defaultValue: 1 }),
+		estado: DataTypesUtils.foreignKeyDataType(false, 1),
 	},
 	{
 		timestamps: false,
 		freezeTableName: true,
-	}
-);
-
-module.exports = revisao;
+		indexes: [
+			{
+				name: "pk_revisao",
+				unique: true,
+				fields: [
+					{ name: "id" },
+				]
+			},
+		]
+	});
+}

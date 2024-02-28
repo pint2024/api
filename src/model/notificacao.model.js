@@ -1,6 +1,7 @@
+const Sequelize = require('sequelize');
 const DataTypesUtils = require('../utils/modelsDataTypes');
-
-const notificacao = sequelize.define(
+module.exports = function (sequelize, DataTypes) {
+	return sequelize.define(
 	"notificacao",
 	{
 		id: DataTypesUtils.primaryKeyDataType(),
@@ -17,9 +18,9 @@ const notificacao = sequelize.define(
 			type: DataTypes.STRING(500),
 			allowNull: false,
 		},
-		atividade: DataTypesUtils.foreignKeyDataType({ allowNull: true }),
-		comentario: DataTypesUtils.foreignKeyDataType({ allowNull: true }),
-		revisao: DataTypesUtils.foreignKeyDataType({ allowNull: true }),
+		atividade: DataTypesUtils.foreignKeyDataType(true),
+		comentario: DataTypesUtils.foreignKeyDataType(true),
+		revisao: DataTypesUtils.foreignKeyDataType(true),
 	},
 	{
 		timestamps: false,
@@ -35,7 +36,14 @@ const notificacao = sequelize.define(
 				}
 			},
 		},
-	}
-);
-
-module.exports = notificacao;
+		indexes: [
+			{
+				name: "pk_notificacao",
+				unique: true,
+				fields: [
+					{ name: "id" },
+				]
+			},
+		]
+	});
+}

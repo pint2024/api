@@ -1,8 +1,7 @@
+const Sequelize = require('sequelize');
 const DataTypesUtils = require('../utils/modelsDataTypes');
-
-const utilizador = sequelize.define(
-	"utilizador",
-	{
+module.exports = function (sequelize, DataTypes) {
+	return sequelize.define("utilizador", {
 		id: DataTypesUtils.primaryKeyDataType(),
 		data_criacao: DataTypesUtils.dataCriacaoDataType(),
 		tag: {
@@ -52,7 +51,14 @@ const utilizador = sequelize.define(
 	{
 		timestamps: false,
 		freezeTableName: true,
-	}
-);
-
-module.exports = utilizador;
+		indexes: [
+			{
+				name: "pk_utilizador",
+				unique: true,
+				fields: [
+					{ name: "id" },
+				]
+			},
+		]
+	});
+};

@@ -2,11 +2,20 @@ const { Sequelize } = require("sequelize");
 const { DB_CONFIG } = require("../data/constants");
 const initModels = require("../models/init.models");
 
-const sequelize = new Sequelize(DB_CONFIG.DATABASE, DB_CONFIG.USERNAME, DB_CONFIG.PASSWORD, {
-	host: DB_CONFIG.HOST,
-	port: DB_CONFIG.PORT,
-	dialect: DB_CONFIG.DIALECT,
-});
+const sequelize = new Sequelize(
+	DB_CONFIG.DATABASE,
+	DB_CONFIG.USERNAME,
+	DB_CONFIG.PASSWORD,
+	{
+		host: DB_CONFIG.HOST,
+		port: DB_CONFIG.PORT,
+		dialect: DB_CONFIG.DIALECT,
+		logging: false,
+		dialectOptions: {
+			ssl: { require: true, rejectUnauthorized: false }
+		}
+	}
+);
 
 /*sequelize.addHook('beforeDefine', (attributes, options) => {
 	options.defaultScope = { };

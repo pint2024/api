@@ -14,10 +14,10 @@ const EMAIL_INFO = {
 const FRONTEND_URL = "http://localhost:3000";
 
 const DB_CONFIG = {
-	DATABASE: "pint",
-	USERNAME: "postgres",
-	PASSWORD: "lucas123",
-	HOST: "localhost",
+	DATABASE: "pint_r71c",
+	USERNAME: "manager",
+	PASSWORD: "2Tes25NellX6Es9MM92Mg1a5g59Jz5J3",
+	HOST: "dpg-cnge0pq1hbls73fq15vg-a.frankfurt-postgres.render.com",
 	PORT: "5432",
 	DIALECT: "postgres",
 };

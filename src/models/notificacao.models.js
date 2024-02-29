@@ -18,6 +18,7 @@ module.exports = function (sequelize, DataTypes) {
 			type: DataTypes.STRING(500),
 			allowNull: false,
 		},
+		utilizador: DataTypesUtils.foreignKeyDataType(),
 		atividade: DataTypesUtils.foreignKeyDataType(true),
 		comentario: DataTypesUtils.foreignKeyDataType(true),
 		revisao: DataTypesUtils.foreignKeyDataType(true),

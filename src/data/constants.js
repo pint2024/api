@@ -33,11 +33,11 @@ const FUNCION_NAMING = {
 
 
 const URL_NAMING = {
-	LIST: "/list",
-	GET: "/get/:id",
-	CREATE: "/create",
-	UPDATE: "/update/:id",
-	DELETE: "/delete/:id",
+	LIST: "/listar",
+	GET: "/obter/:id",
+	CREATE: "/criar",
+	UPDATE: "/atualizar/:id",
+	DELETE: "/remover/:id",
 };
 
 

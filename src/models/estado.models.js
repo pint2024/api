@@ -6,7 +6,10 @@ module.exports = function (sequelize, DataTypes) {
 	{
 		id: DataTypesUtils.primaryKeyDataType(),
 		data_criacao: DataTypesUtils.dataCriacaoDataType(),
-		estado: DataTypesUtils.foreignKeyDataType(),
+		estado: {
+			type: DataTypes.STRING(100),
+			allowNull: false,
+		},
 	},
 	{
 		sequelize,

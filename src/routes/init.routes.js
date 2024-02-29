@@ -1,15 +1,39 @@
-/*const atividadeRoutes = require("./atividade.routes.js");*/
+const atividadeRoutes = require("./atividade.routes.js");
+const atividadeControllers = require("../controllers/atividade.controllers.js");
 const categoriaRoutes = require("./categoria.routes");
-/*const classificacaoRoutes = require("./classificacao.routes.js");
+const categoriaControllers = require("../controllers/categoria.controllers");
+const classificacaoRoutes = require("./classificacao.routes.js");
+const classificacaoControllers = require("../controllers/classificacao.controllers.js");
 const comentarioRoutes = require("./comentario.routes.js");
+const comentarioControllers = require("../controllers/comentario.controllers.js");
+const denunciaRoutes = require("./denuncia.routes.js");
+const denunciaControllers = require("../controllers/denuncia.controllers.js");
 const estadoRoutes = require("./estado.routes.js");
+const estadoControllers = require("../controllers/estado.controllers.js");
 const gostoRoutes = require("./gosto.routes.js");
+const gostoControllers = require("../controllers/gosto.controllers.js");
 const notificacaoRoutes = require("./notificacao.routes.js");
+const notificacaoControllers = require("../controllers/notificacao.controllers.js");
 const perfilRoutes = require("./perfil.routes.js");
+const perfilControllers = require("../controllers/perfil.controllers.js");
 const revisaoRoutes = require("./revisao.routes.js");
+const revisaoControllers = require("../controllers/revisao.controllers.js");
 const topicoRoutes = require("./topico.routes.js");
-const utilizadorRoutes = require("./utilizador.routes.js");*/
+const topicoControllers = require("../controllers/topico.controllers.js");
+const utilizadorRoutes = require("./utilizador.routes.js");
+const utilizadorControllers = require("../controllers/utilizador.controllers.js");
 
 module.exports = (app) => {
-	categoriaRoutes(app);
+	atividadeRoutes(app, atividadeControllers, "/atividade");
+	categoriaRoutes(app, categoriaControllers, "/categoria");
+	classificacaoRoutes(app, classificacaoControllers, "/classificacao");
+	comentarioRoutes(app, comentarioControllers, "/comentario");
+	denunciaRoutes(app, denunciaControllers, "/denuncia");
+	estadoRoutes(app, estadoControllers, "/estado");
+	gostoRoutes(app, gostoControllers, "/gosto");
+	notificacaoRoutes(app, notificacaoControllers, "/notificacao");
+	perfilRoutes(app, perfilControllers, "/perfil");
+	revisaoRoutes(app, revisaoControllers, "/revisao");
+	topicoRoutes(app, topicoControllers, "/topico");
+	utilizadorRoutes(app, utilizadorControllers, "/utilizador");
 };

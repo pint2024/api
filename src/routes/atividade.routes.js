@@ -1,12 +1,12 @@
-const express = require("express");
-const router = express.Router();
+const router = require("express").Router();
+const { URL_NAMING } = require("../data/constants.js");
 
-const controller = require("../controllers/atividade.controllers");
+module.exports = (app, controllerClass, url_base) => {
+	router.route(URL_NAMING.CREATE).post((req, res) => controllerClass.criar(req, res));
+	router.route(URL_NAMING.LIST).get((req, res) => controllerClass.listar(req, res));
+	router.route(URL_NAMING.GET).get((req, res) => controllerClass.obter(req, res));
+	router.route(URL_NAMING.UPDATE).put((req, res) => controllerClass.atualizar(req, res));
+	router.route(URL_NAMING.DELETE).delete((req, res) => controllerClass.remover(req, res));
 
-router.post("/create", controller.negocioclientes);
-router.get("/get/:id", controller.negocioclientes);
-router.get("/list", controller.negocioclientes);
-router.put("/update/:id", controller.negocioclientes);
-router.get("/delete/:id", controller.negocioclientes);
-
-module.exports = router;
+	app.use(url_base, router);
+};

@@ -2,15 +2,15 @@ const Sequelize = require('sequelize');
 const DataTypesUtils = require('../utils/modelsDataTypes');
 module.exports = function (sequelize, DataTypes) {
 	return sequelize.define(
-	"revisao",
+	"mensagem",
 	{
 		id: DataTypesUtils.primaryKeyDataType(),
 		data_criacao: DataTypesUtils.dataCriacaoDataType(),
-		motivo: {
-			type: DataTypes.STRING(500),
+		mensagem: {
+			type: DataTypes.STRING(100),
 			allowNull: false,
 		},
-		estado: DataTypesUtils.foreignKeyDataType(false, 1),
+		participante: DataTypesUtils.foreignKeyDataType(),
 	},
 	{
 		sequelize,
@@ -19,7 +19,7 @@ module.exports = function (sequelize, DataTypes) {
 		freezeTableName: true,
 		indexes: [
 			{
-				name: "pk_revisao",
+				name: "pk_mensagem",
 				unique: true,
 				fields: [
 					{ name: "id" },

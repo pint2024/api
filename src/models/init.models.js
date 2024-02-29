@@ -11,7 +11,9 @@ const _classificacao = require("./classificacao.models");
 const _comentario = require("./comentario.models");
 const _notificacao = require("./notificacao.models");
 const _denuncia = require("./denuncia.models");
-
+const _conversa = require("./conversa.models");
+const _participante = require("./participante.models");
+const _mensagem = require("./mensagem.models");
 
 function defineAssociation(childModel, parentModel, asKeyword, foreignKeyKeyword) {
 	childModel.belongsTo(parentModel, {
@@ -22,7 +24,6 @@ function defineAssociation(childModel, parentModel, asKeyword, foreignKeyKeyword
 	});
 	parentModel.hasMany(childModel, { as: asKeyword, foreignKey: foreignKeyKeyword, onDelete: "CASCADE", onUpdate: "CASCADE" });
 }
-
 
 function initModels(sequelize) {
 	const perfil = _perfil(sequelize, DataTypes);
@@ -37,14 +38,17 @@ function initModels(sequelize) {
 	const classificacao = _classificacao(sequelize, DataTypes);
 	const notificacao = _notificacao(sequelize, DataTypes);
 	const denuncia = _denuncia(sequelize, DataTypes);
+	const conversa = _conversa(sequelize, DataTypes);
+	const participante = _participante(sequelize, DataTypes);
+	const mensagem = _mensagem(sequelize, DataTypes);
 
 	defineAssociation(utilizador, perfil, "utilizador_perfil", "perfil");
 	defineAssociation(topico, categoria, "topico_categoria", "categoria");
 	defineAssociation(atividade, topico, "atividade_topico", "topico");
 	defineAssociation(atividade, revisao, "atividade_revisao", "revisao");
+	defineAssociation(atividade, utilizador, "atividade_utilizador", "utilizador");
 	defineAssociation(gosto, atividade, "gosto_atividade", "atividade");
 	defineAssociation(gosto, utilizador, "gosto_utilizador", "utilizador");
-	defineAssociation(revisao, utilizador, "revisao_utilizador", "utilizador");
 	defineAssociation(revisao, estado, "revisao_estado", "estado");
 	defineAssociation(comentario, atividade, "comentario_atividade", "atividade");
 	defineAssociation(comentario, utilizador, "comentario_utilizador", "utilizador");
@@ -56,20 +60,31 @@ function initModels(sequelize) {
 	defineAssociation(notificacao, revisao, "notificacao_revisao", "revisao");
 	defineAssociation(denuncia, atividade, "denuncia_atividade", "atividade");
 	defineAssociation(denuncia, utilizador, "denuncia_utilizador", "utilizador");
+	defineAssociation(conversa, topico, "conversa_topico", "topico");
+	defineAssociation(participante, conversa, "participante_conversa", "conversa");
+	defineAssociation(participante, utilizador, "participante_utilizador", "utilizador");
+	defineAssociation(participante, perfil, "participante_perfil", "perfil");
+	defineAssociation(mensagem, participante, "mensagem_participante", "participante");
 
 	return {
-		atividade,
-		categoria,
-		classificacao,
-		comentario,
-		estado,
-		notificacao,
 		perfil,
-		revisao,
-		topico,
 		utilizador,
+		categoria,
+		topico,
+		atividade,
+		gosto,
+		estado,
+		revisao,
+		comentario,
+		classificacao,
+		notificacao,
+		denuncia,
+		conversa,
+		participante,
+		mensagem,
 	};
 }
+
 module.exports = initModels;
 module.exports.initModels = initModels;
 module.exports.default = initModels;

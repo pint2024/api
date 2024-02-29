@@ -32,6 +32,7 @@ module.exports = function (sequelize, DataTypes) {
 		},
 		topico: DataTypesUtils.foreignKeyDataType(),
 		revisao: DataTypesUtils.foreignKeyDataType(true),
+		utilizador: DataTypesUtils.foreignKeyDataType(true),
 	},
 	{
 		sequelize,

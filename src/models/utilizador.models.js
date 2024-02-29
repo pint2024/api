@@ -26,10 +26,6 @@ module.exports = function (sequelize, DataTypes) {
 			type: DataTypes.STRING(500),
 			allowNull: false,
 		},
-		data_nascimento: {
-			type: DataTypes.DATE,
-			allowNull: true,
-		},
 		imagem: {
 			type: DataTypes.STRING(500),
 			allowNull: true,
@@ -46,7 +42,7 @@ module.exports = function (sequelize, DataTypes) {
 			type: DataTypes.STRING(500),
 			allowNull: true,
 		},
-		perfil: DataTypesUtils.foreignKeyDataType(),
+		perfil: DataTypesUtils.foreignKeyDataType(false, 1),
 	},
 	{
 		sequelize,

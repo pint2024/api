@@ -21,17 +21,11 @@ const sequelize = new Sequelize(
 	options.defaultScope = { };
 });*/
 
-sequelize
-	.authenticate()
+sequelize.authenticate()
 	.then(() => {
 		console.log("Autenticado à base de dados.");
 
-		// Chama initModels aqui, pois a autenticação foi bem-sucedida
-		//const models = initModels(sequelize);
-
-		// Prossegue com a sincronização ou outras operações, se necessário
-		sequelize
-			.sync()
+		sequelize.sync()
 			.then(() => {
 				console.log("Base de dados sincronizada com sucesso.");
 			})

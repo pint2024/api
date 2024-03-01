@@ -30,5 +30,5 @@ initRoutes(app);
 
 //Listen
 app.listen(app.get("port"), () => {
-	console.log("Start server on port " + app.get("port"));
+	console.log("Servidor iniciado na porta " + app.get("port") + ".");
 });

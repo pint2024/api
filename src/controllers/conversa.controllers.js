@@ -1,3 +1,4 @@
+const { handleSuccess, handleError } = require("../utils/routesUtils");
 const models = require("../config/database.config").models;
 
 const model = models.conversa;
@@ -7,28 +8,28 @@ module.exports = class Controller {
 	static async criar(req, res) {
 		try {
 			const response = await model.create(req.body);
-			res.status(200).json(response);
+			handleSuccess(res, response);
 		} catch (error) {
-			res.status(500).json({ error: error.message });
+			handleError(res, error);
 		}
 	}
 
 	static async listar(req, res) {
 		try {
 			const response = await model.findAll();
-			res.status(200).json(response);
+			handleSuccess(res, response);
 		} catch (error) {
-			res.status(500).json({ error: error.message });
+			handleError(res, error);
 		}
 	}
 
 	static async obter(req, res) {
 		try {
 			const { id } = req.params;
-			const categoria = await model.findOne({ where: { [identifier]: id } });
-			res.status(200).json(categoria);
+			const response = await model.findOne({ where: { [identifier]: id } });
+			handleSuccess(res, response);
 		} catch (error) {
-			res.status(500).json({ error: error.message });
+			handleError(res, error);
 		}
 	}
 
@@ -36,9 +37,9 @@ module.exports = class Controller {
 		try {
 			const { id } = req.params;
 			const response = await model.update({ ...req.body }, { where: { [identifier]: id } });
-			res.status(200).json(response);
+			handleSuccess(res, response);
 		} catch (error) {
-			res.status(500).json({ error: error.message });
+			handleError(res, error);
 		}
 	}
 
@@ -48,9 +49,9 @@ module.exports = class Controller {
 			const response = await model.destroy({
 				where: { [identifier]: id },
 			});
-			res.status(200).json(response);
+			handleSuccess(res, response);
 		} catch (error) {
-			res.status(500).json({ error: error.message });
+			handleError(res, error);
 		}
 	}
 };

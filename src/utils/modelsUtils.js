@@ -9,8 +9,8 @@ function primaryKeyDataType() {
 	return { autoIncrement: true, type: DataTypes.INTEGER, allowNull: false, primaryKey: true };
 }
 
-function foreignKeyDataType(allowNull = false, defaultValue = null) {
-	return { type: DataTypes.INTEGER, allowNull: allowNull, defaultValue: defaultValue };
+function foreignKeyDataType({ allowNull = false, defaultValue = null } = {}) {
+	return { type: DataTypes.INTEGER, allowNull, defaultValue };
 }
 
 module.exports = { dataCriacaoDataType, primaryKeyDataType, foreignKeyDataType };

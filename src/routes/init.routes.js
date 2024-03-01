@@ -1,3 +1,4 @@
+const models = require("../config/database.config").models;
 const atividadeRoutes = require("./atividade.routes.js");
 const atividadeControllers = require("../controllers/atividade.controllers.js");
 const categoriaRoutes = require("./categoria.routes");
@@ -29,20 +30,30 @@ const topicoControllers = require("../controllers/topico.controllers.js");
 const utilizadorRoutes = require("./utilizador.routes.js");
 const utilizadorControllers = require("../controllers/utilizador.controllers.js");
 
-module.exports = (app) => {
-	atividadeRoutes(app, atividadeControllers, "/atividade");
-	categoriaRoutes(app, categoriaControllers, "/categoria");
-	classificacaoRoutes(app, classificacaoControllers, "/classificacao");
-	comentarioRoutes(app, comentarioControllers, "/comentario");
-	conversaRoutes(app, conversaControllers, "/conversa");
-	denunciaRoutes(app, denunciaControllers, "/denuncia");
-	estadoRoutes(app, estadoControllers, "/estado");
-	gostoRoutes(app, gostoControllers, "/gosto");
-	mensagemRoutes(app, mensagemControllers, "/mensagem");
-	notificacaoRoutes(app, notificacaoControllers, "/notificacao");
-	participanteRoutes(app, participanteControllers, "/participante");
-	perfilRoutes(app, perfilControllers, "/perfil");
-	revisaoRoutes(app, revisaoControllers, "/revisao");
-	topicoRoutes(app, topicoControllers, "/topico");
-	utilizadorRoutes(app, utilizadorControllers, "/utilizador");
+
+
+const initRoutes = (app) => {
+	/* Funções abaixo recebem:
+			> app: para criar as rotas
+			> controllerClass: instancia do controllerClass definido com o modelo e identificador (opcional)
+			> url_base: parametro base da rota
+	*/
+	atividadeRoutes(app, new atividadeControllers(models.atividade), "/atividade");
+	categoriaRoutes(app, new categoriaControllers(models.categoria), "/categoria");
+	classificacaoRoutes(app, new classificacaoControllers(models.classificacao), "/classificacao");
+	comentarioRoutes(app, new comentarioControllers(models.comentario), "/comentario");
+	conversaRoutes(app, new conversaControllers(models.conversa), "/conversa");
+	denunciaRoutes(app, new denunciaControllers(models.denuncia), "/denuncia");
+	estadoRoutes(app, new estadoControllers(models.estado), "/estado");
+	gostoRoutes(app, new gostoControllers(models.gosto), "/gosto");
+	mensagemRoutes(app, new mensagemControllers(models.mensagem), "/mensagem");
+	notificacaoRoutes(app, new notificacaoControllers(models.notificacao), "/notificacao");
+	participanteRoutes(app, new participanteControllers(models.participante), "/participante");
+	perfilRoutes(app, new perfilControllers(models.perfil), "/perfil");
+	revisaoRoutes(app, new revisaoControllers(models.revisao), "/revisao");
+	topicoRoutes(app, new topicoControllers(models.topico), "/topico");
+	utilizadorRoutes(app, new utilizadorControllers(models.utilizador), "/utilizador");
 };
+
+
+module.exports = initRoutes;

@@ -19,16 +19,14 @@ const DB_CONFIG = {
 
 const FUNCION_NAMING = {
 	LIST: "list",
-	GET: "get",
 	CREATE: "create",
 	UPDATE: "update",
 	DELETE: "delete",
 };
 
 const URL_NAMING = {
-	LIST: "/listar",
-	GET: "/obter/:id",
 	CREATE: "/criar",
+	LIST: "/listar",
 	UPDATE: "/atualizar/:id",
 	DELETE: "/remover/:id",
 };

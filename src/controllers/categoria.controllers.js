@@ -1,57 +1,57 @@
-const { handleSuccess, handleError } = require("../utils/routesUtils");
-const models = require("../config/database.config").models;
-
-const model = models.categoria;
-const identifier = "id";
+const { logSuccess, logError, logInstances, logMethods, modelosAssociados } = require("../utils/controllersUtils");
 
 module.exports = class Controller {
-	static async criar(req, res) {
+	constructor(model, identifier = "id") {
+		this.filename = __filename;
+		this.model = model;
+		this.identifier = identifier;
+		logInstances(this.filename);
+	}
+
+	async criar(req, res) {
+		logMethods(this.filename, "criar")
 		try {
-			const response = await model.create(req.body);
-			handleSuccess(res, response);
+			const response = await this.model.create(req.body);
+			logSuccess(res, response);
 		} catch (error) {
-			handleError(res, error);
+			logError(res, error);
 		}
 	}
 
-	static async listar(req, res) {
+	async listar(req, res) {
+		logMethods(this.filename, "listar")
 		try {
-			const response = await model.findAll();
-			handleSuccess(res, response);
-		} catch (error) {
-			handleError(res, error);
-		}
-	}
-
-	static async obter(req, res) {
-		try {
-			const { id } = req.params;
-			const response = await model.findOne({ where: { [identifier]: id } });
-			handleSuccess(res, response);
-		} catch (error) {
-			handleError(res, error);
-		}
-	}
-
-	static async atualizar(req, res) {
-		try {
-			const { id } = req.params;
-			const response = await model.update({ ...req.body }, { where: { [identifier]: id } });
-			handleSuccess(res, response);
-		} catch (error) {
-			handleError(res, error);
-		}
-	}
-
-	static async remover(req, res) {
-		try {
-			const { id } = req.params;
-			const response = await model.destroy({
-				where: { [identifier]: id },
+			const response = await this.model.findAll({
+				where: { ...req.body },
+				include: modelosAssociados(this.model),
 			});
-			handleSuccess(res, response);
+			logSuccess(res, response);
 		} catch (error) {
-			handleError(res, error);
+			logError(res, error);
+		}
+	}
+
+	async atualizar(req, res) {
+		logMethods(this.filename, "atualizar")
+		try {
+			const { id } = req.params;
+			const response = await this.model.update({ ...req.body }, { where: { [this.identifier]: id } });
+			logSuccess(res, response);
+		} catch (error) {
+			logError(res, error);
+		}
+	}
+
+	async remover(req, res) {
+		logMethods(this.filename, "remover")
+		try {
+			const { id } = req.params;
+			const response = await this.model.destroy({
+				where: { [this.identifier]: id },
+			});
+			logSuccess(res, response);
+		} catch (error) {
+			logError(res, error);
 		}
 	}
 };

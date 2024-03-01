@@ -6,11 +6,6 @@ const JWT_CONFIG = {
 
 const SV_PORT = process.env.PORT || 8000;
 
-const EMAIL_INFO = {
-	USER: "pintegrado23@gmail.com",
-	PASSWORD: "xerqqpeqtpvdkiam",
-};
-
 const FRONTEND_URL = "http://localhost:3000";
 
 const DB_CONFIG = {
@@ -22,15 +17,13 @@ const DB_CONFIG = {
 	DIALECT: "postgres",
 };
 
-
 const FUNCION_NAMING = {
 	LIST: "list",
 	GET: "get",
 	CREATE: "create",
 	UPDATE: "update",
 	DELETE: "delete",
-}
-
+};
 
 const URL_NAMING = {
 	LIST: "/listar",
@@ -40,13 +33,17 @@ const URL_NAMING = {
 	DELETE: "/remover/:id",
 };
 
+const EMAIL_INFO = {
+	USER: "pintegrado23@gmail.com",
+	PASSWORD: "xerqqpeqtpvdkiam",
+};
 
 module.exports = {
 	JWT_CONFIG,
 	SV_PORT,
-	EMAIL_INFO,
 	FRONTEND_URL,
 	DB_CONFIG,
 	FUNCION_NAMING,
 	URL_NAMING,
+	EMAIL_INFO,
 };

@@ -8,6 +8,20 @@ module.exports = class Controller {
 		logInstances(this.filename);
 	}
 
+	async obter(req, res) {
+		logMethods(this.filename, "obter")
+		try {
+			const { id } = req.params;
+			const response = await this.model.findOne({
+				where: { [this.identifier]: id },
+				include: modelosAssociados(this.model),
+			});
+			logSuccess(res, response);
+		} catch (error) {
+			logError(res, error);
+		}
+	}
+
 	async criar(req, res) {
 		logMethods(this.filename, "criar")
 		try {

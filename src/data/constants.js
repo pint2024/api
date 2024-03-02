@@ -25,6 +25,7 @@ const FUNCION_NAMING = {
 };
 
 const URL_NAMING = {
+	GET: "/obter/:id",
 	CREATE: "/criar",
 	LIST: "/listar",
 	UPDATE: "/atualizar/:id",

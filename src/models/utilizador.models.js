@@ -28,6 +28,11 @@ module.exports = function (sequelize, DataTypes) {
 				type: DataTypes.STRING(500),
 				allowNull: false,
 			},
+			verificada: {
+				type: DataTypes.BOOLEAN,
+				allowNull: false,
+				defaultValue: true,
+			},
 			imagem: {
 				type: DataTypes.STRING(500),
 				allowNull: true,

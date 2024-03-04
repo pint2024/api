@@ -9,6 +9,7 @@ module.exports = function (sequelize, DataTypes) {
 			visualizado: {
 				type: DataTypes.BOOLEAN,
 				allowNull: false,
+				defaultValue: false,
 			},
 			titulo: {
 				type: DataTypes.STRING(100),

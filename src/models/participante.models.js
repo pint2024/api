@@ -8,7 +8,7 @@ module.exports = function (sequelize, DataTypes) {
 			data_criacao: DataTypesUtils.dataCriacaoDataType(),
 			conversa: DataTypesUtils.foreignKeyDataType(),
 			utilizador: DataTypesUtils.foreignKeyDataType(),
-			perfil: DataTypesUtils.foreignKeyDataType(),
+			perfil: DataTypesUtils.foreignKeyDataType({ defaultValue: 1 }),
 		},
 		{
 			sequelize,

@@ -1,24 +1,4 @@
-const { directory_to_filename, log } = require("./utils");
-
-const logSuccess = (res, response, status = 200) => {
-	res.status(status).json({success: true, data: response});
-};
-
-
-const logError = (res, response, status = 500) => {
-	res.status(status).json({success: false, error: response});
-};
-
-
-const logInstances = (filename) => {
-	log(directory_to_filename(filename) + " foi instanciado.");
-}
-
-
-const logMethods = (filename, method) => {
-	log("<" + directory_to_filename(filename) + ">." + method + " foi executado.");
-}
-
+const Log = require('./logUtils');
 
 const modelosAssociados = (model) => {
 	const modelsObject = [];
@@ -31,9 +11,6 @@ const modelosAssociados = (model) => {
 
 
 module.exports = {
-	logSuccess,
-	logError,
-	logInstances,
-	logMethods,
+	Log,
 	modelosAssociados,
 }

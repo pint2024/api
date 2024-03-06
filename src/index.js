@@ -5,6 +5,7 @@ const dotenv = require("dotenv").config();
 const app = express();
 const bodyParser = require("body-parser");
 const initRoutes = require("./routes/init.routes.js");
+const Log = require("./utils/logUtils.js");
 
 // Configurar CORS
 app.use((req, res, next) => {
@@ -30,5 +31,5 @@ initRoutes(app);
 
 //Listen
 app.listen(app.get("port"), () => {
-	console.log("Servidor iniciado na porta " + app.get("port") + ".");
+	Log.log("Servidor iniciado na porta " + app.get("port") + ".");
 });

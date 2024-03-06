@@ -1,6 +1,7 @@
 const { Sequelize } = require("sequelize");
 const { DB_CONFIG } = require("../data/constants");
 const initModels = require("../models/init.models");
+const Log = require('../utils/logUtils');
 
 const sequelize = new Sequelize(
 	DB_CONFIG.DATABASE,
@@ -23,18 +24,18 @@ const sequelize = new Sequelize(
 
 sequelize.authenticate()
 	.then(() => {
-		console.log("Autenticado à base de dados.");
+		Log.log("Autenticado à base de dados.");
 
 		sequelize.sync()
 			.then(() => {
-				console.log("Base de dados sincronizada com sucesso.");
+				Log.log("Base de dados sincronizada com sucesso.");
 			})
 			.catch((error) => {
-				console.error("Error ao sincronizar a base de dados: ", error);
+				Log.error("Error ao sincronizar a base de dados: ", error);
 			});
 	})
 	.catch((error) => {
-		console.error("Error ao conectar à base de dados: ", error);
+		Log.error("Error ao conectar à base de dados: ", error);
 	});
 
 const models = initModels(sequelize);

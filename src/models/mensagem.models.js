@@ -11,6 +11,7 @@ module.exports = function (sequelize, DataTypes) {
 				allowNull: false,
 			},
 			participante: DataTypesUtils.foreignKeyDataType(),
+			conversa: DataTypesUtils.foreignKeyDataType(),
 		},
 		{
 			sequelize,

@@ -31,11 +31,11 @@ sequelize.authenticate()
 				Log.log("Base de dados sincronizada com sucesso.");
 			})
 			.catch((error) => {
-				Log.error("Error ao sincronizar a base de dados: ", error);
+				Log.log("Error ao sincronizar a base de dados: ", error);
 			});
 	})
 	.catch((error) => {
-		Log.error("Error ao conectar à base de dados: ", error);
+		Log.log("Error ao conectar à base de dados: ", error);
 	});
 
 const models = initModels(sequelize);

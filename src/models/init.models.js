@@ -65,7 +65,8 @@ function initModels(sequelize) {
 	defineAssociation(participante, utilizador, "participante_utilizador", "utilizador");
 	defineAssociation(participante, perfil, "participante_perfil", "perfil");
 	defineAssociation(mensagem, participante, "mensagem_participante", "participante");
-
+	defineAssociation(mensagem, conversa, "mensagem_conversa", "conversa");
+	
 	return {
 		perfil,
 		utilizador,

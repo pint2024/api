@@ -73,24 +73,18 @@ module.exports = class Controller {
 
 const getMoreModels = [
 	{
-		model: models.mensagem,
-		as: "mensagem_conversa",
+		model: models.participante,
+		as: "participante_conversa",
 		include: [
 			{
-				model: models.participante,
-				as: "mensagem_participante",
-				include: [
+				model: models.utilizador,
+				as: "participante_utilizador",
+				/*include: [
 					{
-						model: models.utilizador,
-						as: "participante_utilizador",
-						/*include: [
-							{
-								model: models.perfil,
-								as: "utilizador_perfil",
-							},
-						],*/
+						model: models.perfil,
+						as: "utilizador_perfil",
 					},
-				],
+				],*/
 			},
 		],
 	},

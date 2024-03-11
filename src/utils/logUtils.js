@@ -6,13 +6,13 @@ module.exports = class Log {
 	}
 
 	static success(res, response, status = 200) {
-		res.status(status).json({ success: true, data: response });
 		this.log("success: " + true);
+		return res.status(status).json({ success: true, data: response });
 	}
 
 	static error(res, response, status = 500) {
-		res.status(status).json({ success: false, error: response });
 		this.log("success: " + false);
+		return res.status(status).json({ success: false, error: response });
 	}
 
 	static instance(filename) {

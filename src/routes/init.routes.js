@@ -29,7 +29,8 @@ const topicoRoutes = require("./topico.routes.js");
 const topicoControllers = require("../controllers/topico.controllers.js");
 const utilizadorRoutes = require("./utilizador.routes.js");
 const utilizadorControllers = require("../controllers/utilizador.controllers.js");
-
+const autenticacaoRoutes = require("./autenticacao.routes.js");
+const autenticacaoControllers = require("../controllers/autenticacao.controllers.js");
 
 
 const initRoutes = (app) => {
@@ -53,6 +54,7 @@ const initRoutes = (app) => {
 	revisaoRoutes(app, new revisaoControllers(models.revisao), "/revisao");
 	topicoRoutes(app, new topicoControllers(models.topico), "/topico");
 	utilizadorRoutes(app, new utilizadorControllers(models.utilizador), "/utilizador");
+	autenticacaoRoutes(app, new autenticacaoControllers(models.utilizador), "/autenticacao");
 };
 
 

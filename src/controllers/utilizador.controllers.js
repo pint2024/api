@@ -9,7 +9,7 @@ module.exports = class Controller {
 	}
 
 	async obter(req, res) {
-		Log.method(this.filename, "obter")
+		Log.method(this.filename, "obter");
 		try {
 			const { id } = req.params;
 			const response = await this.model.findOne({
@@ -23,7 +23,7 @@ module.exports = class Controller {
 	}
 
 	async criar(req, res) {
-		Log.method(this.filename, "criar")
+		Log.method(this.filename, "criar");
 		try {
 			const response = await this.model.create(req.body);
 			Log.success(res, response);
@@ -33,7 +33,7 @@ module.exports = class Controller {
 	}
 
 	async listar(req, res) {
-		Log.method(this.filename, "listar")
+		Log.method(this.filename, "listar");
 		try {
 			const response = await this.model.findAll({
 				where: { ...req.body },
@@ -46,7 +46,7 @@ module.exports = class Controller {
 	}
 
 	async atualizar(req, res) {
-		Log.method(this.filename, "atualizar")
+		Log.method(this.filename, "atualizar");
 		try {
 			const { id } = req.params;
 			const response = await this.model.update({ ...req.body }, { where: { [this.identifier]: id } });
@@ -57,7 +57,7 @@ module.exports = class Controller {
 	}
 
 	async remover(req, res) {
-		Log.method(this.filename, "remover")
+		Log.method(this.filename, "remover");
 		try {
 			const { id } = req.params;
 			const response = await this.model.destroy({

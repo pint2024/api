@@ -88,4 +88,14 @@ const getMoreModels = [
 			},
 		],
 	},
+	{
+		model: models.topico,
+		as: "conversa_topico",
+		include: [
+			{
+				model: models.categoria,
+				as: "topico_categoria",
+			}
+		],
+	},
 ];

@@ -1,4 +1,4 @@
-const JWT_CONFIG = {
+export const JWT_CONFIG = {
 	PASSWORD_SECRET: "trMCqw7EUQn4FwRyiH9w5jW",
 	EMAIL_SECRET: "PjC7q2wspXMhgDZ",
 	FORGET_PASSWORD_SECRET: "7AXPRpy1rG22ZSG1hamQ",
@@ -6,10 +6,10 @@ const JWT_CONFIG = {
 };
 
 
-const SV_PORT = process.env.PORT || 8000;
+export const SV_PORT = process.env.PORT || 8003;
 
 
-const FRONTEND_URL = "http://localhost:3000";
+export const FRONTEND_URL = "http://localhost:3000";
 
 
 /*const DB_CONFIG = { // cloud
@@ -22,7 +22,7 @@ const FRONTEND_URL = "http://localhost:3000";
 };*/
 
 
-const DB_CONFIG = { // local, editar!
+export const DB_CONFIG = { // local, editar!
 	DATABASE: "pint",
 	USERNAME: "postgres",
 	PASSWORD: "lucas123",
@@ -32,7 +32,7 @@ const DB_CONFIG = { // local, editar!
 };
 
 
-const FUNCION_NAMING = {
+export const FUNCION_NAMING = {
 	LIST: "list",
 	CREATE: "create",
 	UPDATE: "update",
@@ -40,7 +40,7 @@ const FUNCION_NAMING = {
 };
 
 
-const URL_NAMING = {
+export const URL_NAMING = {
 	GET: "/obter/:id",
 	CREATE: "/criar",
 	LIST: "/listar",
@@ -49,18 +49,7 @@ const URL_NAMING = {
 };
 
 
-const EMAIL_INFO = {
+export const EMAIL_INFO = {
 	USER: "pintegrado23@gmail.com",
 	PASSWORD: "xerqqpeqtpvdkiam",
-};
-
-
-module.exports = {
-	JWT_CONFIG,
-	SV_PORT,
-	FRONTEND_URL,
-	DB_CONFIG,
-	FUNCION_NAMING,
-	URL_NAMING,
-	EMAIL_INFO,
 };

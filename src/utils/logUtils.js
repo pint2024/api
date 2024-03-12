@@ -1,6 +1,6 @@
-const { directory_to_filename } = require('./utils');
+import { directory_to_filename } from './utils.js';
 
-module.exports = class Log {
+export class Log {
 	static log(log) {
 		console.log("LOG: " + log);
 	}

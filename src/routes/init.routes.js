@@ -1,36 +1,40 @@
-const models = require("../config/database.config").models;
-const atividadeRoutes = require("./atividade.routes.js");
-const atividadeControllers = require("../controllers/atividade.controllers.js");
-const categoriaRoutes = require("./categoria.routes");
-const categoriaControllers = require("../controllers/categoria.controllers");
-const classificacaoRoutes = require("./classificacao.routes.js");
-const classificacaoControllers = require("../controllers/classificacao.controllers.js");
-const comentarioRoutes = require("./comentario.routes.js");
-const comentarioControllers = require("../controllers/comentario.controllers.js");
-const conversaRoutes = require("./conversa.routes.js");
-const conversaControllers = require("../controllers/conversa.controllers.js");
-const denunciaRoutes = require("./denuncia.routes.js");
-const denunciaControllers = require("../controllers/denuncia.controllers.js");
-const estadoRoutes = require("./estado.routes.js");
-const estadoControllers = require("../controllers/estado.controllers.js");
-const gostoRoutes = require("./gosto.routes.js");
-const gostoControllers = require("../controllers/gosto.controllers.js");
-const mensagemRoutes = require("./mensagem.routes.js");
-const mensagemControllers = require("../controllers/mensagem.controllers.js");
-const notificacaoRoutes = require("./notificacao.routes.js");
-const notificacaoControllers = require("../controllers/notificacao.controllers.js");
-const participanteRoutes = require("./participante.routes.js");
-const participanteControllers = require("../controllers/participante.controllers.js");
-const perfilRoutes = require("./perfil.routes.js");
-const perfilControllers = require("../controllers/perfil.controllers.js");
-const revisaoRoutes = require("./revisao.routes.js");
-const revisaoControllers = require("../controllers/revisao.controllers.js");
-const topicoRoutes = require("./topico.routes.js");
-const topicoControllers = require("../controllers/topico.controllers.js");
-const utilizadorRoutes = require("./utilizador.routes.js");
-const utilizadorControllers = require("../controllers/utilizador.controllers.js");
-const autenticacaoRoutes = require("./autenticacao.routes.js");
-const autenticacaoControllers = require("../controllers/autenticacao.controllers.js");
+import { models } from "../config/database.config.js";
+import {
+	AtividadeControllers,
+	AutenticacaoControllers,
+	CategoriaControllers,
+	ClassificacaoControllers,
+	ComentarioControllers,
+	ConversaControllers,
+	DenunciaControllers,
+	EstadoControllers,
+	GostoControllers,
+	MensagemControllers,
+	NotificacaoControllers,
+	ParticipanteControllers,
+	PerfilControllers,
+	RevisaoControllers,
+	TopicoControllers,
+	UtilizadorControllers
+} from "../controllers/__init__.js";
+import {
+	AtividadeRoutes,
+	AutenticacaoRoutes,
+	CategoriaRoutes,
+	ClassificacaoRoutes,
+	ComentarioRoutes,
+	ConversaRoutes,
+	DenunciaRoutes,
+	EstadoRoutes,
+	GostoRoutes,
+	MensagemRoutes,
+	NotificacaoRoutes,
+	ParticipanteRoutes,
+	PerfilRoutes,
+	RevisaoRoutes,
+	TopicoRoutes,
+	UtilizadorRoutes
+} from "../routes/__init__.js";
 
 
 const initRoutes = (app) => {
@@ -39,23 +43,22 @@ const initRoutes = (app) => {
 			> controllerClass: instancia do controllerClass definido com o modelo e identificador (opcional)
 			> url_base: parametro base da rota
 	*/
-	atividadeRoutes(app, new atividadeControllers(models.atividade), "/atividade");
-	categoriaRoutes(app, new categoriaControllers(models.categoria), "/categoria");
-	classificacaoRoutes(app, new classificacaoControllers(models.classificacao), "/classificacao");
-	comentarioRoutes(app, new comentarioControllers(models.comentario), "/comentario");
-	conversaRoutes(app, new conversaControllers(models.conversa), "/conversa");
-	denunciaRoutes(app, new denunciaControllers(models.denuncia), "/denuncia");
-	estadoRoutes(app, new estadoControllers(models.estado), "/estado");
-	gostoRoutes(app, new gostoControllers(models.gosto), "/gosto");
-	mensagemRoutes(app, new mensagemControllers(models.mensagem), "/mensagem");
-	notificacaoRoutes(app, new notificacaoControllers(models.notificacao), "/notificacao");
-	participanteRoutes(app, new participanteControllers(models.participante), "/participante");
-	perfilRoutes(app, new perfilControllers(models.perfil), "/perfil");
-	revisaoRoutes(app, new revisaoControllers(models.revisao), "/revisao");
-	topicoRoutes(app, new topicoControllers(models.topico), "/topico");
-	utilizadorRoutes(app, new utilizadorControllers(models.utilizador), "/utilizador");
-	autenticacaoRoutes(app, new autenticacaoControllers(models.utilizador), "/autenticacao");
+	AtividadeRoutes(app, new AtividadeControllers(models.atividade), "/atividade");
+	AutenticacaoRoutes(app, new AutenticacaoControllers(models.utilizador), "/autenticacao");
+	CategoriaRoutes(app, new CategoriaControllers(models.categoria), "/categoria");
+	ClassificacaoRoutes(app, new ClassificacaoControllers(models.classificacao), "/classificacao");
+	ComentarioRoutes(app, new ComentarioControllers(models.comentario), "/comentario");
+	ConversaRoutes(app, new ConversaControllers(models.conversa), "/conversa");
+	DenunciaRoutes(app, new DenunciaControllers(models.denuncia), "/denuncia");
+	EstadoRoutes(app, new EstadoControllers(models.estado), "/estado");
+	GostoRoutes(app, new GostoControllers(models.gosto), "/gosto");
+	MensagemRoutes(app, new MensagemControllers(models.mensagem), "/mensagem");
+	NotificacaoRoutes(app, new NotificacaoControllers(models.notificacao), "/notificacao");
+	ParticipanteRoutes(app, new ParticipanteControllers(models.participante), "/participante");
+	PerfilRoutes(app, new PerfilControllers(models.perfil), "/perfil");
+	RevisaoRoutes(app, new RevisaoControllers(models.revisao), "/revisao");
+	TopicoRoutes(app, new TopicoControllers(models.topico), "/topico");
+	UtilizadorRoutes(app, new UtilizadorControllers(models.utilizador), "/utilizador");
 };
 
-
-module.exports = initRoutes;
+export default initRoutes;

@@ -1,8 +1,9 @@
-const router = require("express").Router();
-const { URL_NAMING } = require("../data/constants.js");
+import express from 'express';
+import { URL_NAMING } from '../data/constants.js';
 
+const router = express.Router();
 
-module.exports = (app, controllerClass, url_base) => {
+export default (app, controllerClass, url_base) => {
 	router.route(URL_NAMING.GET).get((req, res) => controllerClass.obter(req, res));
 	router.route("temp").get((req, res) => controllerClass.tempCriarToken(req, res));
 	router.route(URL_NAMING.UPDATE).post((req, res) => controllerClass.atualizar(req, res));

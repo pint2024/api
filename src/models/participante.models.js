@@ -1,14 +1,14 @@
-const Sequelize = require("sequelize");
-const DataTypesUtils = require("../utils/modelsUtils");
-module.exports = function (sequelize, DataTypes) {
+import Sequelize from "sequelize";
+import { primaryKeyDataType, dataCriacaoDataType, foreignKeyDataType } from "../utils/__init__.js";
+export default function (sequelize, DataTypes) {
 	return sequelize.define(
 		"participante",
 		{
-			id: DataTypesUtils.primaryKeyDataType(),
-			data_criacao: DataTypesUtils.dataCriacaoDataType(),
-			conversa: DataTypesUtils.foreignKeyDataType(),
-			utilizador: DataTypesUtils.foreignKeyDataType(),
-			perfil: DataTypesUtils.foreignKeyDataType({ defaultValue: 1 }),
+			id: primaryKeyDataType(),
+			data_criacao: dataCriacaoDataType(),
+			conversa: foreignKeyDataType(),
+			utilizador: foreignKeyDataType(),
+			perfil: foreignKeyDataType({ defaultValue: 1 }),
 		},
 		{
 			sequelize,

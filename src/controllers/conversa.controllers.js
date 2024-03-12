@@ -1,9 +1,9 @@
-const { Log, modelosAssociados } = require("../utils/controllersUtils");
-const models = require("../config/database.config").models;
+import { Log, modelosAssociados, filePath } from "../utils/__init__.js";
+import { models } from "../config/database.config.js";
 
-module.exports = class Controller {
+export default class Controller {
 	constructor(model, identifier = "id") {
-		this.filename = __filename;
+		this.filename = filePath(new URL(import.meta.url).pathname);
 		this.model = model;
 		this.identifier = identifier;
 		Log.instance(this.filename);

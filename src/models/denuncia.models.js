@@ -1,11 +1,11 @@
-const Sequelize = require("sequelize");
-const DataTypesUtils = require("../utils/modelsUtils");
-module.exports = function (sequelize, DataTypes) {
+import Sequelize from "sequelize";
+import { primaryKeyDataType, dataCriacaoDataType, foreignKeyDataType } from "../utils/__init__.js";
+export default function (sequelize, DataTypes) {
 	return sequelize.define(
 		"denuncia",
 		{
-			id: DataTypesUtils.primaryKeyDataType(),
-			data_criacao: DataTypesUtils.dataCriacaoDataType(),
+			id: primaryKeyDataType(),
+			data_criacao: dataCriacaoDataType(),
 			titulo: {
 				type: DataTypes.STRING(100),
 				allowNull: false,
@@ -14,8 +14,8 @@ module.exports = function (sequelize, DataTypes) {
 				type: DataTypes.STRING(500),
 				allowNull: false,
 			},
-			atividade: DataTypesUtils.foreignKeyDataType(),
-			utilizador: DataTypesUtils.foreignKeyDataType(),
+			atividade: foreignKeyDataType(),
+			utilizador: foreignKeyDataType(),
 		},
 		{
 			sequelize,

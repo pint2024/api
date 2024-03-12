@@ -1,19 +1,21 @@
-const DataTypes = require("sequelize").DataTypes;
-const _perfil = require("./perfil.models");
-const _utilizador = require("./utilizador.models");
-const _categoria = require("./categoria.models");
-const _topico = require("./topico.models");
-const _atividade = require("./atividade.models");
-const _gosto = require("./gosto.models");
-const _estado = require("./estado.models");
-const _revisao = require("./revisao.models");
-const _classificacao = require("./classificacao.models");
-const _comentario = require("./comentario.models");
-const _notificacao = require("./notificacao.models");
-const _denuncia = require("./denuncia.models");
-const _conversa = require("./conversa.models");
-const _participante = require("./participante.models");
-const _mensagem = require("./mensagem.models");
+import { DataTypes } from "sequelize";
+import {
+	AtividadeModels,
+	CategoriaModels,
+	ClassificacaoModels,
+	ComentarioModels,
+	ConversaModels,
+	DenunciaModels,
+	EstadoModels,
+	GostoModels,
+	MensagemModels,
+	NotificacaoModels,
+	ParticipanteModels,
+	PerfilModels,
+	RevisaoModels,
+	TopicoModels,
+	UtilizadorModels,
+} from "./__init__.js";
 
 function defineAssociation(childModel, parentModel, asKeyword, foreignKeyKeyword) {
 	childModel.belongsTo(parentModel, {
@@ -25,22 +27,22 @@ function defineAssociation(childModel, parentModel, asKeyword, foreignKeyKeyword
 	parentModel.hasMany(childModel, { as: asKeyword, foreignKey: foreignKeyKeyword, onDelete: "CASCADE", onUpdate: "CASCADE" });
 }
 
-function initModels(sequelize) {
-	const perfil = _perfil(sequelize, DataTypes);
-	const utilizador = _utilizador(sequelize, DataTypes);
-	const categoria = _categoria(sequelize, DataTypes);
-	const topico = _topico(sequelize, DataTypes);
-	const atividade = _atividade(sequelize, DataTypes);
-	const gosto = _gosto(sequelize, DataTypes);
-	const estado = _estado(sequelize, DataTypes);
-	const revisao = _revisao(sequelize, DataTypes);
-	const comentario = _comentario(sequelize, DataTypes);
-	const classificacao = _classificacao(sequelize, DataTypes);
-	const notificacao = _notificacao(sequelize, DataTypes);
-	const denuncia = _denuncia(sequelize, DataTypes);
-	const conversa = _conversa(sequelize, DataTypes);
-	const participante = _participante(sequelize, DataTypes);
-	const mensagem = _mensagem(sequelize, DataTypes);
+export function initModels(sequelize) {
+	const perfil = PerfilModels(sequelize, DataTypes);
+	const utilizador = UtilizadorModels(sequelize, DataTypes);
+	const categoria = CategoriaModels(sequelize, DataTypes);
+	const topico = TopicoModels(sequelize, DataTypes);
+	const atividade = AtividadeModels(sequelize, DataTypes);
+	const gosto = GostoModels(sequelize, DataTypes);
+	const estado = EstadoModels(sequelize, DataTypes);
+	const revisao = RevisaoModels(sequelize, DataTypes);
+	const comentario = ComentarioModels(sequelize, DataTypes);
+	const classificacao = ClassificacaoModels(sequelize, DataTypes);
+	const notificacao = NotificacaoModels(sequelize, DataTypes);
+	const denuncia = DenunciaModels(sequelize, DataTypes);
+	const conversa = ConversaModels(sequelize, DataTypes);
+	const participante = ParticipanteModels(sequelize, DataTypes);
+	const mensagem = MensagemModels(sequelize, DataTypes);
 
 	defineAssociation(utilizador, perfil, "utilizador_perfil", "perfil");
 	defineAssociation(topico, categoria, "topico_categoria", "categoria");
@@ -66,7 +68,7 @@ function initModels(sequelize) {
 	defineAssociation(participante, perfil, "participante_perfil", "perfil");
 	defineAssociation(mensagem, participante, "mensagem_participante", "participante");
 	defineAssociation(mensagem, conversa, "mensagem_conversa", "conversa");
-	
+
 	return {
 		perfil,
 		utilizador,
@@ -85,7 +87,3 @@ function initModels(sequelize) {
 		mensagem,
 	};
 }
-
-module.exports = initModels;
-module.exports.initModels = initModels;
-module.exports.default = initModels;

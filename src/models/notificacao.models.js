@@ -1,11 +1,11 @@
-const Sequelize = require("sequelize");
-const DataTypesUtils = require("../utils/modelsUtils");
-module.exports = function (sequelize, DataTypes) {
+import Sequelize from "sequelize";
+import { primaryKeyDataType, dataCriacaoDataType, foreignKeyDataType } from "../utils/__init__.js";
+export default function (sequelize, DataTypes) {
 	return sequelize.define(
 		"notificacao",
 		{
-			id: DataTypesUtils.primaryKeyDataType(),
-			data_criacao: DataTypesUtils.dataCriacaoDataType(),
+			id: primaryKeyDataType(),
+			data_criacao: dataCriacaoDataType(),
 			visualizado: {
 				type: DataTypes.BOOLEAN,
 				allowNull: false,
@@ -19,10 +19,10 @@ module.exports = function (sequelize, DataTypes) {
 				type: DataTypes.STRING(500),
 				allowNull: false,
 			},
-			utilizador: DataTypesUtils.foreignKeyDataType(),
-			atividade: DataTypesUtils.foreignKeyDataType({ allowNull: true}),
-			comentario: DataTypesUtils.foreignKeyDataType({ allowNull: true}),
-			revisao: DataTypesUtils.foreignKeyDataType({ allowNull: true}),
+			utilizador: foreignKeyDataType(),
+			atividade: foreignKeyDataType({ allowNull: true}),
+			comentario: foreignKeyDataType({ allowNull: true}),
+			revisao: foreignKeyDataType({ allowNull: true}),
 		},
 		{
 			sequelize,

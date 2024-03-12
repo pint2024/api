@@ -1,11 +1,14 @@
-const { sequelize, models } = require("./config/database.config.js");
-const express = require("express");
-const { SV_PORT } = require("./data/constants");
-const dotenv = require("dotenv").config();
+import { sequelize, models } from "./config/database.config.js";
+import express from "express";
+import dotenv from "dotenv";
+import bodyParser from "body-parser";
+import initRoutes from "./routes/init.routes.js";
+import { Log } from "./utils/__init__.js";
+import { SV_PORT } from "./data/constants.js";
+
+const { json, urlencoded } = bodyParser;
 const app = express();
-const bodyParser = require("body-parser");
-const initRoutes = require("./routes/init.routes.js");
-const Log = require("./utils/logUtils.js");
+dotenv.config();
 
 // Configurar CORS
 app.use((req, res, next) => {
@@ -23,8 +26,8 @@ app.use((req, res, next) => {
 app.set("port", SV_PORT);
 
 //Middlewares
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(json());
+app.use(urlencoded({ extended: true }));
 
 //Rotas
 initRoutes(app);

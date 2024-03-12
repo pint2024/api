@@ -1,16 +1,14 @@
-const DataTypes = require("sequelize").DataTypes;
-const Sequelize = require("sequelize");
+import { DataTypes } from "sequelize";
+import { Sequelize as _Sequelize } from "sequelize";
 
-function dataCriacaoDataType() {
-	return { type: DataTypes.DATE, defaultValue: Sequelize.Sequelize.fn("now") };
+export function dataCriacaoDataType() {
+	return { type: DataTypes.DATE, defaultValue: _Sequelize.fn("now") };
 }
 
-function primaryKeyDataType() {
+export function primaryKeyDataType() {
 	return { autoIncrement: true, type: DataTypes.INTEGER, allowNull: false, primaryKey: true };
 }
 
-function foreignKeyDataType({ allowNull = false, defaultValue = null } = {}) {
+export function foreignKeyDataType({ allowNull = false, defaultValue = null } = {}) {
 	return { type: DataTypes.INTEGER, allowNull, defaultValue };
 }
-
-module.exports = { dataCriacaoDataType, primaryKeyDataType, foreignKeyDataType };

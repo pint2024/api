@@ -1,9 +1,9 @@
-const jwt = require("jsonwebtoken");
-const bcrypt = require("bcrypt");
-const { JWT_CONFIG } = require("../data/constants");
+import sign from "jsonwebtoken";
+import bcrypt from "bcrypt";
+import { JWT_CONFIG } from "../data/constants.js";
 
-const createAuthToken = async (utilizador) => {
-	let token = jwt.sign(
+export const createAuthToken = async (utilizador) => {
+	let token = sign(
 		{
 			id: utilizador.id,
 			tag: utilizador.tag,
@@ -16,5 +16,3 @@ const createAuthToken = async (utilizador) => {
 	);
 	return token;
 };
-
-module.exports = { createAuthToken };

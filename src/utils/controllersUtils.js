@@ -1,6 +1,6 @@
-const Log = require("./logUtils");
+import { Log } from "./logUtils.js";
 
-const modelosAssociados = (model) => {
+export const modelosAssociados = (model) => {
 	const modelsObject = [];
 	Object.keys(model.associations).forEach((key) => {
 		const association = model.associations[key];
@@ -9,7 +9,6 @@ const modelosAssociados = (model) => {
 	return Object.values(modelsObject);
 };
 
-module.exports = {
+export {
 	Log,
-	modelosAssociados,
 };

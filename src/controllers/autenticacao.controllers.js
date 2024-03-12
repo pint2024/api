@@ -1,10 +1,9 @@
-const { JWT_CONFIG } = require("../data/constants");
-const { createAuthToken } = require("../utils/autenticacaoUtils");
-const { Log, modelosAssociados } = require("../utils/controllersUtils");
+import { JWT_CONFIG } from "../data/constants.js";
+import { createAuthToken, Log, modelosAssociados, filePath } from "../utils/__init__.js";
 
-module.exports = class Controller {
+export default class Controller {
 	constructor(model, identifier = "id") {
-		this.filename = __filename;
+		this.filename = filePath(new URL(import.meta.url).pathname);
 		this.model = model;
 		this.identifier = identifier;
 		Log.instance(this.filename);

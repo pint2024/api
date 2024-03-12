@@ -1,9 +1,9 @@
-const { Sequelize } = require("sequelize");
-const { DB_CONFIG } = require("../data/constants");
-const initModels = require("../models/init.models");
-const Log = require('../utils/logUtils');
+import { Sequelize } from "sequelize";
+import { DB_CONFIG } from "../data/constants.js";
+import { initModels } from "../models/init.models.js";
+import { Log } from '../utils/__init__.js';
 
-const sequelize = new Sequelize(
+export const sequelize = new Sequelize(
 	DB_CONFIG.DATABASE,
 	DB_CONFIG.USERNAME,
 	DB_CONFIG.PASSWORD,
@@ -38,6 +38,4 @@ sequelize.authenticate()
 		Log.log("Error ao conectar à base de dados: ", error);
 	});
 
-const models = initModels(sequelize);
-
-module.exports = { sequelize, models };
+export const models = initModels(sequelize);

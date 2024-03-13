@@ -6,7 +6,7 @@ export const JWT_CONFIG = {
 };
 
 
-export const SV_PORT = process.env.PORT || 8003;
+export const SV_PORT = process.env.PORT || 8000;
 
 
 export const FRONTEND_URL = "http://localhost:3000";

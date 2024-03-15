@@ -1,15 +1,16 @@
 import Sequelize from "sequelize";
-import { primaryKeyDataType, dataCriacaoDataType } from "../utils/__init__.js";
+import { primaryKeyDataType, dataCriacaoDataType, foreignKeyDataType } from "../utils/__init__.js";
 export default function (sequelize, DataTypes) {
 	return sequelize.define(
-		"categoria",
+		"subtopico",
 		{
 			id: primaryKeyDataType(),
 			data_criacao: dataCriacaoDataType(),
-			categoria: {
+			area: {
 				type: DataTypes.STRING(50),
 				allowNull: false,
 			},
+			topico: foreignKeyDataType(),
 		},
 		{
 			sequelize,
@@ -18,7 +19,7 @@ export default function (sequelize, DataTypes) {
 			freezeTableName: true,
 			indexes: [
 				{
-					name: "pk_categoria",
+					name: "pk_subtopico",
 					unique: true,
 					fields: [{ name: "id" }],
 				},

@@ -2,8 +2,7 @@ import { models } from "../config/database.config.js";
 import {
 	AtividadeControllers,
 	AutenticacaoControllers,
-	CategoriaControllers,
-	ClassificacaoControllers,
+	TopicoControllers,
 	ComentarioControllers,
 	ConversaControllers,
 	DenunciaControllers,
@@ -14,14 +13,13 @@ import {
 	ParticipanteControllers,
 	PerfilControllers,
 	RevisaoControllers,
-	TopicoControllers,
+	SubtopicoControllers,
 	UtilizadorControllers
 } from "../controllers/__init__.js";
 import {
 	AtividadeRoutes,
 	AutenticacaoRoutes,
-	CategoriaRoutes,
-	ClassificacaoRoutes,
+	TopicoRoutes,
 	ComentarioRoutes,
 	ConversaRoutes,
 	DenunciaRoutes,
@@ -32,7 +30,7 @@ import {
 	ParticipanteRoutes,
 	PerfilRoutes,
 	RevisaoRoutes,
-	TopicoRoutes,
+	SubtopicoRoutes,
 	UtilizadorRoutes
 } from "../routes/__init__.js";
 
@@ -45,8 +43,7 @@ const initRoutes = (app) => {
 	*/
 	AtividadeRoutes(app, new AtividadeControllers(models.atividade), "/atividade");
 	AutenticacaoRoutes(app, new AutenticacaoControllers(models.utilizador), "/autenticacao");
-	CategoriaRoutes(app, new CategoriaControllers(models.categoria), "/categoria");
-	ClassificacaoRoutes(app, new ClassificacaoControllers(models.classificacao), "/classificacao");
+	TopicoRoutes(app, new TopicoControllers(models.topico), "/topico");
 	ComentarioRoutes(app, new ComentarioControllers(models.comentario), "/comentario");
 	ConversaRoutes(app, new ConversaControllers(models.conversa), "/conversa");
 	DenunciaRoutes(app, new DenunciaControllers(models.denuncia), "/denuncia");
@@ -57,7 +54,7 @@ const initRoutes = (app) => {
 	ParticipanteRoutes(app, new ParticipanteControllers(models.participante), "/participante");
 	PerfilRoutes(app, new PerfilControllers(models.perfil), "/perfil");
 	RevisaoRoutes(app, new RevisaoControllers(models.revisao), "/revisao");
-	TopicoRoutes(app, new TopicoControllers(models.topico), "/topico");
+	SubtopicoRoutes(app, new SubtopicoControllers(models.subtopico), "/subtopico");
 	UtilizadorRoutes(app, new UtilizadorControllers(models.utilizador), "/utilizador");
 };
 

@@ -30,8 +30,8 @@ export default function (sequelize, DataTypes) {
 				type: DataTypes.STRING(500),
 				allowNull: true,
 			},
-			topico: foreignKeyDataType(),
-			revisao: foreignKeyDataType({ allowNull: true}),
+			formulario: foreignKeyDataType({ allowNull: true}),
+			subtopico: foreignKeyDataType(),
 			utilizador: foreignKeyDataType(),
 		},
 		{

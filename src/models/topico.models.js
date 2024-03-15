@@ -1,16 +1,15 @@
 import Sequelize from "sequelize";
-import { primaryKeyDataType, dataCriacaoDataType, foreignKeyDataType } from "../utils/__init__.js";
+import { primaryKeyDataType, dataCriacaoDataType } from "../utils/__init__.js";
 export default function (sequelize, DataTypes) {
 	return sequelize.define(
 		"topico",
 		{
 			id: primaryKeyDataType(),
 			data_criacao: dataCriacaoDataType(),
-			area: {
+			topico: {
 				type: DataTypes.STRING(50),
 				allowNull: false,
 			},
-			categoria: foreignKeyDataType(),
 		},
 		{
 			sequelize,

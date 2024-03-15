@@ -1,7 +1,6 @@
 export { default as AtividadeRoutes } from "./atividade.routes.js";
 export { default as AutenticacaoRoutes } from "./autenticacao.routes.js";
-export { default as CategoriaRoutes } from "./categoria.routes.js";
-export { default as ClassificacaoRoutes } from "./classificacao.routes.js";
+export { default as TopicoRoutes } from "./topico.routes.js";
 export { default as ComentarioRoutes } from "./comentario.routes.js";
 export { default as ConversaRoutes } from "./conversa.routes.js";
 export { default as DenunciaRoutes } from "./denuncia.routes.js";
@@ -12,5 +11,5 @@ export { default as NotificacaoRoutes } from "./notificacao.routes.js";
 export { default as ParticipanteRoutes } from "./participante.routes.js";
 export { default as PerfilRoutes } from "./perfil.routes.js";
 export { default as RevisaoRoutes } from "./revisao.routes.js";
-export { default as TopicoRoutes } from "./topico.routes.js";
+export { default as SubtopicoRoutes } from "./subtopico.routes.js";
 export { default as UtilizadorRoutes } from "./utilizador.routes.js";

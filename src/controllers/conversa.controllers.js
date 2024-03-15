@@ -89,12 +89,12 @@ const getMoreModels = [
 		],
 	},
 	{
-		model: models.topico,
-		as: "conversa_topico",
+		model: models.subtopico,
+		as: "conversa_subtopico",
 		include: [
 			{
-				model: models.categoria,
-				as: "topico_categoria",
+				model: models.topico,
+				as: "subtopico_topico",
 			}
 		],
 	},

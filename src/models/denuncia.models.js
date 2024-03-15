@@ -14,7 +14,8 @@ export default function (sequelize, DataTypes) {
 				type: DataTypes.STRING(500),
 				allowNull: false,
 			},
-			atividade: foreignKeyDataType(),
+			atividade: foreignKeyDataType({ allowNull: true }),
+			comentario: foreignKeyDataType({ allowNull: true }),
 			utilizador: foreignKeyDataType(),
 		},
 		{
@@ -22,6 +23,16 @@ export default function (sequelize, DataTypes) {
 			schema: "public",
 			timestamps: false,
 			freezeTableName: true,
+			validate: {
+				checkExclusividade() {
+					if (
+						(denuncia.atividade !== null && denuncia.comentario !== null) ||
+						(denuncia.atividade === null && denuncia.comentario === null)
+					) {
+						throw new Error("A revisão só pode estar associada a uma atividade ou um comentário.");
+					}
+				},
+			},
 			indexes: [
 				{
 					name: "pk_denuncia",
@@ -31,4 +42,4 @@ export default function (sequelize, DataTypes) {
 			],
 		}
 	);
-};
+}

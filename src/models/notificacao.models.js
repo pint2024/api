@@ -19,10 +19,8 @@ export default function (sequelize, DataTypes) {
 				type: DataTypes.STRING(500),
 				allowNull: false,
 			},
-			utilizador: foreignKeyDataType(),
 			atividade: foreignKeyDataType({ allowNull: true}),
 			comentario: foreignKeyDataType({ allowNull: true}),
-			revisao: foreignKeyDataType({ allowNull: true}),
 		},
 		{
 			sequelize,

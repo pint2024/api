@@ -16,7 +16,7 @@ export default function (sequelize, DataTypes) {
 			},
 			atividade: foreignKeyDataType({ allowNull: true }),
 			comentario: foreignKeyDataType({ allowNull: true }),
-			utilizador: foreignKeyDataType(),
+			utilizador: foreignKeyDataType({ allowNull: true }),
 		},
 		{
 			sequelize,

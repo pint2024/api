@@ -1,18 +1,22 @@
 import { DataTypes } from "sequelize";
 import {
 	AtividadeModels,
-	TopicoModels,
+	CampoModels,
 	ComentarioModels,
 	ConversaModels,
 	DenunciaModels,
 	EstadoModels,
+	FormularioModels,
 	GostoModels,
 	MensagemModels,
 	NotificacaoModels,
 	ParticipanteModels,
 	PerfilModels,
+	RegistoModels,
+	RespostaModels,
 	RevisaoModels,
 	SubtopicoModels,
+	TopicoModels,
 	UtilizadorModels,
 } from "./__init__.js";
 
@@ -31,11 +35,15 @@ export function initModels(sequelize) {
 	const utilizador = UtilizadorModels(sequelize, DataTypes);
 	const topico = TopicoModels(sequelize, DataTypes);
 	const subtopico = SubtopicoModels(sequelize, DataTypes);
+	const estado = EstadoModels(sequelize, DataTypes);
+	const formulario = FormularioModels(sequelize, DataTypes);
+	const campo = CampoModels(sequelize, DataTypes);
+	const registo = RegistoModels(sequelize, DataTypes);
+	const resposta = RespostaModels(sequelize, DataTypes);
 	const atividade = AtividadeModels(sequelize, DataTypes);
 	const gosto = GostoModels(sequelize, DataTypes);
-	const estado = EstadoModels(sequelize, DataTypes);
-	const revisao = RevisaoModels(sequelize, DataTypes);
 	const comentario = ComentarioModels(sequelize, DataTypes);
+	const revisao = RevisaoModels(sequelize, DataTypes);
 	const notificacao = NotificacaoModels(sequelize, DataTypes);
 	const denuncia = DenunciaModels(sequelize, DataTypes);
 	const conversa = ConversaModels(sequelize, DataTypes);
@@ -43,46 +51,63 @@ export function initModels(sequelize) {
 	const mensagem = MensagemModels(sequelize, DataTypes);
 
 	defineAssociation(utilizador, perfil, "utilizador_perfil", "perfil");
+
 	defineAssociation(subtopico, topico, "subtopico_topico", "topico");
+
+	defineAssociation(registo, campo, "registo_campo", "campo");
+	defineAssociation(registo, formulario, "registo_formulario", "formulario");
+
+	defineAssociation(resposta, registo, "resposta_registo", "registo");
+	defineAssociation(resposta, utilizador, "resposta_utilizador", "utilizador");
+
 	defineAssociation(atividade, formulario, "atividade_formulario", "formulario");
-	defineAssociation(atividade, revisao, "atividade_revisao", "revisao");
 	defineAssociation(atividade, subtopico, "atividade_subtopico", "subtopico");
 	defineAssociation(atividade, utilizador, "atividade_utilizador", "utilizador");
+
 	defineAssociation(gosto, atividade, "gosto_atividade", "atividade");
 	defineAssociation(gosto, utilizador, "gosto_utilizador", "utilizador");
+
+	defineAssociation(comentario, atividade, "comentario_atividade", "atividade");
+	defineAssociation(comentario, utilizador, "comentario_utilizador", "utilizador");
+
 	defineAssociation(revisao, estado, "revisao_estado", "estado");
 	defineAssociation(revisao, atividade, "revisao_atividade", "atividade");
 	defineAssociation(revisao, comentario, "revisao_comentario", "comentario");
-	defineAssociation(comentario, atividade, "comentario_atividade", "atividade");
-	defineAssociation(comentario, utilizador, "comentario_utilizador", "utilizador");
-	defineAssociation(notificacao, utilizador, "notificacao_utilizador", "utilizador");
+
 	defineAssociation(notificacao, atividade, "notificacao_atividade", "atividade");
 	defineAssociation(notificacao, comentario, "notificacao_comentario", "comentario");
-	defineAssociation(notificacao, revisao, "notificacao_revisao", "revisao");
+
 	defineAssociation(denuncia, atividade, "denuncia_atividade", "atividade");
 	defineAssociation(denuncia, comentario, "denuncia_comentario", "comentario");
 	defineAssociation(denuncia, utilizador, "denuncia_utilizador", "utilizador");
+
 	defineAssociation(conversa, subtopico, "conversa_subtopico", "subtopico");
+
 	defineAssociation(participante, conversa, "participante_conversa", "conversa");
 	defineAssociation(participante, utilizador, "participante_utilizador", "utilizador");
 	defineAssociation(participante, perfil, "participante_perfil", "perfil");
+
 	defineAssociation(mensagem, participante, "mensagem_participante", "participante");
 	defineAssociation(mensagem, conversa, "mensagem_conversa", "conversa");
 
 	return {
-		perfil,
-		utilizador,
-		topico,
-		topico,
 		atividade,
-		gosto,
-		estado,
-		revisao,
+		campo,
 		comentario,
-		notificacao,
-		denuncia,
 		conversa,
-		participante,
+		denuncia,
+		estado,
+		formulario,
+		gosto,
 		mensagem,
+		notificacao,
+		participante,
+		perfil,
+		registo,
+		resposta,
+		revisao,
+		subtopico,
+		topico,
+		utilizador,
 	};
 }

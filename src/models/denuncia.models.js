@@ -6,10 +6,6 @@ export default function (sequelize, DataTypes) {
 		{
 			id: primaryKeyDataType(),
 			data_criacao: dataCriacaoDataType(),
-			titulo: {
-				type: DataTypes.STRING(100),
-				allowNull: false,
-			},
 			motivo: {
 				type: DataTypes.STRING(500),
 				allowNull: false,

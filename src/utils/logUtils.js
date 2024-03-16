@@ -12,6 +12,7 @@ export class Log {
 
 	static error(res, response, status = 500) {
 		this.log("erro: ", response);
+		console.error(response);
 		return res.status(status).json({ success: false, error: response });
 	}
 

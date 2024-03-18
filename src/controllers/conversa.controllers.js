@@ -38,7 +38,7 @@ export default class Controller {
 		try {
 			const response = await this.model.findAll({
 				where: { ...req.body },
-				include: modelosAssociados(this.model),
+				include: [...modelosAssociados(this.model), ...getMoreModels],
 			});
 			Log.success(res, response);
 		} catch (error) {
@@ -69,7 +69,7 @@ export default class Controller {
 			Log.error(res, error);
 		}
 	}
-};
+}
 
 const getMoreModels = [
 	{
@@ -79,12 +79,6 @@ const getMoreModels = [
 			{
 				model: models.utilizador,
 				as: "participante_utilizador",
-				/*include: [
-					{
-						model: models.perfil,
-						as: "utilizador_perfil",
-					},
-				],*/
 			},
 		],
 	},
@@ -95,7 +89,7 @@ const getMoreModels = [
 			{
 				model: models.topico,
 				as: "subtopico_topico",
-			}
+			},
 		],
 	},
 ];

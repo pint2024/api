@@ -1,4 +1,5 @@
 import Sequelize from "sequelize";
+import bcrypt from "bcrypt";
 import { primaryKeyDataType, dataCriacaoDataType, foreignKeyDataType } from "../utils/__init__.js";
 export default function (sequelize, DataTypes) {
 	return sequelize.define(
@@ -27,6 +28,10 @@ export default function (sequelize, DataTypes) {
 			senha: {
 				type: DataTypes.STRING(500),
 				allowNull: false,
+				set(value) {
+					const hashedPassword = bcrypt.hashSync(value, 10);
+					this.setDataValue('senha', hashedPassword);
+				},
 			},
 			verificado: {
 				type: DataTypes.BOOLEAN,

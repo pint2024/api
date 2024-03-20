@@ -1,9 +1,8 @@
-import sign from "jsonwebtoken";
-import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 import { JWT_CONFIG } from "../data/constants.js";
 
 export const createAuthToken = async (utilizador) => {
-	let token = sign(
+	let token = jwt.sign(
 		{
 			id: utilizador.id,
 			tag: utilizador.tag,
@@ -14,5 +13,5 @@ export const createAuthToken = async (utilizador) => {
 		JWT_CONFIG.PASSWORD_SECRET,
 		{ expiresIn: JWT_CONFIG.EXPIRES }
 	);
-	return token;
+	return { token };
 };

@@ -1,5 +1,7 @@
+import jwt from "jsonwebtoken";
 import { JWT_CONFIG } from "../data/constants.js";
 import { createAuthToken, Log, modelosAssociados, filePath } from "../utils/__init__.js";
+import bcrypt from "bcrypt";
 
 export default class Controller {
 	constructor(model, identifier = "id") {
@@ -28,20 +30,6 @@ export default class Controller {
 		}
 	}
 
-	async tempCriarToken(req, res) {
-		Log.method(this.filename, "tempCriarToken");
-		try {
-			const { id } = req.params;
-			const utilizador = await mainModel.findOne({
-				where: { [this.identifier]: id },
-			});
-			const response = createAuthToken(utilizador);
-			Log.success(res, response);
-		} catch (error) {
-			Log.error(res, error);
-		}
-	}
-
 	async atualizar(req, res) {
 		Log.method(this.filename, "atualizar");
 		try {
@@ -51,9 +39,9 @@ export default class Controller {
 					Log.error(res, "Invalid refresh token: " + err);
 					return;
 				}
-				const updatedUser = await mainModel.findOne({
+				const updatedUser = await this.model.findOne({
 					where: { utilizador_id: decoded.id },
-					include: modelosAssociados(mainModel),
+					include: modelosAssociados(this.model),
 				});
 				if (!updatedUser) {
 					Log.error(res, "User not found", 404);
@@ -80,32 +68,36 @@ export default class Controller {
 	async entrar(req, res) {
 		Log.method(this.filename, "entrar");
 		try {
-			const { login } = req.body;
-			const { senha } = req.body;
+			const { login, senha } = req.body;
 
-			if (!senha || !login) {
-				return Log.error(res, "Campos em branco!");
-			}
+			console.log(login, senha)
 
-			const utilizador = await mainModel.findOne({
+			if (!senha || !login) return Log.error(res, "Campos em branco!");
+
+			const utilizador = await this.model.findOne({
 				where: { tag: login },
 			});
 
-			if (!utilizador) {
-				return Log.error(res, "Utilizador não existe");
-			}
-			const isMatch = bcrypt.compareSync(senha, utilizador.senha);
-			if ((login === utilizador.utilizador_email || login === utilizador.utilizador_tag) && isMatch) {
-				if (utilizador.utilizador_confirmada) {
-					await createAuthToken(res, utilizador);
+			console.log(login, senha, utilizador)
+
+			if (!utilizador) return Log.error(res, "Utilizador não existe!");
+
+			const x = bcrypt.compareSync(senha, utilizador.senha);
+
+			console.log(x);
+
+			if (x) {
+				// verifica se a senha encriptada recebida é igual a senha encriptada guardada
+				if (utilizador.verificado) {
+					const response = await createAuthToken(utilizador);
+					Log.success(res, response)
 				} else {
 					createEmailVerificationToken(utilizador);
 					Log.success(res, "Email de confirmação enviado");
 				}
 			} else {
-				res.status(403).json({ success: false, message: "Dados de autenticação inválidos." });
+				res.status(403).json({ success: false, message: "Senha está errada." });
 			}
-			Log.success(res, response);
 		} catch (error) {
 			Log.error(res, error);
 		}
@@ -119,4 +111,4 @@ export default class Controller {
 			Log.error(res, error);
 		}
 	}
-};
+}

@@ -1,5 +1,5 @@
 import { Sequelize } from "sequelize";
-import { DB_CONFIG } from "../data/constants.js";
+import { DB_CONFIG } from "../data/database.js";
 import { initModels } from "../models/init.models.js";
 import { Log } from '../utils/__init__.js';
 
@@ -11,9 +11,9 @@ export const sequelize = new Sequelize(
 		host: DB_CONFIG.HOST,
 		port: DB_CONFIG.PORT,
 		dialect: DB_CONFIG.DIALECT,
-		/*dialectOptions: {
+		dialectOptions: {
 			ssl: { require: true, rejectUnauthorized: false }
-		}*/
+		},
 		logging: false,
 	}
 );

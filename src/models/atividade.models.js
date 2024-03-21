@@ -11,7 +11,7 @@ export default function (sequelize, DataTypes) {
 				allowNull: false,
 			},
 			descricao: {
-				type: DataTypes.STRING(500),
+				type: DataTypes.TEXT,
 				allowNull: false,
 			},
 			endereco: {

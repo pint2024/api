@@ -1,16 +1,15 @@
+import { ToLower } from "../utils/utils.js";
+
 export const JWT_CONFIG = {
 	PASSWORD_SECRET: "trMCqw7EUQn4FwRyiH9w5jW",
 	EMAIL_SECRET: "PjC7q2wspXMhgDZ",
 	FORGET_PASSWORD_SECRET: "7AXPRpy1rG22ZSG1hamQ",
-	EXPIRES: "30d"
+	EXPIRES: "30d",
 };
-
 
 export const SV_PORT = process.env.PORT || 8000;
 
-
 export const FRONTEND_URL = "http://localhost:3000";
-
 
 export const FUNCION_NAMING = {
 	LIST: "list",
@@ -18,7 +17,6 @@ export const FUNCION_NAMING = {
 	UPDATE: "update",
 	DELETE: "delete",
 };
-
 
 export const URL_NAMING = {
 	GET: "/obter/:id",
@@ -28,8 +26,11 @@ export const URL_NAMING = {
 	DELETE: "/remover/:id",
 };
 
-
 export const EMAIL_INFO = {
 	USER: "pintegrado23@gmail.com",
 	PASSWORD: "xerqqpeqtpvdkiam",
+};
+
+export const TAG_DEFAULT = (nome, sobrenome) => {
+	return `@${ToLower(nome)}${ToLower(sobrenome)}`;
 };

@@ -1,8 +1,10 @@
 import Sequelize from "sequelize";
 import bcrypt from "bcrypt";
 import { primaryKeyDataType, dataCriacaoDataType, foreignKeyDataType } from "../utils/__init__.js";
+import { random, ToLower } from "../utils/utils.js";
+import { TAG_DEFAULT } from "../data/constants.js";
 export default function (sequelize, DataTypes) {
-	return sequelize.define(
+	const Models = sequelize.define(
 		"utilizador",
 		{
 			id: primaryKeyDataType(),
@@ -30,7 +32,7 @@ export default function (sequelize, DataTypes) {
 				allowNull: false,
 				set(value) {
 					const hashedPassword = bcrypt.hashSync(value, 10);
-					this.setDataValue('senha', hashedPassword);
+					this.setDataValue("senha", hashedPassword);
 				},
 			},
 			verificado: {
@@ -54,7 +56,7 @@ export default function (sequelize, DataTypes) {
 				type: DataTypes.STRING(500),
 				allowNull: true,
 			},
-			perfil: foreignKeyDataType({ defaultValue: 1}),
+			perfil: foreignKeyDataType({ defaultValue: 1 }),
 		},
 		{
 			sequelize,
@@ -70,4 +72,24 @@ export default function (sequelize, DataTypes) {
 			],
 		}
 	);
-};
+
+	Models.beforeCreate(async (user, options) => {
+		const tagDefault = TAG_DEFAULT(user.nome, user.sobrenome);
+		let tag = tagDefault;
+		console.log(tag);
+		let encontrou = false;
+		while (!encontrou) {
+			console.log("a");
+			const tagResponse = await Models.findOne({ where: { tag } });
+			console.log(tagResponse);
+			if (tagResponse) {
+				tag = tagDefault + random(0, 10000);
+			} else {
+				encontrou = true;
+			}
+		}
+		user.tag = tag;
+	});
+
+	return Models;
+}

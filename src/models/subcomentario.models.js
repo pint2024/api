@@ -2,16 +2,16 @@ import Sequelize from "sequelize";
 import { primaryKeyDataType, dataCriacaoDataType, foreignKeyDataType } from "../utils/index.js";
 export default function (sequelize, DataTypes) {
 	return sequelize.define(
-		"registo",
+		"subcomentario",
 		{
 			id: primaryKeyDataType(),
 			data_criacao: dataCriacaoDataType(),
-			titulo: {
-				type: DataTypes.STRING(20),
+			subcomentario: {
+				type: DataTypes.STRING(150),
 				allowNull: false,
 			},
-			campo: foreignKeyDataType(),
-			formulario: foreignKeyDataType(),
+			comentario: foreignKeyDataType(),
+			utilizador: foreignKeyDataType(),
 		},
 		{
 			sequelize,
@@ -20,7 +20,7 @@ export default function (sequelize, DataTypes) {
 			freezeTableName: true,
 			indexes: [
 				{
-					name: "pk_registo",
+					name: "pk_subcomentario",
 					unique: true,
 					fields: [{ name: "id" }],
 				},

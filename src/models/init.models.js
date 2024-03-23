@@ -15,10 +15,11 @@ import {
 	RegistoModels,
 	RespostaModels,
 	RevisaoModels,
+	SubcomentarioModels,
 	SubtopicoModels,
 	TopicoModels,
 	UtilizadorModels,
-} from "./__init__.js";
+} from "./index.js";
 
 function defineAssociation(childModel, parentModel, asKeyword, foreignKeyKeyword) {
 	childModel.belongsTo(parentModel, {
@@ -43,6 +44,7 @@ export function initModels(sequelize) {
 	const atividade = AtividadeModels(sequelize, DataTypes);
 	const gosto = GostoModels(sequelize, DataTypes);
 	const comentario = ComentarioModels(sequelize, DataTypes);
+	const subcomentario = SubcomentarioModels(sequelize, DataTypes);
 	const revisao = RevisaoModels(sequelize, DataTypes);
 	const notificacao = NotificacaoModels(sequelize, DataTypes);
 	const denuncia = DenunciaModels(sequelize, DataTypes);
@@ -69,6 +71,9 @@ export function initModels(sequelize) {
 
 	defineAssociation(comentario, atividade, "comentario_atividade", "atividade");
 	defineAssociation(comentario, utilizador, "comentario_utilizador", "utilizador");
+
+	defineAssociation(subcomentario, comentario, "subcomentario_comentario", "comentario");
+	defineAssociation(subcomentario, utilizador, "subcomentario_utilizador", "utilizador");
 
 	defineAssociation(revisao, estado, "revisao_estado", "estado");
 	defineAssociation(revisao, atividade, "revisao_atividade", "atividade");
@@ -106,6 +111,7 @@ export function initModels(sequelize) {
 		registo,
 		resposta,
 		revisao,
+		subcomentario,
 		subtopico,
 		topico,
 		utilizador,

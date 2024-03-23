@@ -1,6 +1,6 @@
 import Sequelize from "sequelize";
 import bcrypt from "bcrypt";
-import { primaryKeyDataType, dataCriacaoDataType, foreignKeyDataType } from "../utils/__init__.js";
+import { primaryKeyDataType, dataCriacaoDataType, foreignKeyDataType } from "../utils/index.js";
 import { random, ToLower } from "../utils/utils.js";
 import { TAG_DEFAULT } from "../data/constants.js";
 export default function (sequelize, DataTypes) {

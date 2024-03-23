@@ -15,5 +15,6 @@ export { default as PerfilControllers } from "./perfil.controllers.js";
 export { default as RegistoControllers } from "./registo.controllers.js";
 export { default as RespostaControllers } from "./resposta.controllers.js";
 export { default as RevisaoControllers } from "./revisao.controllers.js";
+export { default as SubcomentarioControllers } from "./subcomentario.controllers.js";
 export { default as SubtopicoControllers } from "./subtopico.controllers.js";
 export { default as UtilizadorControllers } from "./utilizador.controllers.js";

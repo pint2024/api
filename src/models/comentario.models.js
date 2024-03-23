@@ -1,5 +1,5 @@
 import Sequelize from "sequelize";
-import { primaryKeyDataType, dataCriacaoDataType, foreignKeyDataType } from "../utils/__init__.js";
+import { primaryKeyDataType, dataCriacaoDataType, foreignKeyDataType } from "../utils/index.js";
 export default function (sequelize, DataTypes) {
 	return sequelize.define(
 		"comentario",
@@ -7,7 +7,7 @@ export default function (sequelize, DataTypes) {
 			id: primaryKeyDataType(),
 			data_criacao: dataCriacaoDataType(),
 			comentario: {
-				type: DataTypes.STRING(500),
+				type: DataTypes.STRING(150),
 				allowNull: false,
 			},
 			atividade: foreignKeyDataType(),

@@ -1,7 +1,7 @@
 import { Sequelize } from "sequelize";
 import { DB_CONFIG } from "../data/database.js";
 import { initModels } from "../models/init.models.js";
-import { Log } from '../utils/__init__.js';
+import { Log } from '../utils/index.js';
 
 export const sequelize = new Sequelize(
 	DB_CONFIG.DATABASE,

@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 import { JWT_CONFIG } from "../data/constants.js";
-import { createAuthToken, Log, modelosAssociados, filePath } from "../utils/__init__.js";
+import { createAuthToken, Log, modelosAssociados, filePath } from "../utils/index.js";
 import bcrypt from "bcrypt";
 
 export default class Controller {

@@ -1,5 +1,5 @@
 import Sequelize from "sequelize";
-import { primaryKeyDataType, dataCriacaoDataType } from "../utils/__init__.js";
+import { primaryKeyDataType, dataCriacaoDataType } from "../utils/index.js";
 export default function (sequelize, DataTypes) {
 	return sequelize.define(
 		"estado",

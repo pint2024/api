@@ -15,5 +15,6 @@ export { default as PerfilRoutes } from "./perfil.routes.js";
 export { default as RegistoRoutes } from "./registo.routes.js";
 export { default as RespostaRoutes } from "./resposta.routes.js";
 export { default as RevisaoRoutes } from "./revisao.routes.js";
+export { default as SubcomentarioRoutes } from "./subcomentario.routes.js";
 export { default as SubtopicoRoutes } from "./subtopico.routes.js";
 export { default as UtilizadorRoutes } from "./utilizador.routes.js";

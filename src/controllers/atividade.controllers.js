@@ -1,4 +1,4 @@
-import { Log, modelosAssociados, filePath } from "../utils/__init__.js";
+import { Log, modelosAssociados, filePath } from "../utils/index.js";
 import { models } from "../config/database.config.js";
 
 export default class Controller {

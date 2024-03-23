@@ -16,10 +16,11 @@ import {
 	RegistoControllers,
 	RespostaControllers,
 	RevisaoControllers,
+	SubcomentarioControllers,
 	SubtopicoControllers,
 	TopicoControllers,
 	UtilizadorControllers,
-} from "../controllers/__init__.js";
+} from "../controllers/index.js";
 import {
 	AtividadeRoutes,
 	AutenticacaoRoutes,
@@ -37,10 +38,11 @@ import {
 	RegistoRoutes,
 	RespostaRoutes,
 	RevisaoRoutes,
+	SubcomentarioRoutes,
 	SubtopicoRoutes,
 	TopicoRoutes,
 	UtilizadorRoutes,
-} from "../routes/__init__.js";
+} from "./index.js";
 
 const initRoutes = (app) => {
 	/* Funções abaixo recebem:
@@ -64,6 +66,7 @@ const initRoutes = (app) => {
 	RegistoRoutes(app, new RegistoControllers(models.registo), "/registo");
 	RespostaRoutes(app, new RespostaControllers(models.resposta), "/resposta");
 	RevisaoRoutes(app, new RevisaoControllers(models.revisao), "/revisao");
+	SubcomentarioRoutes(app, new SubcomentarioControllers(models.subcomentario), "/subcomentario");
 	SubtopicoRoutes(app, new SubtopicoControllers(models.subtopico), "/subtopico");
 	TopicoRoutes(app, new TopicoControllers(models.topico), "/topico");
 	UtilizadorRoutes(app, new UtilizadorControllers(models.utilizador), "/utilizador");

@@ -13,6 +13,7 @@ export { default as PerfilModels } from "./perfil.models.js";
 export { default as RegistoModels } from "./registo.models.js";
 export { default as RespostaModels } from "./resposta.models.js";
 export { default as RevisaoModels } from "./revisao.models.js";
+export { default as SubcomentarioModels } from "./subcomentario.models.js"
 export { default as SubtopicoModels } from "./subtopico.models.js";
 export { default as TopicoModels } from "./topico.models.js";
 export { default as UtilizadorModels } from "./utilizador.models.js";

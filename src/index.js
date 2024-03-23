@@ -3,7 +3,7 @@ import express from "express";
 import dotenv from "dotenv";
 import bodyParser from "body-parser";
 import initRoutes from "./routes/init.routes.js";
-import { Log } from "./utils/__init__.js";
+import { Log } from "./utils/index.js";
 import { SV_PORT } from "./data/constants.js";
 
 const { json, urlencoded } = bodyParser;

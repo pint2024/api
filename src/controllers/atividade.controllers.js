@@ -82,4 +82,14 @@ const getMoreModels = [
 			},
 		],
 	},
+	{
+		model: models.comentario,
+		as: "comentario_atividade",
+		include: [
+			{
+				model: models.subcomentario,
+				as: "subcomentario_comentario",
+			},
+		],
+	},
 ];

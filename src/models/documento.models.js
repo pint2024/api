@@ -2,33 +2,15 @@ import Sequelize from "sequelize";
 import { primaryKeyDataType, dataCriacaoDataType, foreignKeyDataType } from "../utils/index.js";
 export default function (sequelize, DataTypes) {
 	return sequelize.define(
-		"atividade",
+		"documento",
 		{
 			id: primaryKeyDataType(),
 			data_criacao: dataCriacaoDataType(),
-			titulo: {
-				type: DataTypes.STRING(100),
+			documento: {
+				type: DataTypes.STRING(500),
 				allowNull: false,
 			},
-			descricao: {
-				type: DataTypes.TEXT,
-				allowNull: false,
-			},
-			endereco: {
-				type: DataTypes.STRING(500),
-				allowNull: true,
-			},
-			data_evento: {
-				type: DataTypes.DATE,
-				allowNull: true,
-			},
-			imagem: {
-				type: DataTypes.STRING(500),
-				allowNull: true,
-			},
-			formulario: foreignKeyDataType({ allowNull: true}),
-			subtopico: foreignKeyDataType(),
-			utilizador: foreignKeyDataType(),
+			atividade: foreignKeyDataType(),
 		},
 		{
 			sequelize,
@@ -37,11 +19,11 @@ export default function (sequelize, DataTypes) {
 			freezeTableName: true,
 			indexes: [
 				{
-					name: "pk_atividade",
+					name: "pk_documento",
 					unique: true,
 					fields: [{ name: "id" }],
 				},
 			],
 		}
 	);
-};
+}

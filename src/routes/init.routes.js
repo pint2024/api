@@ -6,6 +6,7 @@ import {
 	ComentarioControllers,
 	ConversaControllers,
 	DenunciaControllers,
+	DocumentoControllers,
 	EstadoControllers,
 	FormularioControllers,
 	GostoControllers,
@@ -16,6 +17,7 @@ import {
 	RegistoControllers,
 	RespostaControllers,
 	RevisaoControllers,
+	SedeControllers,
 	SubcomentarioControllers,
 	SubtopicoControllers,
 	TopicoControllers,
@@ -28,6 +30,7 @@ import {
 	ComentarioRoutes,
 	ConversaRoutes,
 	DenunciaRoutes,
+	DocumentoRoutes,
 	EstadoRoutes,
 	FormularioRoutes,
 	GostoRoutes,
@@ -38,6 +41,7 @@ import {
 	RegistoRoutes,
 	RespostaRoutes,
 	RevisaoRoutes,
+	SedeRoutes,
 	SubcomentarioRoutes,
 	SubtopicoRoutes,
 	TopicoRoutes,
@@ -56,6 +60,7 @@ const initRoutes = (app) => {
 	ComentarioRoutes(app, new ComentarioControllers(models.comentario), "/comentario");
 	ConversaRoutes(app, new ConversaControllers(models.conversa), "/conversa");
 	DenunciaRoutes(app, new DenunciaControllers(models.denuncia), "/denuncia");
+	DocumentoRoutes(app, new DocumentoControllers(models.documento), "/documento");
 	EstadoRoutes(app, new EstadoControllers(models.estado), "/estado");
 	FormularioRoutes(app, new FormularioControllers(models.formulario), "/formulario");
 	GostoRoutes(app, new GostoControllers(models.gosto), "/gosto");
@@ -66,6 +71,7 @@ const initRoutes = (app) => {
 	RegistoRoutes(app, new RegistoControllers(models.registo), "/registo");
 	RespostaRoutes(app, new RespostaControllers(models.resposta), "/resposta");
 	RevisaoRoutes(app, new RevisaoControllers(models.revisao), "/revisao");
+	SedeRoutes(app, new SedeControllers(models.sede), "/sede");
 	SubcomentarioRoutes(app, new SubcomentarioControllers(models.subcomentario), "/subcomentario");
 	SubtopicoRoutes(app, new SubtopicoControllers(models.subtopico), "/subtopico");
 	TopicoRoutes(app, new TopicoControllers(models.topico), "/topico");

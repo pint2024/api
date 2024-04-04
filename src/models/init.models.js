@@ -5,6 +5,7 @@ import {
 	ComentarioModels,
 	ConversaModels,
 	DenunciaModels,
+	DocumentoModels,
 	EstadoModels,
 	FormularioModels,
 	GostoModels,
@@ -15,6 +16,7 @@ import {
 	RegistoModels,
 	RespostaModels,
 	RevisaoModels,
+	SedeModels,
 	SubcomentarioModels,
 	SubtopicoModels,
 	TopicoModels,
@@ -51,8 +53,11 @@ export function initModels(sequelize) {
 	const conversa = ConversaModels(sequelize, DataTypes);
 	const participante = ParticipanteModels(sequelize, DataTypes);
 	const mensagem = MensagemModels(sequelize, DataTypes);
+	const sede = SedeModels(sequelize, DataTypes);
+	const documento = DocumentoModels(sequelize, DataTypes);
 
 	defineAssociation(utilizador, perfil, "utilizador_perfil", "perfil");
+	defineAssociation(utilizador, sede, "utilizador_sede", "sede");
 
 	defineAssociation(subtopico, topico, "subtopico_topico", "topico");
 
@@ -95,12 +100,15 @@ export function initModels(sequelize) {
 	defineAssociation(mensagem, participante, "mensagem_participante", "participante");
 	defineAssociation(mensagem, conversa, "mensagem_conversa", "conversa");
 
+	defineAssociation(documento, atividade, "documento_atividade", "atividade");
+
 	return {
 		atividade,
 		campo,
 		comentario,
 		conversa,
 		denuncia,
+		documento,
 		estado,
 		formulario,
 		gosto,
@@ -111,6 +119,7 @@ export function initModels(sequelize) {
 		registo,
 		resposta,
 		revisao,
+		sede,
 		subcomentario,
 		subtopico,
 		topico,

@@ -14,6 +14,10 @@ export default function (sequelize, DataTypes) {
 				type: DataTypes.TEXT,
 				allowNull: false,
 			},
+			imagem: {
+				type: DataTypes.STRING(500),
+				allowNull: false,
+			},
 			endereco: {
 				type: DataTypes.STRING(500),
 				allowNull: true,

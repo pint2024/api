@@ -1,8 +1,8 @@
-import { directory_to_filename } from './utils.js';
+import { directory_to_filename } from "./utils.js";
 
 export class Log {
-	static log(log) {
-		console.log("LOG: " + log);
+	static log(log, type = "") {
+		console.log("LOG [" + type + "]: " + log);
 	}
 
 	static success(res, response, status = 200) {
@@ -11,16 +11,15 @@ export class Log {
 	}
 
 	static error(res, response, status = 500) {
-		this.log("erro: ", response);
-		console.error(response);
+		this.log("erro: " + response, "Error");
 		return res.status(status).json({ success: false, error: response });
 	}
 
 	static instance(filename) {
-		this.log(directory_to_filename(filename) + " foi instanciado.");
+		this.log(directory_to_filename(filename) + " foi instanciado.", "Instance");
 	}
 
-	static method(filename, method) {
-		this.log("<" + directory_to_filename(filename) + ">." + method + " foi executado.");
+	static access(info) {
+		this.log(info, "Access");
 	}
-};
+}

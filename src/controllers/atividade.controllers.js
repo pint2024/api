@@ -10,7 +10,6 @@ export default class Controller {
 	}
 
 	async obter(req, res) {
-		Log.method(this.filename, "obter");
 		try {
 			const { id } = req.params;
 			const response = await this.model.findOne({
@@ -24,7 +23,6 @@ export default class Controller {
 	}
 
 	async criar(req, res) {
-		Log.method(this.filename, "criar");
 		try {
 			const response = await this.model.create(req.body);
 			Log.success(res, response);
@@ -34,7 +32,6 @@ export default class Controller {
 	}
 
 	async listar(req, res) {
-		Log.method(this.filename, "listar");
 		try {
 			const response = await this.model.findAll({
 				where: { ...req.body },
@@ -47,7 +44,6 @@ export default class Controller {
 	}
 
 	async atualizar(req, res) {
-		Log.method(this.filename, "atualizar");
 		try {
 			const { id } = req.params;
 			const response = await this.model.update({ ...req.body }, { where: { [this.identifier]: id } });
@@ -58,7 +54,6 @@ export default class Controller {
 	}
 
 	async remover(req, res) {
-		Log.method(this.filename, "remover");
 		try {
 			const { id } = req.params;
 			const response = await this.model.destroy({

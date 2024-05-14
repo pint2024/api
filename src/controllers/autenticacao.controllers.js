@@ -12,7 +12,6 @@ export default class Controller {
 	}
 
 	async obter(req, res) {
-		Log.method(this.filename, "obter");
 		let token = req.headers["x-access-token"] || req.headers["authorization"];
 		if (token && token.startsWith("Bearer ")) token = token.slice(7, token.length);
 		try {
@@ -31,7 +30,6 @@ export default class Controller {
 	}
 
 	async atualizar(req, res) {
-		Log.method(this.filename, "atualizar");
 		try {
 			const { token } = req.body;
 			jwt.verify(token, JWT_CONFIG.PASSWORD_SECRET, async (err, decoded) => {
@@ -66,7 +64,6 @@ export default class Controller {
 	}
 
 	async entrar(req, res) {
-		Log.method(this.filename, "entrar");
 		try {
 			const { login, senha } = req.body;
 
@@ -104,7 +101,6 @@ export default class Controller {
 	}
 
 	async verificar(req, res) {
-		Log.method(this.filename, "verificar");
 		try {
 			Log.success(res, response);
 		} catch (error) {

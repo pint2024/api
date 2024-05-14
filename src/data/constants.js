@@ -1,5 +1,7 @@
 import { ToLower } from "../utils/utils.js";
 
+export const ACCESS_LOG_FILENAME = "access.log"
+
 export const JWT_CONFIG = {
 	PASSWORD_SECRET: "trMCqw7EUQn4FwRyiH9w5jW",
 	EMAIL_SECRET: "PjC7q2wspXMhgDZ",

@@ -1,12 +1,13 @@
 import { sequelize, models } from "./config/database.config.js";
 import express from "express";
 import dotenv from "dotenv";
-import bodyParser from "body-parser";
+import bodyParser  from "body-parser";
 import initRoutes from "./routes/init.routes.js";
 import { Log } from "./utils/index.js";
 import { SV_PORT } from "./data/constants.js";
+import { logger } from "./utils/logger.js";
 
-const { json, urlencoded } = bodyParser;
+const { json, urlencoded } = bodyParser
 const app = express();
 dotenv.config();
 
@@ -28,6 +29,7 @@ app.set("port", SV_PORT);
 //Middlewares
 app.use(json());
 app.use(urlencoded({ extended: true }));
+app.use(logger);
 
 //Rotas
 initRoutes(app);

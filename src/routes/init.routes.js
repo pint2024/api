@@ -1,52 +1,6 @@
 import { models } from "../config/database.config.js";
-import {
-	AtividadeControllers,
-	AutenticacaoControllers,
-	CampoControllers,
-	ComentarioControllers,
-	ConversaControllers,
-	DenunciaControllers,
-	DocumentoControllers,
-	EstadoControllers,
-	FormularioControllers,
-	GostoControllers,
-	MensagemControllers,
-	NotificacaoControllers,
-	ParticipanteControllers,
-	PerfilControllers,
-	RegistoControllers,
-	RespostaControllers,
-	RevisaoControllers,
-	SedeControllers,
-	SubcomentarioControllers,
-	SubtopicoControllers,
-	TopicoControllers,
-	UtilizadorControllers,
-} from "../controllers/index.js";
-import {
-	AtividadeRoutes,
-	AutenticacaoRoutes,
-	CampoRoutes,
-	ComentarioRoutes,
-	ConversaRoutes,
-	DenunciaRoutes,
-	DocumentoRoutes,
-	EstadoRoutes,
-	FormularioRoutes,
-	GostoRoutes,
-	MensagemRoutes,
-	NotificacaoRoutes,
-	ParticipanteRoutes,
-	PerfilRoutes,
-	RegistoRoutes,
-	RespostaRoutes,
-	RevisaoRoutes,
-	SedeRoutes,
-	SubcomentarioRoutes,
-	SubtopicoRoutes,
-	TopicoRoutes,
-	UtilizadorRoutes,
-} from "./index.js";
+import { AtividadeControllers, AutenticacaoControllers, ConversaControllers, CrudControllers } from "../controllers/index.js";
+import { AutenticacaoRoutes, CrudRoutes } from "./index.js";
 
 const initRoutes = (app) => {
 	/* Funções abaixo recebem:
@@ -54,28 +8,27 @@ const initRoutes = (app) => {
 			> controllerClass: instancia do controllerClass definido com o modelo e identificador (opcional)
 			> url_base: parametro base da rota
 	*/
-	AtividadeRoutes(app, new AtividadeControllers(models.atividade), "/atividade");
+	CrudRoutes(app, new AtividadeControllers(models.atividade), "/atividade");
 	AutenticacaoRoutes(app, new AutenticacaoControllers(models.utilizador), "/autenticacao");
-	CampoRoutes(app, new CampoControllers(models.campo), "/campo");
-	ComentarioRoutes(app, new ComentarioControllers(models.comentario), "/comentario");
-	ConversaRoutes(app, new ConversaControllers(models.conversa), "/conversa");
-	DenunciaRoutes(app, new DenunciaControllers(models.denuncia), "/denuncia");
-	DocumentoRoutes(app, new DocumentoControllers(models.documento), "/documento");
-	EstadoRoutes(app, new EstadoControllers(models.estado), "/estado");
-	FormularioRoutes(app, new FormularioControllers(models.formulario), "/formulario");
-	GostoRoutes(app, new GostoControllers(models.gosto), "/gosto");
-	MensagemRoutes(app, new MensagemControllers(models.mensagem), "/mensagem");
-	NotificacaoRoutes(app, new NotificacaoControllers(models.notificacao), "/notificacao");
-	ParticipanteRoutes(app, new ParticipanteControllers(models.participante), "/participante");
-	PerfilRoutes(app, new PerfilControllers(models.perfil), "/perfil");
-	RegistoRoutes(app, new RegistoControllers(models.registo), "/registo");
-	RespostaRoutes(app, new RespostaControllers(models.resposta), "/resposta");
-	RevisaoRoutes(app, new RevisaoControllers(models.revisao), "/revisao");
-	SedeRoutes(app, new SedeControllers(models.sede), "/sede");
-	SubcomentarioRoutes(app, new SubcomentarioControllers(models.subcomentario), "/subcomentario");
-	SubtopicoRoutes(app, new SubtopicoControllers(models.subtopico), "/subtopico");
-	TopicoRoutes(app, new TopicoControllers(models.topico), "/topico");
-	UtilizadorRoutes(app, new UtilizadorControllers(models.utilizador), "/utilizador");
+	CrudRoutes(app, new ConversaControllers(models.conversa), "/conversa");
+	CrudRoutes(app, new CrudControllers(models.comentario), "/comentario");
+	CrudRoutes(app, new CrudControllers(models.denuncia), "/denuncia");
+	CrudRoutes(app, new CrudControllers(models.documento), "/documento");
+	CrudRoutes(app, new CrudControllers(models.estado), "/estado");
+	CrudRoutes(app, new CrudControllers(models.formulario), "/formulario");
+	CrudRoutes(app, new CrudControllers(models.gosto), "/gosto");
+	CrudRoutes(app, new CrudControllers(models.mensagem), "/mensagem");
+	CrudRoutes(app, new CrudControllers(models.notificacao), "/notificacao");
+	CrudRoutes(app, new CrudControllers(models.participante), "/participante");
+	CrudRoutes(app, new CrudControllers(models.perfil), "/perfil");
+	CrudRoutes(app, new CrudControllers(models.registo), "/registo");
+	CrudRoutes(app, new CrudControllers(models.resposta), "/resposta");
+	CrudRoutes(app, new CrudControllers(models.revisao), "/revisao");
+	CrudRoutes(app, new CrudControllers(models.sede), "/sede");
+	CrudRoutes(app, new CrudControllers(models.subcomentario), "/subcomentario");
+	CrudRoutes(app, new CrudControllers(models.subtopico), "/subtopico");
+	CrudRoutes(app, new CrudControllers(models.topico), "/topico");
+	CrudRoutes(app, new CrudControllers(models.utilizador), "/utilizador");
 };
 
 export default initRoutes;

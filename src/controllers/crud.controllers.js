@@ -68,4 +68,4 @@ export default class Controller {
 			Log.error(res, error);
 		}
 	}
-};
+}

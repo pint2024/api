@@ -1,8 +1,7 @@
-import express from 'express';
+import express from "express";
 import { URL_NAMING } from "../data/constants.js";
 
 const router = express.Router();
-
 
 export default (app, controllerClass, url_base) => {
 	router.route(URL_NAMING.GET).get((req, res) => controllerClass.obter(req, res));

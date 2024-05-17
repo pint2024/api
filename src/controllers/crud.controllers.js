@@ -1,11 +1,9 @@
-import { Log, modelosAssociados, filePath } from "../utils/index.js";
+import { modelosAssociados, Response } from "../utils/index.js";
+import { BaseControllers } from "./index.js";
 
-export default class Controller {
+export default class Controller extends BaseControllers {
 	constructor(model, identifier = "id") {
-		this.filename = filePath(new URL(import.meta.url).pathname);
-		this.model = model;
-		this.identifier = identifier;
-		Log.instance(this.filename);
+		super(model, identifier);
 	}
 
 	async obter(req, res) {
@@ -15,18 +13,20 @@ export default class Controller {
 				where: { [this.identifier]: id },
 				include: modelosAssociados(this.model),
 			});
-			Log.success(res, response);
+			if (response == null) throw new Error("Objeto não encontrado.");
+			Response.success(res, response);
 		} catch (error) {
-			Log.error(res, error);
+			Response.error(res, error.message);
 		}
 	}
 
 	async criar(req, res) {
 		try {
 			const response = await this.model.create(req.body);
-			Log.success(res, response);
+			if (response == null) throw new Error("Objeto não encontrado.");
+			Response.success(res, response);
 		} catch (error) {
-			Log.error(res, error);
+			Response.error(res, error.message);
 		}
 	}
 
@@ -36,9 +36,10 @@ export default class Controller {
 				where: { ...req.body },
 				include: modelosAssociados(this.model),
 			});
-			Log.success(res, response);
+			if (response == null) throw new Error("Objeto não encontrado.");
+			Response.success(res, response);
 		} catch (error) {
-			Log.error(res, error);
+			Response.error(res, error.message);
 		}
 	}
 
@@ -46,9 +47,10 @@ export default class Controller {
 		try {
 			const { id } = req.params;
 			const response = await this.model.update({ ...req.body }, { where: { [this.identifier]: id } });
-			Log.success(res, response);
+			if (response == null) throw new Error("Objeto não encontrado.");
+			Response.success(res, response);
 		} catch (error) {
-			Log.error(res, error);
+			Response.error(res, error.message);
 		}
 	}
 
@@ -58,9 +60,10 @@ export default class Controller {
 			const response = await this.model.destroy({
 				where: { [this.identifier]: id },
 			});
-			Log.success(res, response);
+			if (response == null) throw new Error("Objeto não encontrado.");
+			Response.success(res, response);
 		} catch (error) {
-			Log.error(res, error);
+			Response.error(res, error.message);
 		}
 	}
 }

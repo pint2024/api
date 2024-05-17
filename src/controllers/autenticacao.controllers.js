@@ -2,13 +2,11 @@ import jwt from "jsonwebtoken";
 import { JWT_CONFIG } from "../data/constants.js";
 import { createAuthToken, Log, modelosAssociados, filePath } from "../utils/index.js";
 import bcrypt from "bcrypt";
+import { BaseControllers } from "./index.js";
 
-export default class Controller {
+export default class Controller extends BaseControllers {
 	constructor(model, identifier = "id") {
-		this.filename = filePath(new URL(import.meta.url).pathname);
-		this.model = model;
-		this.identifier = identifier;
-		Log.instance(this.filename);
+		super(model, identifier);
 	}
 
 	async obter(req, res) {
@@ -67,7 +65,7 @@ export default class Controller {
 		try {
 			const { login, senha } = req.body;
 
-			console.log(login, senha)
+			console.log(login, senha);
 
 			if (!senha || !login) return Log.error(res, "Campos em branco!");
 
@@ -75,7 +73,7 @@ export default class Controller {
 				where: { tag: login },
 			});
 
-			console.log(login, senha, utilizador)
+			console.log(login, senha, utilizador);
 
 			if (!utilizador) return Log.error(res, "Utilizador não existe!");
 
@@ -87,7 +85,7 @@ export default class Controller {
 				// verifica se a senha encriptada recebida é igual a senha encriptada guardada
 				if (utilizador.verificado) {
 					const response = await createAuthToken(utilizador);
-					Log.success(res, response)
+					Log.success(res, response);
 				} else {
 					createEmailVerificationToken(utilizador);
 					Log.success(res, "Email de confirmação enviado");

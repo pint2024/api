@@ -1,12 +1,10 @@
 import { Log, modelosAssociados, filePath } from "../utils/index.js";
 import { models } from "../config/database.config.js";
+import BaseControllers from "./base.controllers.js";
 
-export default class Controller {
+export default class Controller extends BaseControllers {
 	constructor(model, identifier = "id") {
-		this.filename = filePath(new URL(import.meta.url).pathname);
-		this.model = model;
-		this.identifier = identifier;
-		Log.instance(this.filename);
+		super(model, identifier);
 	}
 
 	async obter(req, res) {
@@ -18,7 +16,7 @@ export default class Controller {
 			});
 			Log.success(res, response);
 		} catch (error) {
-			Log.error(res, error);
+			Log.error(res, error.message);
 		}
 	}
 
@@ -74,16 +72,6 @@ const getMoreModels = [
 			{
 				model: models.topico,
 				as: "subtopico_topico",
-			},
-		],
-	},
-	{
-		model: models.comentario,
-		as: "comentario_atividade",
-		include: [
-			{
-				model: models.subcomentario,
-				as: "subcomentario_comentario",
 			},
 		],
 	},

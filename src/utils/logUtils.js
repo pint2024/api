@@ -2,24 +2,23 @@ import { directory_to_filename } from "./utils.js";
 
 export class Log {
 	static log(log, type = "") {
-		console.log("LOG [" + type + "]: " + log);
+		console.log(`LOG [${type}]: ${log}`);
 	}
 
-	static success(res, response, status = 200) {
-		this.log("success: " + true);
-		return res.status(status).json({ success: true, data: response });
+	static success(response) {
+		this.log(response, "SUCCESS");
 	}
 
-	static error(res, response, status = 500) {
-		this.log("erro: " + response, "Error");
-		return res.status(status).json({ success: false, error: response });
+	static error(response) {
+		this.log(response, "ERROR");
 	}
 
-	static instance(filename) {
-		this.log(directory_to_filename(filename) + " foi instanciado.", "Instance");
+	static instance(response) {
+		console.log(response)
+		this.log(response, "INSTANCE");
 	}
 
-	static access(info) {
-		this.log(info, "Access");
+	static access(response) {
+		this.log(response, "ACCESS");
 	}
 }

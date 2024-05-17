@@ -8,7 +8,7 @@
 };*/
 
 
-export const DB_CONFIG = { // local, editar!
+export const DB_CONFIG = { // local
 	DATABASE: "pint",
 	USERNAME: "postgres",
 	PASSWORD: "lucas123",

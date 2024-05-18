@@ -2,7 +2,7 @@ import { models } from "../config/models.config.js";
 import { Response, modelosAssociados } from "../utils/index.js";
 import { BaseController } from "./base.controller.js";
 
-export class AtividadeController extends BaseController {
+export class ConteudoController extends BaseController {
 	constructor(model, identifier = "id") {
 		super(model, identifier);
 	}
@@ -12,10 +12,11 @@ export class AtividadeController extends BaseController {
 			const { id } = req.params;
 			const response = await this.model.findOne({
 				where: { [this.identifier]: id },
-				//include: [...modelosAssociados(this.model), ...getMoreModels],
+				include: [...modelosAssociados(this.model), ...getMoreModels],
 			});
 			Response.success(res, response);
 		} catch (error) {
+			console.log(error);
 			Response.error(res, error);
 		}
 	}
@@ -67,7 +68,7 @@ export class AtividadeController extends BaseController {
 const getMoreModels = [
 	{
 		model: models.subtopico,
-		as: "atividade_subtopico",
+		as: "conteudo_subtopico",
 		include: [
 			{
 				model: models.topico,

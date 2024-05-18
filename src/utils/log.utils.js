@@ -1,8 +1,5 @@
 export class log {
 	static #log(log, type = "") {
-		if (typeof log === "object") {
-			log = JSON.stringify(log, null, 2); // Melhor visualização
-		}
 		console.log(`LOG${type ? ` [${type}]` : ""}: ${log}`);
 	}
 
@@ -21,6 +18,10 @@ export class log {
 
 	static controllers(response) {
 		this.#log(response, "CONTROLLERS");
+	}
+
+	static service(response) {
+		this.#log(response, "SERVICE");
 	}
 
 	static access(response) {

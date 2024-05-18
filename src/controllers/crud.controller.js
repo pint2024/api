@@ -1,5 +1,6 @@
-import { modelosAssociados, Response } from "../utils/index.js";
-import { BaseController } from "./index.js";
+// src/controllers/crud.controller.js
+import { Response } from "../utils/index.js";
+import { BaseController } from "./base.controller.js";
 
 export class CrudController extends BaseController {
 	constructor(model, identifier = "id") {
@@ -9,11 +10,8 @@ export class CrudController extends BaseController {
 	async obter(req, res) {
 		try {
 			const { id } = req.params;
-			const response = await this.model.findOne({
-				where: { [this.identifier]: id },
-				include: modelosAssociados(this.model),
-			});
-			if (response == null) throw new Error("Objeto não encontrado.");
+			const response = await this.service.obter(id);
+			if (!response) throw new Error("Objeto não encontrado.");
 			Response.success(res, response);
 		} catch (error) {
 			Response.error(res, error.message);
@@ -22,8 +20,8 @@ export class CrudController extends BaseController {
 
 	async criar(req, res) {
 		try {
-			const response = await this.model.create(req.body);
-			if (response == null) throw new Error("Objeto não encontrado.");
+			const response = await this.service.criar(req.body);
+			if (!response) throw new Error("Objeto não encontrado.");
 			Response.success(res, response);
 		} catch (error) {
 			Response.error(res, error.message);
@@ -32,11 +30,8 @@ export class CrudController extends BaseController {
 
 	async listar(req, res) {
 		try {
-			const response = await this.model.findAll({
-				where: { ...req.body },
-				include: modelosAssociados(this.model),
-			});
-			if (response == null) throw new Error("Objeto não encontrado.");
+			const response = await this.service.listar(req.body);
+			if (!response) throw new Error("Objeto não encontrado.");
 			Response.success(res, response);
 		} catch (error) {
 			Response.error(res, error.message);
@@ -46,8 +41,8 @@ export class CrudController extends BaseController {
 	async atualizar(req, res) {
 		try {
 			const { id } = req.params;
-			const response = await this.model.update({ ...req.body }, { where: { [this.identifier]: id } });
-			if (response == null) throw new Error("Objeto não encontrado.");
+			const response = await this.service.atualizar(id, req.body);
+			if (!response) throw new Error("Objeto não encontrado.");
 			Response.success(res, response);
 		} catch (error) {
 			Response.error(res, error.message);
@@ -57,10 +52,8 @@ export class CrudController extends BaseController {
 	async remover(req, res) {
 		try {
 			const { id } = req.params;
-			const response = await this.model.destroy({
-				where: { [this.identifier]: id },
-			});
-			if (response == null) throw new Error("Objeto não encontrado.");
+			const response = await this.service.remover(id);
+			if (!response) throw new Error("Objeto não encontrado.");
 			Response.success(res, response);
 		} catch (error) {
 			Response.error(res, error.message);

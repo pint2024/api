@@ -1,4 +1,4 @@
-import { AtividadeController, AutenticacaoController, CrudController } from "../controllers/index.js";
+import { ConteudoController, AutenticacaoController, CrudController } from "../controllers/index.js";
 import { models } from "./models.config.js";
 import { log } from "../utils/log.utils.js";
 import { AutenticacaoRoutes, CrudRoutes } from "../routes/index.js";
@@ -11,12 +11,12 @@ export const InitRoutes = async (app) => {
 	 * @param url_base parametro base da rota
 	 */
 	CrudRoutes(app, new CrudController(models.album), "/album");
-	CrudRoutes(app, new AtividadeController(models.atividade), "/atividade");
+	CrudRoutes(app, new CrudController(models.atividade), "/atividade");
 	AutenticacaoRoutes(app, new AutenticacaoController(models.utilizador), "/autenticacao");
 	CrudRoutes(app, new CrudController(models.centro), "/centro");
 	CrudRoutes(app, new CrudController(models.classificacao), "/classificacao");
 	CrudRoutes(app, new CrudController(models.comentario), "/comentario");
-	CrudRoutes(app, new CrudController(models.conteudo), "/conteudo");
+	CrudRoutes(app, new ConteudoController(models.conteudo), "/conteudo");
 	CrudRoutes(app, new CrudController(models.denuncia), "/denuncia");
 	CrudRoutes(app, new CrudController(models.documento), "/documento");
 	CrudRoutes(app, new CrudController(models.espaco), "/espaco");

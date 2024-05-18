@@ -1,10 +1,10 @@
 import fs from "fs";
 import { ACCESS_LOG_FILENAME } from "../data/constants.js";
-import { Log } from "./logUtils.js";
+import { log } from "./log.utils.js";
 
 export function logger(req, res, next) {
-	const log = `${new Date().toISOString()} - ${req.method} ${req.url} - ${res.statusCode}\n`;
-	Log.access(log);
+	const newData = `${new Date().toISOString()} - ${req.method} ${req.url} - ${res.statusCode}\n`;
+	log.access(newData);
 
 	fs.readFile(ACCESS_LOG_FILENAME, "utf8", (err, data) => {
 		if (err) {
@@ -13,7 +13,7 @@ export function logger(req, res, next) {
 			return;
 		}
 
-		const newContent = log + data;
+		const newContent = newData + data;
 
 		fs.writeFile(ACCESS_LOG_FILENAME, newContent, "utf8", (err) => {
 			if (err) {

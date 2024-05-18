@@ -1,6 +1,4 @@
-import { directory_to_filename } from "./utils.js";
-
-export class Log {
+export class log {
 	static log(log, type = "") {
 		console.log(`LOG [${type}]: ${log}`);
 	}
@@ -11,10 +9,11 @@ export class Log {
 
 	static error(response) {
 		this.log(response, "ERROR");
+		throw new Error(response);
 	}
 
 	static instance(response) {
-		console.log(response)
+		console.log(response);
 		this.log(response, "INSTANCE");
 	}
 

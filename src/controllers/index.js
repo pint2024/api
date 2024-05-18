@@ -1,4 +1,4 @@
-export { default as AtividadeControllers } from "./atividade.controllers.js";
-export { default as AutenticacaoControllers } from "./autenticacao.controllers.js";
-export { default as BaseControllers } from "./base.controllers.js";
-export { default as CrudControllers } from "./crud.controllers.js";
+export { AtividadeController } from "./atividade.controller.js";
+export { AutenticacaoController } from "./autenticacao.controller.js";
+export { BaseController } from "./base.controller.js";
+export { CrudController } from "./crud.controller.js";

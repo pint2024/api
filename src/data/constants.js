@@ -1,11 +1,12 @@
-import { ToLower } from "../utils/utils.js";
+import { Utils } from "../utils/utils.js";
 
 export const ACCESS_LOG_FILENAME = "access.log"
 
 export const JWT_CONFIG = {
-	PASSWORD_SECRET: "trMCqw7EUQn4FwRyiH9w5jW",
-	EMAIL_SECRET: "PjC7q2wspXMhgDZ",
-	FORGET_PASSWORD_SECRET: "7AXPRpy1rG22ZSG1hamQ",
+	TOKEN_AUTH_SECRET: "trMCqw7EUQn4FwRyiH9w5jW",
+	TOKEN_PASSWORD_SECRET: "trMCqw7EUQn4FwRyiH9w5jW",
+	TOKEN_EMAIL_SECRET: "PjC7q2wspXMhgDZ",
+	TOKEN_FORGET_PASSWORD_SECRET: "7AXPRpy1rG22ZSG1hamQ",
 	EXPIRES: "30d",
 };
 
@@ -34,5 +35,5 @@ export const EMAIL_INFO = {
 };
 
 export const TAG_DEFAULT = (nome, sobrenome) => {
-	return `@${ToLower(nome)}${ToLower(sobrenome)}`;
+	return `@${Utils.ToLower(nome)}${Utils.ToLower(sobrenome)}`;
 };

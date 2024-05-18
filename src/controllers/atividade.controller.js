@@ -1,8 +1,8 @@
-import { Log, modelosAssociados, filePath } from "../utils/index.js";
+import { Response, modelosAssociados } from "../utils/index.js";
 import { models } from "../config/database.config.js";
-import BaseControllers from "./base.controllers.js";
+import { BaseController } from "./base.controller.js";
 
-export default class Controller extends BaseControllers {
+export class AtividadeController extends BaseController {
 	constructor(model, identifier = "id") {
 		super(model, identifier);
 	}
@@ -12,20 +12,20 @@ export default class Controller extends BaseControllers {
 			const { id } = req.params;
 			const response = await this.model.findOne({
 				where: { [this.identifier]: id },
-				include: [...modelosAssociados(this.model), ...getMoreModels],
+				//include: [...modelosAssociados(this.model), ...getMoreModels],
 			});
-			Log.success(res, response);
+			Response.success(res, response);
 		} catch (error) {
-			Log.error(res, error.message);
+			Response.error(res, error);
 		}
 	}
 
 	async criar(req, res) {
 		try {
 			const response = await this.model.create(req.body);
-			Log.success(res, response);
+			Response.success(res, response);
 		} catch (error) {
-			Log.error(res, error);
+			Response.error(res, error);
 		}
 	}
 
@@ -35,9 +35,9 @@ export default class Controller extends BaseControllers {
 				where: { ...req.body },
 				include: [...modelosAssociados(this.model), ...getMoreModels],
 			});
-			Log.success(res, response);
+			Response.success(res, response);
 		} catch (error) {
-			Log.error(res, error);
+			Response.error(res, error);
 		}
 	}
 
@@ -45,9 +45,9 @@ export default class Controller extends BaseControllers {
 		try {
 			const { id } = req.params;
 			const response = await this.model.update({ ...req.body }, { where: { [this.identifier]: id } });
-			Log.success(res, response);
+			Response.success(res, response);
 		} catch (error) {
-			Log.error(res, error);
+			Response.error(res, error);
 		}
 	}
 
@@ -57,9 +57,9 @@ export default class Controller extends BaseControllers {
 			const response = await this.model.destroy({
 				where: { [this.identifier]: id },
 			});
-			Log.success(res, response);
+			Response.success(res, response);
 		} catch (error) {
-			Log.error(res, error);
+			Response.error(res, error);
 		}
 	}
 }

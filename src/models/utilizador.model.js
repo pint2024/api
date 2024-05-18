@@ -1,7 +1,6 @@
 import Sequelize from "sequelize";
 import bcrypt from "bcrypt";
-import { primaryKeyDataType, dataCriacaoDataType, foreignKeyDataType } from "../utils/index.js";
-import { random, ToLower } from "../utils/utils.js";
+import { primaryKeyDataType, dataCriacaoDataType, foreignKeyDataType, Utils } from "../utils/index.js";
 import { TAG_DEFAULT } from "../data/constants.js";
 export default function (sequelize, DataTypes) {
 	const Models = sequelize.define(
@@ -85,7 +84,7 @@ export default function (sequelize, DataTypes) {
 		while (!encontrou) {
 			const tagResponse = await Models.findOne({ where: { tag } });
 			if (tagResponse) {
-				tag = tagDefault + random(0, 10000);
+				tag = tagDefault + Utils.random(0, 10000);
 			} else {
 				encontrou = true;
 			}

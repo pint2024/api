@@ -1,7 +1,7 @@
 import { modelosAssociados, Response } from "../utils/index.js";
-import { BaseControllers } from "./index.js";
+import { BaseController } from "./index.js";
 
-export default class Controller extends BaseControllers {
+export class CrudController extends BaseController {
 	constructor(model, identifier = "id") {
 		super(model, identifier);
 	}

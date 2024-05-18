@@ -1,7 +1,7 @@
 import { Sequelize } from "sequelize";
 import { DB_CONFIG } from "../data/database.js";
-import { initModels } from "../models/init.models.js";
-import { Log } from '../utils/index.js';
+import { InitModels } from "../models/init.models.js";
+import { log } from '../utils/index.js';
 
 export const sequelize = new Sequelize(
 	DB_CONFIG.DATABASE,
@@ -24,18 +24,18 @@ export const sequelize = new Sequelize(
 
 sequelize.authenticate()
 	.then(() => {
-		Log.success("Autenticado à base de dados.");
+		log.success("Autenticado à base de dados.");
 
 		sequelize.sync()
 			.then(() => {
-				Log.success("Base de dados sincronizada com sucesso.");
+				log.success("Base de dados sincronizada com sucesso.");
 			})
 			.catch((error) => {
-				Log.error("Error ao sincronizar a base de dados: ", error);
+				log.error("Error ao sincronizar a base de dados: ", error);
 			});
 	})
 	.catch((error) => {
-		Log.error("Error ao conectar à base de dados: ", error);
+		log.error("Error ao conectar à base de dados: ", error);
 	});
 
-export const models = initModels(sequelize);
+export const models = InitModels(sequelize);

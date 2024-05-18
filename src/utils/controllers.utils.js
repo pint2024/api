@@ -1,5 +1,3 @@
-import { Log } from "./logUtils.js";
-
 export const modelosAssociados = (model) => {
 	const modelsObject = [];
 	Object.keys(model.associations).forEach((key) => {
@@ -7,8 +5,4 @@ export const modelosAssociados = (model) => {
 		modelsObject.push({ model: association.target, as: association.as });
 	});
 	return Object.values(modelsObject);
-};
-
-export {
-	Log,
 };

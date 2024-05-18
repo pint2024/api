@@ -1,9 +1,9 @@
 import express from "express";
 import { URL_NAMING } from "../data/constants.js";
 
-const router = express.Router();
+export const CrudRoutes = (app, controllerClass, url_base) => {
+	const router = express.Router();
 
-export default (app, controllerClass, url_base) => {
 	router.route(URL_NAMING.GET).get((req, res) => controllerClass.obter(req, res));
 	router.route(URL_NAMING.CREATE).post((req, res) => controllerClass.criar(req, res));
 	router.route(URL_NAMING.LIST).post((req, res) => controllerClass.listar(req, res));

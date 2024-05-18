@@ -1,13 +1,13 @@
 import { sequelize, models } from "./config/database.config.js";
 import express from "express";
 import dotenv from "dotenv";
-import bodyParser  from "body-parser";
-import initRoutes from "./routes/init.routes.js";
-import { Log } from "./utils/index.js";
+import bodyParser from "body-parser";
+import { InitRoutes } from "./routes/index.js";
+import { log } from "./utils/index.js";
 import { SV_PORT } from "./data/constants.js";
 import { logger } from "./utils/logger.js";
 
-const { json, urlencoded } = bodyParser
+const { json, urlencoded } = bodyParser;
 const app = express();
 dotenv.config();
 
@@ -32,9 +32,9 @@ app.use(urlencoded({ extended: true }));
 app.use(logger);
 
 //Rotas
-initRoutes(app);
+InitRoutes(app);
 
 //Listen
 app.listen(app.get("port"), () => {
-	Log.log("Servidor iniciado na porta " + app.get("port") + ".");
+	log.log("Servidor iniciado na porta " + app.get("port") + ".");
 });

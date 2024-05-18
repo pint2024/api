@@ -1,49 +1,49 @@
 import { DataTypes } from "sequelize";
-import { defineAssociation } from "../utils/modelsUtils.js";
+import { defineAssociation } from "../utils/models.utils.js";
 import {
-	AlbumModels,
-	AtividadeModels,
-	CentroModels,
-	ClassificacaoModels,
-	ComentarioModels,
-	ConteudoModels,
-	DenunciaModels,
-	DocumentoModels,
-	EspacoModels,
-	EstadoModels,
-	EventoModels,
-	InteresseModels,
-	NotificacaoModels,
-	ParticipanteModels,
-	PerfilModels,
-	RecomendacaoModels,
-	RevisaoModels,
-	SubtopicoModels,
-	TopicoModels,
-	UtilizadorModels,
+	AlbumModel,
+	AtividadeModel,
+	CentroModel,
+	ClassificacaoModel,
+	ComentarioModel,
+	ConteudoModel,
+	DenunciaModel,
+	DocumentoModel,
+	EspacoModel,
+	EstadoModel,
+	EventoModel,
+	InteresseModel,
+	NotificacaoModel,
+	ParticipanteModel,
+	PerfilModel,
+	RecomendacaoModel,
+	RevisaoModel,
+	SubtopicoModel,
+	TopicoModel,
+	UtilizadorModel,
 } from "./index.js";
 
-export function initModels(sequelize) {
-	const album = AlbumModels(sequelize, DataTypes);
-	const atividade = AtividadeModels(sequelize, DataTypes);
-	const centro = CentroModels(sequelize, DataTypes);
-	const classificacao = ClassificacaoModels(sequelize, DataTypes);
-	const comentario = ComentarioModels(sequelize, DataTypes);
-	const conteudo = ConteudoModels(sequelize, DataTypes);
-	const denuncia = DenunciaModels(sequelize, DataTypes);
-	const documento = DocumentoModels(sequelize, DataTypes);
-	const espaco = EspacoModels(sequelize, DataTypes);
-	const estado = EstadoModels(sequelize, DataTypes);
-	const evento = EventoModels(sequelize, DataTypes);
-	const interesse = InteresseModels(sequelize, DataTypes);
-	const notificacao = NotificacaoModels(sequelize, DataTypes);
-	const participante = ParticipanteModels(sequelize, DataTypes);
-	const perfil = PerfilModels(sequelize, DataTypes);
-	const recomendacao = RecomendacaoModels(sequelize, DataTypes);
-	const revisao = RevisaoModels(sequelize, DataTypes);
-	const subtopico = SubtopicoModels(sequelize, DataTypes);
-	const topico = TopicoModels(sequelize, DataTypes);
-	const utilizador = UtilizadorModels(sequelize, DataTypes);
+export function InitModels(sequelize) {
+	const album = AlbumModel(sequelize, DataTypes);
+	const atividade = AtividadeModel(sequelize, DataTypes);
+	const centro = CentroModel(sequelize, DataTypes);
+	const classificacao = ClassificacaoModel(sequelize, DataTypes);
+	const comentario = ComentarioModel(sequelize, DataTypes);
+	const conteudo = ConteudoModel(sequelize, DataTypes);
+	const denuncia = DenunciaModel(sequelize, DataTypes);
+	const documento = DocumentoModel(sequelize, DataTypes);
+	const espaco = EspacoModel(sequelize, DataTypes);
+	const estado = EstadoModel(sequelize, DataTypes);
+	const evento = EventoModel(sequelize, DataTypes);
+	const interesse = InteresseModel(sequelize, DataTypes);
+	const notificacao = NotificacaoModel(sequelize, DataTypes);
+	const participante = ParticipanteModel(sequelize, DataTypes);
+	const perfil = PerfilModel(sequelize, DataTypes);
+	const recomendacao = RecomendacaoModel(sequelize, DataTypes);
+	const revisao = RevisaoModel(sequelize, DataTypes);
+	const subtopico = SubtopicoModel(sequelize, DataTypes);
+	const topico = TopicoModel(sequelize, DataTypes);
+	const utilizador = UtilizadorModel(sequelize, DataTypes);
 
 	defineAssociation(classificacao, conteudo, "classificacao_conteudo", "conteudo");
 	defineAssociation(classificacao, comentario, "classificacao_comentario", "comentario");

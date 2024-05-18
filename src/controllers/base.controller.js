@@ -4,6 +4,6 @@ export class BaseController {
 	constructor(model, identifier = "id") {
 		this.model = model;
 		this.identifier = identifier;
-		log.instance(model);
+		log.endpoint(model.name);
 	}
 }

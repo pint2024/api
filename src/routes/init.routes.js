@@ -1,8 +1,8 @@
-import { models } from "../config/database.config.js";
 import { AtividadeController, AutenticacaoController, CrudController } from "../controllers/index.js";
+import { models } from "../models/init.models.js";
 import { AutenticacaoRoutes, CrudRoutes } from "./index.js";
 
-export const InitRoutes = (app) => {
+export const InitRoutes = async (app) => {
 	/** 
 	 * * Controllers functions recebem:
 	 * @param app para criar as rotas

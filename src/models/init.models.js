@@ -22,8 +22,11 @@ import {
 	TopicoModel,
 	UtilizadorModel,
 } from "./index.js";
+import { Database } from "../config/database.config.js";
 
-export function InitModels(sequelize) {
+const models = {};
+
+export const InitModels = async (sequelize) => {
 	const album = AlbumModel(sequelize, DataTypes);
 	const atividade = AtividadeModel(sequelize, DataTypes);
 	const centro = CentroModel(sequelize, DataTypes);
@@ -83,26 +86,28 @@ export function InitModels(sequelize) {
 	defineAssociation(utilizador, perfil, "utilizador_perfil", "perfil");
 	defineAssociation(utilizador, centro, "utilizador_centro", "centro");
 
-	return {
-		album,
-		atividade,
-		centro,
-		classificacao,
-		comentario,
-		conteudo,
-		denuncia,
-		documento,
-		espaco,
-		estado,
-		evento,
-		interesse,
-		notificacao,
-		participante,
-		perfil,
-		recomendacao,
-		revisao,
-		subtopico,
-		topico,
-		utilizador,
-	};
-}
+	models.album = album;
+	models.atividade = atividade;
+	models.centro = centro;
+	models.classificacao = classificacao;
+	models.comentario = comentario;
+	models.conteudo = conteudo;
+	models.denuncia = denuncia;
+	models.documento = documento;
+	models.espaco = espaco;
+	models.estado = estado;
+	models.evento = evento;
+	models.interesse = interesse;
+	models.notificacao = notificacao;
+	models.participante = participante;
+	models.perfil = perfil;
+	models.recomendacao = recomendacao;
+	models.revisao = revisao;
+	models.subtopico = subtopico;
+	models.topico = topico;
+	models.utilizador = utilizador;
+
+	await Database.sync(sequelize);
+};
+
+export { models };

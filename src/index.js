@@ -1,40 +1,18 @@
-import { sequelize, models } from "./config/database.config.js";
 import express from "express";
-import dotenv from "dotenv";
-import bodyParser from "body-parser";
+import { InitDatabase } from "./config/database.config.js";
+import { InitModels } from "./models/index.js";
 import { InitRoutes } from "./routes/index.js";
-import { log } from "./utils/index.js";
-import { SV_PORT } from "./data/constants.js";
-import { logger } from "./utils/logger.js";
+import { InitServer } from "./config/server.config.js";
 
-const { json, urlencoded } = bodyParser;
-const app = express();
-dotenv.config();
+async function main() {
+	const app = express();
 
-// Configurar CORS
-app.use((req, res, next) => {
-	res.header("Access-Control-Allow-Origin", "*");
-	res.header(
-		"Access-Control-Allow-Headers",
-		"Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method"
-	);
-	res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
-	res.header("Allow", "GET, POST, OPTIONS, PUT, DELETE");
-	next();
-});
+	//#region INICIALIZAÇÕES
+	const sequelize = await InitDatabase();
+	await InitModels(sequelize);
+	await InitRoutes(app);
+	await InitServer(app);
+	//#endregion
+}
 
-//Configurações
-app.set("port", SV_PORT);
-
-//Middlewares
-app.use(json());
-app.use(urlencoded({ extended: true }));
-app.use(logger);
-
-//Rotas
-InitRoutes(app);
-
-//Listen
-app.listen(app.get("port"), () => {
-	log.log("Servidor iniciado na porta " + app.get("port") + ".");
-});
+main();

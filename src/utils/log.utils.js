@@ -1,6 +1,9 @@
 export class log {
 	static log(log, type = "") {
-		console.log(`LOG [${type}]: ${log}`);
+		if (typeof log === 'object') {
+			log = JSON.stringify(log, null, 2); // Melhor visualização
+		}
+		console.log(`LOG${type ? ` [${type}]` : ""}: ${log}`);
 	}
 
 	static success(response) {
@@ -12,12 +15,19 @@ export class log {
 		throw new Error(response);
 	}
 
-	static instance(response) {
-		console.log(response);
-		this.log(response, "INSTANCE");
+	static endpoint(response) {
+		this.log(response, "ENDPOINT");
 	}
 
 	static access(response) {
 		this.log(response, "ACCESS");
+	}
+
+	static database(response) {
+		this.log(response, "DATABASE");
+	}
+
+	static server(response) {
+		this.log(response, "SERVER");
 	}
 }

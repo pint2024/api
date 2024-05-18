@@ -1,5 +1,5 @@
+import { models } from "../models/init.models.js";
 import { Response, modelosAssociados } from "../utils/index.js";
-import { models } from "../config/database.config.js";
 import { BaseController } from "./base.controller.js";
 
 export class AtividadeController extends BaseController {

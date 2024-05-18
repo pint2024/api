@@ -8,7 +8,7 @@ export function logger(req, res, next) {
 
 	fs.readFile(ACCESS_LOG_FILENAME, "utf8", (err, data) => {
 		if (err) {
-			console.error("Erro ao ler o ficheiro de log:", err);
+			log.error("Erro ao ler o ficheiro de log:", err);
 			next();
 			return;
 		}
@@ -17,7 +17,7 @@ export function logger(req, res, next) {
 
 		fs.writeFile(ACCESS_LOG_FILENAME, newContent, "utf8", (err) => {
 			if (err) {
-				console.error("Erro ao escrever no ficheiro de log:", err);
+				log.error("Erro ao escrever no ficheiro de log:", err);
 			}
 			next();
 		});

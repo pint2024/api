@@ -1,6 +1,7 @@
 import { AtividadeController, AutenticacaoController, CrudController } from "../controllers/index.js";
-import { models } from "../models/init.models.js";
-import { AutenticacaoRoutes, CrudRoutes } from "./index.js";
+import { models } from "./models.config.js";
+import { log } from "../utils/log.utils.js";
+import { AutenticacaoRoutes, CrudRoutes } from "../routes/index.js";
 
 export const InitRoutes = async (app) => {
 	/** 
@@ -30,4 +31,6 @@ export const InitRoutes = async (app) => {
 	CrudRoutes(app, new CrudController(models.subtopico), "/subtopico");
 	CrudRoutes(app, new CrudController(models.topico), "/topico");
 	CrudRoutes(app, new CrudController(models.utilizador), "/utilizador");
+
+	log.routes("Routes inicializados.")
 };

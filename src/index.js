@@ -1,8 +1,5 @@
 import express from "express";
-import { InitDatabase } from "./config/database.config.js";
-import { InitModels } from "./models/index.js";
-import { InitRoutes } from "./routes/index.js";
-import { InitServer } from "./config/server.config.js";
+import { InitDatabase, InitModels, InitRoutes, InitServer } from "./config/index.js";
 
 async function main() {
 	const app = express();

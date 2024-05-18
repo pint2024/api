@@ -18,4 +18,3 @@ export { default as RevisaoModel } from "./revisao.model.js";
 export { default as SubtopicoModel } from "./subtopico.model.js";
 export { default as TopicoModel } from "./topico.model.js";
 export { default as UtilizadorModel } from "./utilizador.model.js";
-export { InitModels } from "./init.models.js";

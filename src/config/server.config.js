@@ -2,10 +2,10 @@ import { logger, log } from "../utils/index.js";
 import { SV_PORT } from "../data/constants.js";
 import bodyParser from "body-parser";
 import dotenv from "dotenv";
+dotenv.config();
 
 export const InitServer = async (app) => {
 	const { json, urlencoded } = bodyParser;
-	dotenv.config();
 
 	// Configurar CORS
 	app.use((req, res, next) => {

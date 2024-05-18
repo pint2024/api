@@ -1,4 +1,4 @@
-import { models } from "../models/init.models.js";
+import { models } from "../config/models.config.js";
 import { Response, modelosAssociados } from "../utils/index.js";
 import { BaseController } from "./base.controller.js";
 

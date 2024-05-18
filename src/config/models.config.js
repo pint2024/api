@@ -21,8 +21,9 @@ import {
 	SubtopicoModel,
 	TopicoModel,
 	UtilizadorModel,
-} from "./index.js";
-import { Database } from "../config/database.config.js";
+} from "../models/index.js";
+import { Database } from "./database.config.js";
+import { log } from "../utils/log.utils.js";
 
 const models = {};
 
@@ -107,6 +108,7 @@ export const InitModels = async (sequelize) => {
 	models.topico = topico;
 	models.utilizador = utilizador;
 
+	log.models("Models inicializados.");
 	await Database.sync(sequelize);
 };
 

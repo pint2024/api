@@ -1,4 +1,4 @@
-export const modelosAssociados = (model) => {
+export const modelsDirectlyAssociated = (model) => {
 	const modelsObject = [];
 	Object.keys(model.associations).forEach((key) => {
 		const association = model.associations[key];

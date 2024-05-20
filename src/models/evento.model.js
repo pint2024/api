@@ -3,7 +3,7 @@ import { primaryKeyDataType, dataCriacaoDataType } from "../utils/index.js";
 
 export default function (sequelize, DataTypes) {
     return sequelize.define(
-        "recomendacao",
+        "evento",
         {
             id: primaryKeyDataType(),
             data_criacao: dataCriacaoDataType(),
@@ -19,7 +19,7 @@ export default function (sequelize, DataTypes) {
             freezeTableName: true,
             indexes: [
                 {
-                    name: "pk_recomendacao",
+                    name: "pk_evento",
                     unique: true,
                     fields: [{ name: "id" }],
                 },

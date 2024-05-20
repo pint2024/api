@@ -1,7 +1,7 @@
 import express from "express";
 import { URL_NAMING } from "../data/constants.js";
 
-export const CrudRoutes = (app, controllerClass, url_base) => {
+export const BaseRoutes = (app, controllerClass, url_base) => {
 	const router = express.Router();
 
 	router.route(URL_NAMING.GET).get((req, res) => controllerClass.obter(req, res));

@@ -1,31 +1,36 @@
 {
 	"name": "pint",
 	"version": "1.0.0",
-	"description": "Projeto Integrado",
-	"main": "index.js",
+	"description": "SoftShares API",
+	"main": "app.js",
 	"type": "module",
 	"scripts": {
-		"start": "node src/index.js",
+		"start": "node src/app.js",
 		"test": "echo \"Error: no test specified\" && exit 1",
-		"dev": "nodemon src/index.js",
+		"dev": "nodemon src/app.js",
 		"build": "npm install"
 	},
 	"keywords": [],
 	"authors": [
 		{
-			"name": "Lucas Sebastião"
+			"name": "Lucas Sebastião",
+			"mec": "pv22589"
 		},
 		{
-			"name": "João Santos"
+			"name": "João Santos",
+			"mec": "estgv18725"
 		},
 		{
-			"name": "Francisco Marques"
+			"name": "Francisco Marques",
+			"mec": "pv20888"
 		},
 		{
-			"name": "Daniel Valpereiro"
+			"name": "Daniel Valpereiro",
+			"mec": "pv22894"
 		},
 		{
-			"name": "Cassamo Latif"
+			"name": "Cassamo Latif",
+			"mec": "pv21373"
 		}
 	],
 	"license": "ISC",

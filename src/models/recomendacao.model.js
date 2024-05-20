@@ -7,7 +7,7 @@ export default function (sequelize, DataTypes) {
         {
             id: primaryKeyDataType(),
             data_criacao: dataCriacaoDataType(),
-            classificacao_lugar: {
+            classificacao: {
                 type: DataTypes.SMALLINT,
                 allowNull: false,
             },

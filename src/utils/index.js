@@ -1,5 +1,5 @@
 export { AuthUtils } from "./auth.utils.js";
-export { modelosAssociados } from "./controllers.utils.js";
+export { modelsDirectlyAssociated } from "./controllers.utils.js";
 export { log } from "./log.utils.js";
 export { logger } from "./logger.utils.js";
 export { Response } from "./response.utils.js";

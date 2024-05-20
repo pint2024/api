@@ -1,5 +1,5 @@
 import { models } from "../config/models.config.js";
-import { Response, modelosAssociados } from "../utils/index.js";
+import { Response, modelsDirectlyAssociated } from "../utils/index.js";
 import { BaseController } from "./base.controller.js";
 
 export class ConteudoController extends BaseController {
@@ -12,7 +12,7 @@ export class ConteudoController extends BaseController {
 			const { id } = req.params;
 			const response = await this.model.findOne({
 				where: { [this.identifier]: id },
-				include: [...modelosAssociados(this.model), ...getMoreModels],
+				include: [...modelsDirectlyAssociated(this.model)/*, ...getMoreModels*/],
 			});
 			Response.success(res, response);
 		} catch (error) {
@@ -21,42 +21,12 @@ export class ConteudoController extends BaseController {
 		}
 	}
 
-	async criar(req, res) {
-		try {
-			const response = await this.model.create(req.body);
-			Response.success(res, response);
-		} catch (error) {
-			Response.error(res, error);
-		}
-	}
-
 	async listar(req, res) {
+		console.log(1)
 		try {
 			const response = await this.model.findAll({
 				where: { ...req.body },
-				include: [...modelosAssociados(this.model), ...getMoreModels],
-			});
-			Response.success(res, response);
-		} catch (error) {
-			Response.error(res, error);
-		}
-	}
-
-	async atualizar(req, res) {
-		try {
-			const { id } = req.params;
-			const response = await this.model.update({ ...req.body }, { where: { [this.identifier]: id } });
-			Response.success(res, response);
-		} catch (error) {
-			Response.error(res, error);
-		}
-	}
-
-	async remover(req, res) {
-		try {
-			const { id } = req.params;
-			const response = await this.model.destroy({
-				where: { [this.identifier]: id },
+				include: [...modelsDirectlyAssociated(this.model)/*, ...getMoreModels*/],
 			});
 			Response.success(res, response);
 		} catch (error) {

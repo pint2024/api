@@ -1,12 +1,11 @@
 import jwt from "jsonwebtoken";
 import { JWT_CONFIG } from "../data/constants.js";
-import { Response, log, modelosAssociados } from "../utils/index.js";
-import bcrypt from "bcrypt";
-import { BaseController } from "./index.js";
+import { Response, modelsDirectlyAssociated } from "../utils/index.js";
+import { Controller } from "./index.js";
 import { Op } from "sequelize";
 import { AuthUtils } from "../utils/auth.utils.js";
 
-export class AutenticacaoController extends BaseController {
+export class AutenticacaoController extends Controller {
 	constructor(model, identifier = "id") {
 		super(model, identifier);
 	}
@@ -40,7 +39,7 @@ export class AutenticacaoController extends BaseController {
 				}
 				const updatedUser = await this.model.findOne({
 					where: { utilizador_id: decoded.id },
-					include: modelosAssociados(this.model),
+					include: modelsDirectlyAssociated(this.model),
 				});
 				if (!updatedUser) {
 					Response.error(res, "User not found", 404);

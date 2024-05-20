@@ -1,6 +1,8 @@
 export class log {
 	static #log(log, type = "") {
-		console.log(`LOG${type ? ` [${type}]` : ""}: ${log}`);
+		console.log(`LOG${type ? ` [${type}]` : ""}:`);
+		console.log(log);
+		console.log();
 	}
 
 	static #log_file() {

@@ -7,8 +7,8 @@ async function main() {
 	//#region INICIALIZAÇÕES
 	const sequelize = await InitDatabase();
 	await InitModels(sequelize);
-	await InitRoutes(app);
 	await InitServer(app);
+	await InitRoutes(app);
 	//#endregion
 }
 

@@ -29,7 +29,7 @@ export class Database {
 			await sequelize.authenticate();
 			log.database("Autenticado à base de dados.");
 		} catch (error) {
-			log.error("Erro ao conectar à base de dados: ", error);
+			log.error("Erro ao conectar à base de dados: " + error);
 		}
 	};
 
@@ -38,7 +38,7 @@ export class Database {
 			await sequelize.sync();
 			log.database("Base de dados sincronizada com sucesso.");
 		} catch (error) {
-			log.error("Erro ao sincronizar a base de dados: ", error);
+			log.error("Erro ao sincronizar a base de dados: " + error);
 		}
 	};
 }

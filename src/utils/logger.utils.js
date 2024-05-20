@@ -3,6 +3,11 @@ import { ACCESS_LOG_FILENAME } from "../data/constants.js";
 import { log } from "./log.utils.js";
 
 export function logger(req, res, next) {
+	if (req.url === "/favicon.ico") {
+		next();
+		return;
+	}
+
 	const newData = `${new Date().toISOString()} - ${req.method} ${req.url} - ${res.statusCode}\n`;
 	log.access(newData);
 

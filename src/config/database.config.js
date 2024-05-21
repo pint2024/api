@@ -1,14 +1,9 @@
 import { Sequelize } from "sequelize";
 import { log } from "../utils/index.js";
+import { DB_CONFIG } from "../data/database.js";
 
 export const InitDatabase = async () => {
-	const DATABASE = process.env.DB_DATABASE;
-	const USERNAME = process.env.DB_USERNAME;
-	const PASSWORD = process.env.DB_PASSWORD;
-	const HOST = process.env.DB_HOST;
-	const PORT = process.env.DB_PORT;
-	const DIALECT = process.env.DB_DIALECT;
-	const SSL_ENABLED = process.env.DB_SSL_ENABLED === "true";
+	const { DATABASE, USERNAME, PASSWORD, HOST, PORT, DIALECT, SSL_ENABLED } = DB_CONFIG;
 
 	const sequelize = new Sequelize(DATABASE, USERNAME, PASSWORD, {
 		host: HOST,

@@ -1,7 +1,7 @@
 import Sequelize from "sequelize";
 import bcrypt from "bcrypt";
 import { primaryKeyDataType, dataCriacaoDataType, foreignKeyDataType, Utils } from "../utils/index.js";
-import { TAG_DEFAULT } from "../data/constants.js";
+import { TAG_DEFAULT } from "../data/constants.data.js";
 export default function (sequelize, DataTypes) {
 	const Models = sequelize.define(
 		"utilizador",

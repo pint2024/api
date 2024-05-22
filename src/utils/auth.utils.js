@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import { JWT_CONFIG } from "../data/constants.js";
+import { JWT_CONFIG } from "../data/constants.data.js";
 import bcrypt from "bcrypt";
 
 export class AuthUtils {

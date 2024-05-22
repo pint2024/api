@@ -22,12 +22,12 @@ export class ConteudoController extends BaseController {
 	}
 
 	async listar(req, res) {
-		console.log(1)
 		try {
 			const response = await this.model.findAll({
 				where: { ...req.body },
-				include: [...modelsDirectlyAssociated(this.model)/*, ...getMoreModels*/],
+				//include: [...modelsDirectlyAssociated(this.model)/*, ...getMoreModels*/],
 			});
+			console.log(6)
 			Response.success(res, response);
 		} catch (error) {
 			Response.error(res, error);

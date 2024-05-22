@@ -1,5 +1,5 @@
 import fs from "fs";
-import { ACCESS_LOG_FILENAME } from "../data/constants.js";
+import { ACCESS_LOG_FILENAME } from "../data/constants.data.js";
 import { log } from "./log.utils.js";
 
 export function logger(req, res, next) {

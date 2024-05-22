@@ -1,5 +1,5 @@
 import express from "express";
-import { URL_NAMING } from "../data/constants.js";
+import { URL_NAMING } from "../data/constants.data.js";
 
 const router = express.Router();
 

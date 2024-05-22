@@ -1,5 +1,5 @@
 import { logger, log } from "../utils/index.js";
-import { SV_PORT } from "../data/constants.js";
+import { SV_PORT } from "../data/constants.data.js";
 import bodyParser from "body-parser";
 import dotenv from "dotenv";
 dotenv.config();

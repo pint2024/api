@@ -1,6 +1,6 @@
 import { Sequelize } from "sequelize";
 import { log } from "../utils/index.js";
-import { DB_CONFIG } from "../data/database.js";
+import { DB_CONFIG } from "../data/database.data.js";
 
 export const InitDatabase = async () => {
 	const { DATABASE, USERNAME, PASSWORD, HOST, PORT, DIALECT, SSL_ENABLED } = DB_CONFIG;

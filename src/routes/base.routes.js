@@ -1,5 +1,5 @@
 import express from "express";
-import { URL_NAMING } from "../data/constants.js";
+import { URL_NAMING } from "../data/constants.data.js";
 
 export const BaseRoutes = (app, controllerClass, url_base) => {
 	const router = express.Router();

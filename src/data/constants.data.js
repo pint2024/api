@@ -1,6 +1,6 @@
 import { Utils } from "../utils/utils.js";
 
-export const ACCESS_LOG_FILENAME = "access.log"
+export const ACCESS_LOG_FILENAME = "access.log";
 
 export const JWT_CONFIG = {
 	TOKEN_AUTH_SECRET: "trMCqw7EUQn4FwRyiH9w5jW",
@@ -29,11 +29,4 @@ export const URL_NAMING = {
 	DELETE: "/remover/:id",
 };
 
-export const EMAIL_INFO = {
-	USER: "pintegrado23@gmail.com",
-	PASSWORD: "xerqqpeqtpvdkiam",
-};
-
-export const TAG_DEFAULT = (nome, sobrenome) => {
-	return `@${Utils.ToLower(nome)}${Utils.ToLower(sobrenome)}`;
-};
+export const DEFAULT_IDENTIFIER = "id";

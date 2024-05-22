@@ -1,8 +1,8 @@
 import fs from "fs";
 import { ACCESS_LOG_FILENAME } from "../data/constants.data.js";
-import { log } from "./log.utils.js";
+import { log } from "../utils/log.utils.js";
 
-export function logger(req, res, next) {
+export function LoggerMiddleware(req, res, next) {
 	if (req.url === "/favicon.ico") {
 		next();
 		return;

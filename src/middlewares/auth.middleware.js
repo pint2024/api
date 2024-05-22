@@ -1,5 +1,5 @@
-const { verifyToken, hasPermission } = require("./auth");
-const authMiddleware = (req, res, next) => {
+import { AuthService } from "../services/index.js";
+export const AuthMiddleware = (req, res, next) => {
 	try {
 		const headerAuthrorization = req.headers.authorization;
 		if (headerAuthrorization == null) {
@@ -11,9 +11,9 @@ const authMiddleware = (req, res, next) => {
 			next({ status: 401, message: "Token does't exist" });
 			return;
 		}
-		const decoded = verifyToken(token);
+		const decoded = AuthService.verifyToken(token);
 		req.user = decoded;
-		if (hasPermission(req.user, req.method, req.originalUrl)) {
+		if (AuthService.hasPermission(req.user, req.method, req.originalUrl)) {
 			next();
 		} else {
 			next({ status: 403, message: "Access denied" });
@@ -22,5 +22,3 @@ const authMiddleware = (req, res, next) => {
 		next({ status: 401, message: "Invalid or expired token" });
 	}
 };
-
-module.exports = authMiddleware;

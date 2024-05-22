@@ -1,8 +1,10 @@
+import { DEFAULT_IDENTIFIER } from "../data/constants.data.js";
+import { ErrorException } from "../exceptions/error.exception.js";
 import { modelsDirectlyAssociated } from "../utils/index.js";
 import { Service } from "./index.js";
 
 export class BaseService extends Service {
-	constructor(model, identifier = "id") {
+	constructor(model, identifier = DEFAULT_IDENTIFIER) {
 		super(model, identifier);
 	}
 
@@ -13,7 +15,7 @@ export class BaseService extends Service {
 				include: modelsDirectlyAssociated(this.model),
 			});
 		} catch (e) {
-			throw new Error(e);
+			throw new ErrorException(e);
 		}
 	}
 
@@ -21,7 +23,7 @@ export class BaseService extends Service {
 		try {
 			return await this.model.create(data);
 		} catch (e) {
-			throw new Error(e);
+			throw new ErrorException(e);
 		}
 	}
 
@@ -32,7 +34,7 @@ export class BaseService extends Service {
 				include: [...modelsDirectlyAssociated(this.model), ...manual_models],
 			});
 		} catch (e) {
-			throw new Error(e);
+			throw new ErrorException(e);
 		}
 	}
 
@@ -42,7 +44,7 @@ export class BaseService extends Service {
 				where: { [this.identifier]: id },
 			});
 		} catch (e) {
-			throw new Error(e);
+			throw new ErrorException(e);
 		}
 	}
 
@@ -52,7 +54,7 @@ export class BaseService extends Service {
 				where: { [this.identifier]: id },
 			});
 		} catch (e) {
-			throw new Error(e);
+			throw new ErrorException(e);
 		}
 	}
 }

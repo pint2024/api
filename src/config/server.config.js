@@ -1,13 +1,13 @@
-import { logger, log } from "../utils/index.js";
 import { SV_PORT } from "../data/constants.data.js";
 import bodyParser from "body-parser";
 import dotenv from "dotenv";
+import { log } from "../utils/log.utils.js";
 dotenv.config();
 
 export const InitServer = async (app) => {
 	const { json, urlencoded } = bodyParser;
 
-	// Configurar CORS
+	//! Configurar CORS
 	app.use((req, res, next) => {
 		res.header("Access-Control-Allow-Origin", "*");
 		res.header(
@@ -19,15 +19,14 @@ export const InitServer = async (app) => {
 		next();
 	});
 
-	//Middlewares
+	//! Middlewares
 	app.use(json());
 	app.use(urlencoded({ extended: true }));
-	app.use(logger);
 
-	//Configurações
+	//! Configurações
 	app.set("port", SV_PORT);
 
-	//Listen
+	//! Listen
 	app.listen(app.get("port"), () => {
 		log.server("Servidor iniciado na porta " + app.get("port") + ".");
 	});

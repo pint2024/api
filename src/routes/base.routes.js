@@ -1,6 +1,12 @@
 import express from "express";
 import { URL_NAMING } from "../data/constants.data.js";
 
+/** 
+ * * Controllers functions recebem:
+ * @param app para criar as rotas
+ * @param controllerClass instancia do controllerClass definido com o modelo e identificador (opcional)
+ * @param url_base parametro base da rota
+ */
 export const BaseRoutes = (app, controllerClass, url_base) => {
 	const router = express.Router();
 

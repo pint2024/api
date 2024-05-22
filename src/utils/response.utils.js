@@ -9,6 +9,7 @@ export class Response {
 
 	static error(res, error, status = 500) {
 		log.error("Response Error");
+		console.error(error);
 		return res.status(status).json({ success: false, error: error });
 	}
 }

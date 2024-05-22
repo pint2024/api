@@ -10,4 +10,8 @@ export class Utils {
 	static ToUpper(str) {
 		return str.toUpperCase().replace(/\s/g, "");
 	}
+
+	static TagDefault = (nome, sobrenome) => {
+		return `@${Utils.ToLower(nome)}${Utils.ToLower(sobrenome)}`;
+	};
 }

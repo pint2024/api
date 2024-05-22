@@ -1,9 +1,10 @@
 import { models } from "../config/models.config.js";
+import { DEFAULT_IDENTIFIER } from "../data/constants.data.js";
 import { Response, modelsDirectlyAssociated } from "../utils/index.js";
 import { BaseController } from "./base.controller.js";
 
 export class ConteudoController extends BaseController {
-	constructor(model, identifier = "id") {
+	constructor(model, identifier = DEFAULT_IDENTIFIER) {
 		super(model, identifier);
 	}
 
@@ -16,7 +17,6 @@ export class ConteudoController extends BaseController {
 			});
 			Response.success(res, response);
 		} catch (error) {
-			console.log(error);
 			Response.error(res, error);
 		}
 	}
@@ -25,9 +25,8 @@ export class ConteudoController extends BaseController {
 		try {
 			const response = await this.model.findAll({
 				where: { ...req.body },
-				//include: [...modelsDirectlyAssociated(this.model)/*, ...getMoreModels*/],
+				include: [...modelsDirectlyAssociated(this.model)/*, ...getMoreModels*/],
 			});
-			console.log(6)
 			Response.success(res, response);
 		} catch (error) {
 			Response.error(res, error);

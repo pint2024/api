@@ -1,7 +1,6 @@
 import Sequelize from "sequelize";
 import bcrypt from "bcrypt";
 import { primaryKeyDataType, dataCriacaoDataType, foreignKeyDataType, Utils } from "../utils/index.js";
-import { TAG_DEFAULT } from "../data/constants.data.js";
 export default function (sequelize, DataTypes) {
 	const Models = sequelize.define(
 		"utilizador",
@@ -78,7 +77,7 @@ export default function (sequelize, DataTypes) {
 		}
 	);
 	Models.beforeCreate(async (user, options) => {
-		const tagDefault = TAG_DEFAULT(user.nome, user.sobrenome);
+		const tagDefault = Utils.TagDefault(user.nome, user.sobrenome);
 		let tag = tagDefault;
 		let encontrou = false;
 		while (!encontrou) {

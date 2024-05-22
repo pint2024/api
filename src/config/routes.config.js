@@ -2,14 +2,12 @@ import { ConteudoController, AutenticacaoController, BaseController } from "../c
 import { models } from "./models.config.js";
 import { log } from "../utils/log.utils.js";
 import { AutenticacaoRoutes, BaseRoutes } from "../routes/index.js";
+import { LoggerMiddleware, AuthMiddleware } from "../middlewares/index.js";
 
 export const InitRoutes = async (app) => {
-	/** 
-	 * * Controllers functions recebem:
-	 * @param app para criar as rotas
-	 * @param controllerClass instancia do controllerClass definido com o modelo e identificador (opcional)
-	 * @param url_base parametro base da rota
-	 */
+	//app.use(LoggerMiddleware);
+	//app.use(AuthMiddleware);
+
 	BaseRoutes(app, new BaseController(models.album), "/album");
 	BaseRoutes(app, new BaseController(models.atividade), "/atividade");
 	AutenticacaoRoutes(app, new AutenticacaoController(models.utilizador), "/autenticacao");

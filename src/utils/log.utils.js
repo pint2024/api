@@ -15,7 +15,6 @@ export class log {
 
 	static error(response) {
 		this.#log(response, "ERROR");
-		throw new Error(response);
 	}
 
 	static controllers(response) {

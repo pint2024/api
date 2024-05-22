@@ -8,8 +8,7 @@ export class Response {
 	}
 
 	static error(res, error, status = 500) {
-		console.log(error);
 		log.error("Response Error");
-		return res.status(status).json({ success: false, data: {}, error: error });
+		return res.status(status).json({ success: false, error: error });
 	}
 }

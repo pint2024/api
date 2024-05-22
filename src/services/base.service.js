@@ -1,4 +1,4 @@
-import { Response, modelsDirectlyAssociated } from "../utils/index.js";
+import { modelsDirectlyAssociated } from "../utils/index.js";
 import { Service } from "./index.js";
 
 export class BaseService extends Service {
@@ -13,7 +13,7 @@ export class BaseService extends Service {
 				include: modelsDirectlyAssociated(this.model),
 			});
 		} catch (e) {
-			throw Error(e);
+			throw new Error(e);
 		}
 	}
 
@@ -21,7 +21,7 @@ export class BaseService extends Service {
 		try {
 			return await this.model.create(data);
 		} catch (e) {
-			throw Error(e);
+			throw new Error(e);
 		}
 	}
 
@@ -32,7 +32,7 @@ export class BaseService extends Service {
 				include: [...modelsDirectlyAssociated(this.model), ...manual_models],
 			});
 		} catch (e) {
-			throw Error(e);
+			throw new Error(e);
 		}
 	}
 
@@ -42,7 +42,7 @@ export class BaseService extends Service {
 				where: { [this.identifier]: id },
 			});
 		} catch (e) {
-			throw Error(e);
+			throw new Error(e);
 		}
 	}
 
@@ -52,7 +52,7 @@ export class BaseService extends Service {
 				where: { [this.identifier]: id },
 			});
 		} catch (e) {
-			throw Error(e);
+			throw new Error(e);
 		}
 	}
 }

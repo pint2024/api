@@ -22,7 +22,7 @@ import {
 import { Database } from "./database.config.js";
 import { log } from "../utils/log.utils.js";
 
-const models = {};
+export const models = {};
 
 export const InitModels = async (sequelize) => {
 	const album = AlbumModel(sequelize, DataTypes);
@@ -98,5 +98,3 @@ export const InitModels = async (sequelize) => {
 	log.models("Models inicializados.");
 	await Database.sync(sequelize);
 };
-
-export { models };

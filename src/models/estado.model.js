@@ -7,7 +7,7 @@ export default function (sequelize, DataTypes) {
 			id: primaryKeyDataType(),
 			data_criacao: dataCriacaoDataType(),
 			estado: {
-				type: DataTypes.STRING(100),
+				type: DataTypes.STRING(50),
 				allowNull: false,
 			},
 		},

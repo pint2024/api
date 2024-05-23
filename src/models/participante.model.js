@@ -10,8 +10,7 @@ export default function (sequelize, DataTypes) {
 				type: DataTypes.STRING(200),
 				allowNull: false,
 			},
-			evento: foreignKeyDataType({ allowNull: true }),
-			atividade: foreignKeyDataType({ allowNull: true }),
+			conteudo: foreignKeyDataType(),
 		},
 		{
 			sequelize,

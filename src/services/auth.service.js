@@ -1,9 +1,9 @@
 import jwt from "jsonwebtoken";
-import { JWT_CONFIG } from "../data/constants.data.js";
+import { ConstantsData } from "../data/constants.data.js";
 import bcrypt from "bcrypt";
 
 export class AuthService {
-	static getTokenHeader = () => {
+	static getTokenHeader = (req) => {
 		const tokenWithBearer = req.headers["x-access-token"] || req.headers["authorization"];
 		if (tokenWithBearer && tokenWithBearer.startsWith("Bearer ")) {
 			return tokenWithBearer.slice(7, tokenWithBearer.length);
@@ -20,8 +20,8 @@ export class AuthService {
 				perfil: perfil,
 				imagem: imagem,
 			},
-			JWT_CONFIG.TOKEN_AUTH_SECRET,
-			{ expiresIn: JWT_CONFIG.EXPIRES }
+			ConstantsData.JWT_CONFIG.TOKEN_AUTH_SECRET,
+			{ expiresIn: ConstantsData.JWT_CONFIG.EXPIRES }
 		);
 	};
 
@@ -31,13 +31,13 @@ export class AuthService {
 				id: id,
 				email: email,
 			},
-			JWT_CONFIG.TOKEN_EMAIL_SECRET,
-			{ expiresIn: JWT_CONFIG.EXPIRES }
+			ConstantsData.JWT_CONFIG.TOKEN_EMAIL_SECRET,
+			{ expiresIn: ConstantsData.JWT_CONFIG.EXPIRES }
 		);
 	};
 
 	static verifyAuthToken = async (token) => {
-		return jwt.verify(token, JWT_CONFIG.TOKEN_AUTH_SECRET);
+		return jwt.verify(token, ConstantsData.JWT_CONFIG.TOKEN_AUTH_SECRET);
 	};
 
 	static comparePassword = (senha_recebida, senha) => {

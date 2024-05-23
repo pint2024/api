@@ -1,5 +1,5 @@
 import fs from "fs";
-import { ACCESS_LOG_FILENAME } from "../data/constants.data.js";
+import { ConstantsData } from "../data/constants.data.js";
 import { log } from "../utils/log.utils.js";
 
 export function LoggerMiddleware(req, res, next) {
@@ -11,7 +11,7 @@ export function LoggerMiddleware(req, res, next) {
 	const newData = `${new Date().toISOString()} - ${req.method} ${req.url} - ${res.statusCode}\n`;
 	log.access(newData);
 
-	fs.readFile(ACCESS_LOG_FILENAME, "utf8", (err, data) => {
+	fs.readFile(ConstantsData.ACCESS_LOG_FILENAME, "utf8", (err, data) => {
 		if (err) {
 			log.error("Erro ao ler o ficheiro de log:", err);
 			next();
@@ -20,7 +20,7 @@ export function LoggerMiddleware(req, res, next) {
 
 		const newContent = newData + data;
 
-		fs.writeFile(ACCESS_LOG_FILENAME, newContent, "utf8", (err) => {
+		fs.writeFile(ConstantsData.ACCESS_LOG_FILENAME, newContent, "utf8", (err) => {
 			if (err) {
 				log.error("Erro ao escrever no ficheiro de log:", err);
 			}

@@ -5,9 +5,7 @@ export class log {
 		console.log();
 	}
 
-	static #log_file() {
-		
-	}
+	static #log_file() {}
 
 	static success(response) {
 		this.#log(response, "SUCCESS");
@@ -43,5 +41,13 @@ export class log {
 
 	static routes(response) {
 		this.#log(response, "ROUTES");
+	}
+
+	static middlewares(response) {
+		this.#log(response, "MIDDLEWARES");
+	}
+
+	static email(response) {
+		this.#log(response, "EMAIL");
 	}
 }

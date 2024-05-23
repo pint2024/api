@@ -13,7 +13,10 @@ export function foreignKeyDataType({ allowNull = false, defaultValue = null } = 
 	return { type: DataTypes.INTEGER, allowNull, defaultValue };
 }
 
-export function defineAssociation(childModel, parentModel, asKeyword, foreignKeyKeyword) {
+export function defineAssociation(childModel, parentModel) {
+	const asKeyword = childModel.name + "_" + parentModel.name;
+	const foreignKeyKeyword = parentModel.name;
+
 	childModel.belongsTo(parentModel, {
 		as: asKeyword,
 		foreignKey: foreignKeyKeyword,

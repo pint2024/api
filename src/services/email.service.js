@@ -1,7 +1,6 @@
 import nodemailer from "nodemailer";
 import { EMAIL_INFO } from "../data/email.data.js";
-import { FRONTEND_URL } from "../data/constants.data.js";
-import { EmailUtils } from "../utils/email.utils.js";
+import { EmailUtils, log } from "../utils/index.js";
 
 const transporter = nodemailer.createTransport({
 	host: "smtp.gmail.com",
@@ -18,15 +17,15 @@ export class EmailService {
 		const mailOptions = EmailUtils.sendEmail(
 			user.email,
 			"Verificação de Email",
-			`Olá ${user.nome} ${user.sobrenome},\n\nPor favor, verifique o seu email clicando no link abaixo:\n\n${FRONTEND_URL}/verify?token=${token}`,
-			`<p>Olá ${user.nome} ${user.sobrenome},</p><p>Por favor, verifique o seu email clicando no link abaixo:</p><a href="${FRONTEND_URL}/verify?token=${token}">Verificar Email</a>`
+			`Olá ${user.nome} ${user.sobrenome},\n\nPor favor, verifique o seu email clicando no link abaixo:\n\n${ConstantsData.FRONTEND_URL}/verify?token=${token}`,
+			`<p>Olá ${user.nome} ${user.sobrenome},</p><p>Por favor, verifique o seu email clicando no link abaixo:</p><a href="${ConstantsData.FRONTEND_URL}/verify?token=${token}">Verificar Email</a>`
 		);
 
 		try {
 			const info = await transporter.sendMail(mailOptions);
-			console.log("Email enviado: %s", info.messageId);
+			log.email("Email enviado: %s", info.messageId);
 		} catch (error) {
-			console.error("Erro ao enviar email:", error);
+			log.error("Erro ao enviar email: " + error);
 		}
 	};
 }

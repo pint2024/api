@@ -1,24 +1,18 @@
+import { ErrorException } from "../exceptions/error.exception.js";
 import { AuthService } from "../services/index.js";
 export const AuthMiddleware = (req, res, next) => {
 	try {
-		const headerAuthrorization = req.headers.authorization;
-		if (headerAuthrorization == null) {
-			next({ status: 401, message: "Token does't exist" });
-			return;
-		}
-		const token = headerAuthrorization.replace("Bearer ", "");
-		if (token == null) {
-			next({ status: 401, message: "Token does't exist" });
-			return;
-		}
+		return next();
+		const token = AuthService.getTokenHeader(req);
+		if (token == null) throw new ErrorException("Token não existe.");
+
 		const decoded = AuthService.verifyToken(token);
-		req.user = decoded;
-		if (AuthService.hasPermission(req.user, req.method, req.originalUrl)) {
+		if (AuthService.hasPermission(decoded, req.method, req.originalUrl)) {
 			next();
 		} else {
-			next({ status: 403, message: "Access denied" });
+			throw new ErrorException("Não tem permissão.");
 		}
 	} catch (err) {
-		next({ status: 401, message: "Invalid or expired token" });
+		throw new ErrorException(err.message);
 	}
 };

@@ -10,6 +10,8 @@ async function main() {
 	await InitServer(app);
 	await InitRoutes(app);
 	//#endregion
+
+	
 }
 
 main();

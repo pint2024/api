@@ -7,7 +7,7 @@ export default function (sequelize, DataTypes) {
 			id: primaryKeyDataType(),
 			data_criacao: dataCriacaoDataType(),
 			titulo: {
-				type: DataTypes.STRING(100),
+				type: DataTypes.STRING(200),
 				allowNull: false,
 			},
 			descricao: {
@@ -25,10 +25,19 @@ export default function (sequelize, DataTypes) {
 			utilizador: foreignKeyDataType(),
 			subtopico: foreignKeyDataType(),
 			album: foreignKeyDataType(),
-			espaco: foreignKeyDataType({ allowNull: true }),
-			evento: foreignKeyDataType({ allowNull: true }),
-			atividade: foreignKeyDataType({ allowNull: true }),
-			recomendacao: foreignKeyDataType({ allowNull: true }),
+			data_evento: {
+				type: DataTypes.DATE,
+				allowNull: false,
+			},
+			classificacao: {
+                type: DataTypes.SMALLINT,
+                allowNull: false,
+            },
+            preco: {
+                type: DataTypes.DECIMAL,
+                allowNull: false,
+            },
+			tipo: foreignKeyDataType(),
 		},
 		{
 			sequelize,

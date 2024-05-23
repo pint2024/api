@@ -2,12 +2,12 @@ import Sequelize from "sequelize";
 import { primaryKeyDataType, dataCriacaoDataType } from "../utils/index.js";
 export default function (sequelize, DataTypes) {
 	return sequelize.define(
-		"atividade",
+		"tipo",
 		{
 			id: primaryKeyDataType(),
 			data_criacao: dataCriacaoDataType(),
-			data_evento: {
-				type: DataTypes.DATE,
+			tipo: {
+				type: DataTypes.STRING(100),
 				allowNull: false,
 			},
 		},
@@ -18,7 +18,7 @@ export default function (sequelize, DataTypes) {
 			freezeTableName: true,
 			indexes: [
 				{
-					name: "pk_atividade",
+					name: "pk_tipo",
 					unique: true,
 					fields: [{ name: "id" }],
 				},

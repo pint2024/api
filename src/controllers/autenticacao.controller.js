@@ -1,30 +1,30 @@
 import jwt from "jsonwebtoken";
-import { DEFAULT_IDENTIFIER, JWT_CONFIG } from "../data/constants.data.js";
+import { ConstantsData } from "../data/constants.data.js";
 import { Response, modelsDirectlyAssociated } from "../utils/index.js";
 import { Controller } from "./index.js";
 import { Op } from "sequelize";
 import { AuthService, EmailService } from "../services/index.js";
 
 export class AutenticacaoController extends Controller {
-	constructor(model, identifier = "DEFAULT_IDENTIFIER") {
+	constructor(model, identifier = ConstantsData.DEFAULT_IDENTIFIER) {
 		super(model, identifier);
 	}
 
 	async obter(req, res) {
 		try {
 			const token = AuthService.getTokenHeader(req);
-			if (!token) Response.error("Token não foi enviado.");
-			const decodedToken = jwt.verify(token, JWT_CONFIG.TOKEN_PASSWORD_SECRET);
-			Response.success(res, decodedToken);
+			if (!token) return Response.error("Token não foi enviado.");
+			const decodedToken = jwt.verify(token, ConstantsData.JWT_CONFIG.TOKEN_PASSWORD_SECRET);
+			return Response.success(res, decodedToken);
 		} catch (error) {
-			Response.error(res, error);
+			return Response.error(res, error);
 		}
 	}
 
 	async atualizar(req, res) {
 		try {
 			const { token } = req.body;
-			jwt.verify(token, JWT_CONFIG.TOKEN_PASSWORD_SECRET, async (err, decoded) => {
+			jwt.verify(token, ConstantsData.JWT_CONFIG.TOKEN_PASSWORD_SECRET, async (err, decoded) => {
 				if (err) return Response.error(res, "Invalid refresh token: " + err);
 
 				const userData = await this.model.findOne({
@@ -41,14 +41,14 @@ export class AutenticacaoController extends Controller {
 						perfil: userData.perfil,
 						imagem: userData.imagem,
 					},
-					JWT_CONFIG.TOKEN_PASSWORD_SECRET,
-					{ expiresIn: JWT_CONFIG.EXPIRES }
+					ConstantsData.JWT_CONFIG.TOKEN_PASSWORD_SECRET,
+					{ expiresIn: ConstantsData.JWT_CONFIG.EXPIRES }
 				);
 
-				Response.success(res, accessToken);
+				return Response.success(res, accessToken);
 			});
 		} catch (error) {
-			Response.error(res, error);
+			return Response.error(res, error);
 		}
 	}
 
@@ -72,25 +72,24 @@ export class AutenticacaoController extends Controller {
 						utilizador.perfil,
 						utilizador.imagem
 					);
-					Response.success(res, response);
+					return Response.success(res, response);
 				} else {
 					await EmailService.sendEmail(utilizador, await AuthService.createEmailToken());
-					Response.success(res, "Email de confirmação enviado");
+					return Response.success(res, "Email de confirmação enviado");
 				}
 			} else {
-				Response.error(res, "Senha está errada.")
+				return Response.error(res, "Senha está errada.")
 			}
 		} catch (error) {
-			Response.error(res, error.message);
+			return Response.error(res, error.message);
 		}
 	}
 
 	async verificar(req, res) {
-		// verifica o token do email
 		try {
-			//Response.success(res, response);
+			return Response.success(res, "Sucesso caralho");
 		} catch (error) {
-			Response.error(res, error);
+			return Response.error(res, error);
 		}
 	}
 }

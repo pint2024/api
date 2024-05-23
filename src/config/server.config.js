@@ -1,4 +1,4 @@
-import { SV_PORT } from "../data/constants.data.js";
+import { ConstantsData } from "../data/constants.data.js";
 import bodyParser from "body-parser";
 import dotenv from "dotenv";
 import { log } from "../utils/log.utils.js";
@@ -24,7 +24,7 @@ export const InitServer = async (app) => {
 	app.use(urlencoded({ extended: true }));
 
 	//! Configurações
-	app.set("port", SV_PORT);
+	app.set("port", ConstantsData.SV_PORT);
 
 	//! Listen
 	app.listen(app.get("port"), () => {

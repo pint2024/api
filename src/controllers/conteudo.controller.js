@@ -1,4 +1,4 @@
-import { ConstantsData } from "../data/constants.data.js";
+import { ConstantsData } from "../constants/constants.js";
 import { Response } from "../utils/index.js";
 import { BaseController } from "./base.controller.js";
 

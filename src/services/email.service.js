@@ -1,5 +1,5 @@
 import nodemailer from "nodemailer";
-import { EMAIL_INFO } from "../data/email.data.js";
+import { EMAIL_INFO } from "../constants/email.constants.js";
 import { EmailUtils, log } from "../utils/index.js";
 
 const transporter = nodemailer.createTransport({

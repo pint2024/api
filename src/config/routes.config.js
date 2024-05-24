@@ -4,7 +4,7 @@ import { log } from "../utils/index.js";
 import { AutenticacaoRoutes, BaseRoutes } from "../routes/index.js";
 import { LoggerMiddleware, AuthMiddleware, ErrorMiddleware } from "../middlewares/index.js";
 
-export const InitRoutes = async (app) => {
+export const RoutesConfig = async (app) => {
 	app.use(LoggerMiddleware);
 	app.use(AuthMiddleware);
 

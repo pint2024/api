@@ -1,5 +1,5 @@
 import express from "express";
-import { ConstantsData } from "../data/constants.data.js";
+import { ConstantsData } from "../constants/constants.js";
 
 /** 
  * * Controllers functions recebem:

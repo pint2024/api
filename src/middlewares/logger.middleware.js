@@ -1,5 +1,5 @@
 import fs from "fs";
-import { ConstantsData } from "../data/constants.data.js";
+import { ConstantsData } from "../constants/constants.js";
 import { log } from "../utils/log.utils.js";
 
 export function LoggerMiddleware(req, res, next) {

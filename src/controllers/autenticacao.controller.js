@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import { ConstantsData } from "../data/constants.data.js";
+import { ConstantsData } from "../constants/constants.js";
 import { Response, modelsDirectlyAssociated } from "../utils/index.js";
 import { Controller } from "./index.js";
 import { Op } from "sequelize";

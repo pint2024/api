@@ -1,4 +1,4 @@
-import { EMAIL_INFO } from "../data/email.data.js";
+import { EMAIL_INFO } from "../constants/email.constants.js";
 
 export class EmailUtils {
 	static sendEmail(to, subject, text, html) {

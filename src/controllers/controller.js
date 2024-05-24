@@ -1,4 +1,4 @@
-import { ConstantsData } from "../data/constants.data.js";
+import { ConstantsData } from "../constants/constants.js";
 import { BaseService } from "../services/index.js";
 import { log } from "../utils/index.js";
 

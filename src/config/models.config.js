@@ -19,12 +19,12 @@ import {
 	TopicoModel,
 	UtilizadorModel,
 } from "../models/index.js";
-import { Database } from "./database.config.js";
+import { DatabaseConfig } from "./database.config.js";
 import { log } from "../utils/log.utils.js";
 
 export const models = {};
 
-export const InitModels = async (sequelize) => {
+export const ModelsConfig = async (sequelize) => {
 	const album = AlbumModel(sequelize, DataTypes);
 	const centro = CentroModel(sequelize, DataTypes);
 	const classificacao = ClassificacaoModel(sequelize, DataTypes);
@@ -96,5 +96,5 @@ export const InitModels = async (sequelize) => {
 	models.utilizador = utilizador;
 
 	log.models("Models inicializados.");
-	await Database.sync(sequelize);
+	await DatabaseConfig.sync(sequelize);
 };

@@ -1,10 +1,10 @@
-import { ConstantsData } from "../data/constants.data.js";
+import { ConstantsData } from "../constants/constants.js";
 import bodyParser from "body-parser";
 import dotenv from "dotenv";
 import { log } from "../utils/log.utils.js";
 dotenv.config();
 
-export const InitServer = async (app) => {
+export const ServerConfig = async (app) => {
 	const { json, urlencoded } = bodyParser;
 
 	//! Configurar CORS

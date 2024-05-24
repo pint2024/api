@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import { ConstantsData } from "../data/constants.data.js";
+import { ConstantsData } from "../constants/constants.js";
 import bcrypt from "bcrypt";
 
 export class AuthService {

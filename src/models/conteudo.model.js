@@ -1,10 +1,10 @@
-import { primaryKeyDataType, dataCriacaoDataType, foreignKeyDataType } from "../utils/index.js";
+import { ModelsUtils } from "../utils/index.js";
 export default function (sequelize, DataTypes) {
 	return sequelize.define(
 		"conteudo",
 		{
-			id: primaryKeyDataType(),
-			data_criacao: dataCriacaoDataType(),
+			id: ModelsUtils.primaryKeyDataType(),
+			data_criacao: ModelsUtils.dataCriacaoDataType(),
 			titulo: {
 				type: DataTypes.STRING(200),
 				allowNull: false,
@@ -21,9 +21,9 @@ export default function (sequelize, DataTypes) {
 				type: DataTypes.STRING(500),
 				allowNull: true,
 			},
-			utilizador: foreignKeyDataType(),
-			subtopico: foreignKeyDataType(),
-			album: foreignKeyDataType(),
+			utilizador: ModelsUtils.foreignKeyDataType(),
+			subtopico: ModelsUtils.foreignKeyDataType(),
+			album: ModelsUtils.foreignKeyDataType(),
 			data_evento: {
 				type: DataTypes.DATE,
 				allowNull: false,
@@ -36,7 +36,7 @@ export default function (sequelize, DataTypes) {
                 type: DataTypes.DECIMAL,
                 allowNull: false,
             },
-			tipo: foreignKeyDataType(),
+			tipo: ModelsUtils.foreignKeyDataType(),
 		},
 		{
 			sequelize,

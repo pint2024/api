@@ -1,5 +1,5 @@
 import { DataTypes } from "sequelize";
-import { defineAssociation } from "../utils/index.js";
+import { ModelsUtils } from "../utils/index.js";
 import {
 	AlbumModel,
 	CentroModel,
@@ -43,39 +43,39 @@ export const ModelsConfig = async (sequelize) => {
 	const topico = TopicoModel(sequelize, DataTypes);
 	const utilizador = UtilizadorModel(sequelize, DataTypes);
 
-	defineAssociation(classificacao, conteudo);
-	defineAssociation(classificacao, comentario);
-	defineAssociation(classificacao, utilizador);
+	ModelsUtils.defineAssociation(classificacao, conteudo);
+	ModelsUtils.defineAssociation(classificacao, comentario);
+	ModelsUtils.defineAssociation(classificacao, utilizador);
 
-	defineAssociation(comentario, conteudo);
-	defineAssociation(comentario, utilizador);
+	ModelsUtils.defineAssociation(comentario, conteudo);
+	ModelsUtils.defineAssociation(comentario, utilizador);
 
-	defineAssociation(conteudo, utilizador);
-	defineAssociation(conteudo, subtopico);
-	defineAssociation(conteudo, album);
-	defineAssociation(conteudo, tipo);
+	ModelsUtils.defineAssociation(conteudo, utilizador);
+	ModelsUtils.defineAssociation(conteudo, subtopico);
+	ModelsUtils.defineAssociation(conteudo, album);
+	ModelsUtils.defineAssociation(conteudo, tipo);
 
-	defineAssociation(denuncia, comentario);
-	defineAssociation(denuncia, utilizador);
+	ModelsUtils.defineAssociation(denuncia, comentario);
+	ModelsUtils.defineAssociation(denuncia, utilizador);
 
-	defineAssociation(documento, conteudo);
+	ModelsUtils.defineAssociation(documento, conteudo);
 
-	defineAssociation(interesse, subtopico);
-	defineAssociation(interesse, utilizador);
+	ModelsUtils.defineAssociation(interesse, subtopico);
+	ModelsUtils.defineAssociation(interesse, utilizador);
 
-	defineAssociation(notificacao, conteudo);
-	defineAssociation(notificacao, comentario);
+	ModelsUtils.defineAssociation(notificacao, conteudo);
+	ModelsUtils.defineAssociation(notificacao, comentario);
 
-	defineAssociation(participante, conteudo);
+	ModelsUtils.defineAssociation(participante, conteudo);
 
-	defineAssociation(revisao, estado);
-	defineAssociation(revisao, conteudo);
-	defineAssociation(revisao, comentario);
+	ModelsUtils.defineAssociation(revisao, estado);
+	ModelsUtils.defineAssociation(revisao, conteudo);
+	ModelsUtils.defineAssociation(revisao, comentario);
 
-	defineAssociation(subtopico, topico);
+	ModelsUtils.defineAssociation(subtopico, topico);
 
-	defineAssociation(utilizador, perfil);
-	defineAssociation(utilizador, centro);
+	ModelsUtils.defineAssociation(utilizador, perfil);
+	ModelsUtils.defineAssociation(utilizador, centro);
 
 	models.album = album;
 	models.centro = centro;

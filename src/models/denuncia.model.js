@@ -1,16 +1,16 @@
-import { primaryKeyDataType, dataCriacaoDataType, foreignKeyDataType } from "../utils/index.js";
+import { ModelsUtils } from "../utils/index.js";
 export default function (sequelize, DataTypes) {
 	return sequelize.define(
 		"denuncia",
 		{
-			id: primaryKeyDataType(),
-			data_criacao: dataCriacaoDataType(),
+			id: ModelsUtils.primaryKeyDataType(),
+			data_criacao: ModelsUtils.dataCriacaoDataType(),
 			motivo: {
 				type: DataTypes.STRING(200),
 				allowNull: false,
 			},
-			comentario: foreignKeyDataType(),
-			utilizador: foreignKeyDataType(),
+			comentario: ModelsUtils.foreignKeyDataType(),
+			utilizador: ModelsUtils.foreignKeyDataType(),
 		},
 		{
 			sequelize,

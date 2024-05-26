@@ -4,9 +4,7 @@ import { Log } from "../utils/index.js";
 import { DateUtils } from "../utils/index.js";
 
 export function LoggerMiddleware(req, res, next) {
-	if (req.url === "/favicon.ico") {
-		return next();
-	}
+	if (req.url === "/favicon.ico") return next();
 
 	const newData = `${DateUtils.getCurrentISODateAndTime()} - ${req.method} ${req.url} - ${res.statusCode}`;
 	Log.access(newData);
@@ -22,6 +20,7 @@ export function LoggerMiddleware(req, res, next) {
 		fs.writeFile(Constants.ACCESS_LOG_FILENAME, newContent, "utf8", (err) => {
 			if (err) {
 				Log.error("Erro ao escrever no ficheiro de log:", err);
+				return next();
 			}
 			next();
 		});

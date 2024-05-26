@@ -1,10 +1,10 @@
-import { primaryKeyDataType, dataCriacaoDataType } from "../utils/index.js";
+import { ModelsUtils } from "../utils/index.js";
 export default function (sequelize, DataTypes) {
 	return sequelize.define(
 		"estado",
 		{
-			id: primaryKeyDataType(),
-			data_criacao: dataCriacaoDataType(),
+			id: ModelsUtils.primaryKeyDataType(),
+			data_criacao: ModelsUtils.dataCriacaoDataType(),
 			estado: {
 				type: DataTypes.STRING(50),
 				allowNull: false,

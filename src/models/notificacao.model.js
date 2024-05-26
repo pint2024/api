@@ -1,10 +1,10 @@
-import { primaryKeyDataType, dataCriacaoDataType, foreignKeyDataType } from "../utils/index.js";
+import { ModelsUtils } from "../utils/index.js";
 export default function (sequelize, DataTypes) {
 	return sequelize.define(
 		"notificacao",
 		{
-			id: primaryKeyDataType(),
-			data_criacao: dataCriacaoDataType(),
+			id: ModelsUtils.primaryKeyDataType(),
+			data_criacao: ModelsUtils.dataCriacaoDataType(),
 			titulo: {
 				type: DataTypes.STRING(100),
 				allowNull: false,
@@ -18,8 +18,8 @@ export default function (sequelize, DataTypes) {
 				allowNull: false,
 				defaultValue: false,
 			},
-			conteudo: foreignKeyDataType({ allowNull: true}),
-			comentario: foreignKeyDataType({ allowNull: true}),
+			conteudo: ModelsUtils.foreignKeyDataType({ allowNull: true}),
+			comentario: ModelsUtils.foreignKeyDataType({ allowNull: true}),
 		},
 		{
 			sequelize,

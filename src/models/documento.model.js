@@ -1,15 +1,15 @@
-import { primaryKeyDataType, dataCriacaoDataType, foreignKeyDataType } from "../utils/index.js";
+import { ModelsUtils } from "../utils/index.js";
 export default function (sequelize, DataTypes) {
 	return sequelize.define(
 		"documento",
 		{
-			id: primaryKeyDataType(),
-			data_criacao: dataCriacaoDataType(),
+			id: ModelsUtils.primaryKeyDataType(),
+			data_criacao: ModelsUtils.dataCriacaoDataType(),
 			documento: {
 				type: DataTypes.STRING(500),
 				allowNull: false,
 			},
-			conteudo: foreignKeyDataType(),
+			conteudo: ModelsUtils.foreignKeyDataType(),
 		},
 		{
 			sequelize,

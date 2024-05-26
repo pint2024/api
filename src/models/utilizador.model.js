@@ -1,11 +1,11 @@
 import bcrypt from "bcrypt";
-import { primaryKeyDataType, dataCriacaoDataType, foreignKeyDataType, Utils } from "../utils/index.js";
+import { ModelsUtils } from "../utils/index.js";
 export default function (sequelize, DataTypes) {
 	const Models = sequelize.define(
 		"utilizador",
 		{
-			id: primaryKeyDataType(),
-			data_criacao: dataCriacaoDataType(),
+			id: ModelsUtils.primaryKeyDataType(),
+			data_criacao: ModelsUtils.dataCriacaoDataType(),
 			tag: {
 				type: DataTypes.STRING(21),
 				allowNull: true,
@@ -58,8 +58,8 @@ export default function (sequelize, DataTypes) {
 				type: DataTypes.STRING(500),
 				allowNull: true,
 			},
-			perfil: foreignKeyDataType({ defaultValue: 1 }),
-			centro: foreignKeyDataType(),
+			perfil: ModelsUtils.foreignKeyDataType({ defaultValue: 1 }),
+			centro: ModelsUtils.foreignKeyDataType(),
 		},
 		{
 			sequelize,

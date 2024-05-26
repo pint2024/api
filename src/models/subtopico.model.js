@@ -1,15 +1,15 @@
-import { primaryKeyDataType, dataCriacaoDataType, foreignKeyDataType } from "../utils/index.js";
+import { ModelsUtils } from "../utils/index.js";
 export default function (sequelize, DataTypes) {
 	return sequelize.define(
 		"subtopico",
 		{
-			id: primaryKeyDataType(),
-			data_criacao: dataCriacaoDataType(),
+			id: ModelsUtils.primaryKeyDataType(),
+			data_criacao: ModelsUtils.dataCriacaoDataType(),
 			area: {
 				type: DataTypes.STRING(50),
 				allowNull: false,
 			},
-			topico: foreignKeyDataType(),
+			topico: ModelsUtils.foreignKeyDataType(),
 		},
 		{
 			sequelize,

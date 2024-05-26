@@ -1,6 +1,6 @@
 import { Constants } from "../constants/index.js";
 import { NotFoundException, ServerException } from "../exceptions/index.js";
-import { modelsDirectlyAssociated } from "../utils/index.js";
+import { ControllersUtils } from "../utils/index.js";
 import { Service } from "./index.js";
 
 export class BaseService extends Service {
@@ -12,7 +12,7 @@ export class BaseService extends Service {
 		try {
 			const response = await this.model.findOne({
 				where: { [this.identifier]: id },
-				include: modelsDirectlyAssociated(this.model),
+				include: ControllersUtils.modelsDirectlyAssociated(this.model),
 			});
 			if (!response) throw new NotFoundException("Objeto não encontrado.");
 			return response;
@@ -35,7 +35,7 @@ export class BaseService extends Service {
 		try {
 			const response = await this.model.findAll({
 				where: { ...query },
-				include: [...modelsDirectlyAssociated(this.model), ...manual_models],
+				include: [...ControllersUtils.modelsDirectlyAssociated(this.model), ...manual_models],
 			});
 			if (!response) throw new NotFoundException("Objeto não encontrado.");
 			return response;

@@ -1,9 +1,9 @@
-import { ConstantsData } from "../constants/constants.js";
+import { Constants } from "../constants/index.js";
 import { Response } from "../utils/index.js";
 import { BaseController } from "./base.controller.js";
 
 export class ConteudoController extends BaseController {
-	constructor(model, identifier = ConstantsData.DEFAULT_IDENTIFIER) {
+	constructor(model, identifier = Constants.DEFAULT_IDENTIFIER) {
 		super(model, identifier);
 	}
 

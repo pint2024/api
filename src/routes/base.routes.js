@@ -1,5 +1,5 @@
 import express from "express";
-import { ConstantsData } from "../constants/constants.js";
+import { Constants } from "../constants/index.js";
 
 /** 
  * * Controllers functions recebem:
@@ -10,11 +10,11 @@ import { ConstantsData } from "../constants/constants.js";
 export const BaseRoutes = (app, controllerClass, url_base) => {
 	const router = express.Router();
 
-	router.route(ConstantsData.URL_NAMING.GET).get((req, res) => controllerClass.obter(req, res));
-	router.route(ConstantsData.URL_NAMING.CREATE).post((req, res) => controllerClass.criar(req, res));
-	router.route(ConstantsData.URL_NAMING.LIST).post((req, res) => controllerClass.listar(req, res));
-	router.route(ConstantsData.URL_NAMING.UPDATE).put((req, res) => controllerClass.atualizar(req, res));
-	router.route(ConstantsData.URL_NAMING.DELETE).delete((req, res) => controllerClass.remover(req, res));
+	router.route(Constants.URL_NAMING.GET).get((req, res) => controllerClass.obter(req, res));
+	router.route(Constants.URL_NAMING.CREATE).post((req, res) => controllerClass.criar(req, res));
+	router.route(Constants.URL_NAMING.LIST).post((req, res) => controllerClass.listar(req, res));
+	router.route(Constants.URL_NAMING.UPDATE).put((req, res) => controllerClass.atualizar(req, res));
+	router.route(Constants.URL_NAMING.DELETE).delete((req, res) => controllerClass.remover(req, res));
 
 	app.use(url_base, router);
 };

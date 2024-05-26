@@ -1,4 +1,3 @@
-import Sequelize from "sequelize";
 import bcrypt from "bcrypt";
 import { primaryKeyDataType, dataCriacaoDataType, foreignKeyDataType, Utils } from "../utils/index.js";
 export default function (sequelize, DataTypes) {

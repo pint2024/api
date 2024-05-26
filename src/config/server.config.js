@@ -1,7 +1,7 @@
-import { ConstantsData } from "../constants/constants.js";
 import bodyParser from "body-parser";
 import dotenv from "dotenv";
-import { log } from "../utils/log.utils.js";
+import { Constants } from "../constants/index.js";
+import { Log } from "../utils/index.js";
 dotenv.config();
 
 export const ServerConfig = async (app) => {
@@ -24,10 +24,10 @@ export const ServerConfig = async (app) => {
 	app.use(urlencoded({ extended: true }));
 
 	//! Configurações
-	app.set("port", ConstantsData.SV_PORT);
+	app.set("port", Constants.SV_PORT);
 
 	//! Listen
 	app.listen(app.get("port"), () => {
-		log.server("Servidor iniciado na porta " + app.get("port") + ".");
+		Log.server("Servidor iniciado na porta " + app.get("port") + ".");
 	});
 };

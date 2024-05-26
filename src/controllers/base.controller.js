@@ -1,10 +1,10 @@
-import { ConstantsData } from "../constants/constants.js";
+import { Constants } from "../constants/index.js";
 import { Response } from "../utils/index.js";
 import { Controller } from "./controller.js";
 
 // ! Métodos predefinidos
 export class BaseController extends Controller {
-	constructor(model, identifier = ConstantsData.DEFAULT_IDENTIFIER) {
+	constructor(model, identifier = Constants.DEFAULT_IDENTIFIER) {
 		super(model, identifier);
 	}
 

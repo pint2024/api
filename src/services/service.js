@@ -1,10 +1,10 @@
-import { ConstantsData } from "../constants/constants.js";
-import { log } from "../utils/index.js";
+import { Constants } from "../constants/index.js";
+import { Log } from "../utils/index.js";
 
 export class Service {
-	constructor(model, identifier = ConstantsData.DEFAULT_IDENTIFIER) {
+	constructor(model, identifier = Constants.DEFAULT_IDENTIFIER) {
 		this.model = model;
 		this.identifier = identifier;
-		log.service(model.name);
+		Log.service(model.name);
 	}
 }

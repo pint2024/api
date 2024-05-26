@@ -1,10 +1,10 @@
-import { ConstantsData } from "../constants/constants.js";
+import { Constants } from "../constants/index.js";
 import { NotFoundException, ServerException } from "../exceptions/index.js";
 import { modelsDirectlyAssociated } from "../utils/index.js";
 import { Service } from "./index.js";
 
 export class BaseService extends Service {
-	constructor(model, identifier = ConstantsData.DEFAULT_IDENTIFIER) {
+	constructor(model, identifier = Constants.DEFAULT_IDENTIFIER) {
 		super(model, identifier);
 	}
 

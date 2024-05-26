@@ -1,6 +1,5 @@
 import jwt from "jsonwebtoken";
-import { ConstantsData } from "../constants/constants.js";
-import bcrypt from "bcrypt";
+import { Constants } from "../constants/index.js";
 
 export class AuthService {
 	static getTokenHeader = (req) => {
@@ -20,8 +19,8 @@ export class AuthService {
 				perfil: perfil,
 				imagem: imagem,
 			},
-			ConstantsData.JWT_CONFIG.TOKEN_AUTH_SECRET,
-			{ expiresIn: ConstantsData.JWT_CONFIG.EXPIRES }
+			Constants.JWT_CONFIG.TOKEN_AUTH_SECRET,
+			{ expiresIn: Constants.JWT_CONFIG.EXPIRES }
 		);
 	};
 
@@ -31,13 +30,13 @@ export class AuthService {
 				id: id,
 				email: email,
 			},
-			ConstantsData.JWT_CONFIG.TOKEN_EMAIL_SECRET,
-			{ expiresIn: ConstantsData.JWT_CONFIG.EXPIRES }
+			Constants.JWT_CONFIG.TOKEN_EMAIL_SECRET,
+			{ expiresIn: Constants.JWT_CONFIG.EXPIRES }
 		);
 	};
 
 	static verifyAuthToken = async (token) => {
-		return jwt.verify(token, ConstantsData.JWT_CONFIG.TOKEN_AUTH_SECRET);
+		return jwt.verify(token, Constants.JWT_CONFIG.TOKEN_AUTH_SECRET);
 	};
 
 	static comparePassword = (senha_recebida, senha) => {

@@ -1,4 +1,4 @@
-export class ConstantsData {
+export class Constants {
 	static ACCESS_LOG_FILENAME = "access.log";
 
 	static JWT_CONFIG = {

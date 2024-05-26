@@ -1,5 +1,5 @@
 import { DataTypes } from "sequelize";
-import { defineAssociation } from "../utils/models.utils.js";
+import { defineAssociation } from "../utils/index.js";
 import {
 	AlbumModel,
 	CentroModel,
@@ -19,8 +19,8 @@ import {
 	TopicoModel,
 	UtilizadorModel,
 } from "../models/index.js";
-import { DatabaseConfig } from "./database.config.js";
-import { log } from "../utils/log.utils.js";
+import { DatabaseConfig } from "./index.js";
+import { Log } from "../utils/index.js";
 
 export const models = {};
 
@@ -95,6 +95,6 @@ export const ModelsConfig = async (sequelize) => {
 	models.topico = topico;
 	models.utilizador = utilizador;
 
-	log.models("Models inicializados.");
+	Log.models("Models inicializados.");
 	await DatabaseConfig.sync(sequelize);
 };

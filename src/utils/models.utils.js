@@ -1,8 +1,7 @@
-import { DataTypes } from "sequelize";
-import { Sequelize as _Sequelize } from "sequelize";
+import { DataTypes, Sequelize } from "sequelize";
 
 export function dataCriacaoDataType() {
-	return { type: DataTypes.DATE, defaultValue: _Sequelize.fn("now") };
+	return { type: DataTypes.DATE, defaultValue: Sequelize.fn("now") };
 }
 
 export function primaryKeyDataType() {

@@ -74,7 +74,7 @@ export class AutenticacaoController extends Controller {
 					);
 					return Response.success(res, response);
 				} else {
-					await EmailService.sendEmail(utilizador, await AuthService.createEmailToken());
+					await EmailService.mandaConfirmacao(utilizador.email, utilizador.nome + " " + utilizador.sobrenome, await AuthService.createEmailToken());
 					return Response.success(res, "Email de confirmação enviado");
 				}
 			} else {

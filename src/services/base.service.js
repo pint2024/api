@@ -1,14 +1,14 @@
 import { Constants } from "../constants/index.js";
 import { NotFoundException, ServerException } from "../exceptions/index.js";
 import { ControllersUtils } from "../utils/index.js";
-import { Service } from "./index.js";
+import { Service } from "./service.js";
 
 export class BaseService extends Service {
 	constructor(model, identifier = Constants.DEFAULT_IDENTIFIER) {
 		super(model, identifier);
 	}
 
-	async obter(id) {
+	async obter(id, hasIncludes = true) {
 		try {
 			const response = await this.model.findOne({
 				where: { [this.identifier]: id },

@@ -1,5 +1,5 @@
 import express from "express";
-import { DatabaseConfig, ModelsConfig, ServerConfig, RoutesConfig } from "./config/index.js";
+import { DatabaseConfig, ModelsConfig, ServerConfig, RoutesConfig, ScheduleConfig } from "./config/index.js";
 
 async function main() {
 	const app = express();
@@ -9,6 +9,7 @@ async function main() {
 	await ModelsConfig(sequelize); // Configura as relações entre os modelos e sincroniza as Base de Dados
 	await ServerConfig(app); // Configura o servidor
 	await RoutesConfig(app); // Configura os middlewares e as rotas
+	await ScheduleConfig.init()
 	//#endregion
 }
 

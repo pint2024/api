@@ -38,4 +38,10 @@ export class DateUtils {
 	static getCurrentISODateAndTime() {
 		return new Date().toISOString()
 	}
+
+	static addMinutes(min) {
+		const result = new Date();
+		result.setMinutes(result.getMinutes() + min);
+		return result;
+	}
 }

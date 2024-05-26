@@ -3,7 +3,7 @@ import { DateUtils } from "./index.js";
 export class Log {
 	static #log(log, type = "") {
 		
-		console.log(`${DateUtils.getCurrentTime()} LOG${type ? ` [${type}]` : ""}:`);
+		console.log(`${DateUtils.getCurrentTime()} - LOG${type ? ` [${type}]` : ""}:`);
 		console.log(log);
 		console.log();
 	}
@@ -52,5 +52,9 @@ export class Log {
 
 	static email(response) {
 		this.#log(response, "EMAIL");
+	}
+
+	static schedule(response) {
+		this.#log(response, "SCHEDULE");
 	}
 }

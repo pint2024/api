@@ -2,6 +2,7 @@ import bodyParser from "body-parser";
 import dotenv from "dotenv";
 import { Constants } from "../constants/index.js";
 import { Log } from "../utils/index.js";
+import { ScheduleConfig } from "./schedule.config.js";
 dotenv.config();
 
 export const ServerConfig = async (app) => {

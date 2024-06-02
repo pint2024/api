@@ -9,7 +9,7 @@ export class UtilizadorController extends BaseController {
 
 	async criar(req, res) {
 		try {
-			const file = await UploadService.uploadLocally(req, "imagem");
+			const file = await UploadService.upload(req, "imagem");
 
 			return ResponseService.success(res, "Imagem e dados processados com sucesso");
 		} catch (error) {

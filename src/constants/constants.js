@@ -1,6 +1,8 @@
 export class Constants {
 	static ACCESS_LOG_FILENAME = "access.log";
 
+	static MULTER_UPLOADS_DIRECTORY = "uploads";
+
 	static JWT_CONFIG = {
 		TOKEN_AUTH_SECRET: "trMCqw7EUQn4FwRyiH9w5jW",
 		TOKEN_PASSWORD_SECRET: "trMCqw7EUQn4FwRyiH9w5jW",
@@ -31,6 +33,6 @@ export class Constants {
 	static DEFAULT_IDENTIFIER = "id";
 
 	static NOTIFICATION_INTERVAL_MIN = 3;
-	
+
 	static NOTIFICATION_SEND_MIN = 15;
 }

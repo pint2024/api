@@ -1,7 +1,6 @@
 import { MulterConfig } from "../config/index.js";
-import { CloudinaryConstants } from "../constants/cloudinary.constants.js";
-import { CloudinaryException } from "../exceptions/cloudinary.exception.js";
-import { MulterException } from "../exceptions/multer.exception.js";
+import { CloudinaryConstants } from "../constants/index.js";
+import { CloudinaryException, MulterException } from "../exceptions/index.js";
 import { v2 as cloudinary } from "cloudinary";
 
 cloudinary.config({
@@ -11,10 +10,10 @@ cloudinary.config({
 });
 
 export class UploadService {
-	static async upload(req, key) {
-		const file = await this.#uploadSingleLocally(req, key);
-		const uploaded = await this.#uploadCloud(file.path);
-		console.log(file, uploaded);
+	static async upload(req, key, cloud_folder) {
+		const local = await this.#uploadSingleLocally(req, key);
+		const cloud = await this.#uploadCloud(local.path, cloud_folder);
+		return { local, cloud };
 	}
 
 	static async #uploadSingleLocally(req, key) {
@@ -38,11 +37,9 @@ export class UploadService {
 		});
 	}
 
-	static async #uploadCloud(filePath) {
+	static async #uploadCloud(filePath, folder) {
 		try {
-			const result = await cloudinary.uploader.upload(filePath, {
-				folder: "uploads",
-			});
+			const result = await cloudinary.uploader.upload(filePath, { folder: folder });
 			return result;
 		} catch (error) {
 			throw new CloudinaryException(error);

@@ -1,4 +1,4 @@
-import { ErrorException } from "../exceptions/error.exception.js";
+import { ErrorException } from "../exceptions/index.js";
 import { AuthService } from "../services/index.js";
 export const AuthMiddleware = (req, res, next) => {
 	try {

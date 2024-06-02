@@ -1,8 +1,7 @@
 import { models } from "../config/index.js";
 import { Constants, DataConstants } from "../constants/index.js";
-import { ScheduleException } from "../exceptions/schedule.exception.js";
-import { DateUtils, Log } from "../utils/index.js";
-import { EmailService } from "./email.service.js";
+import { ScheduleException } from "../exceptions/index.js";
+import { Log } from "../utils/index.js";
 
 export class ScheduleService {
 	static async verificaProximoEventoOuAtividade() {

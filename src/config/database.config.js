@@ -1,7 +1,7 @@
 import { Sequelize } from "sequelize";
 import { Log } from "../utils/index.js";
 import { DatabaseConstants } from "../constants/index.js";
-import { ServerException } from "../exceptions/server.exception.js"
+import { ServerException } from "../exceptions/index.js"
 
 export class DatabaseConfig {
 	static async connect() {

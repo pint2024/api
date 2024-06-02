@@ -8,7 +8,10 @@ export function LoggerMiddleware(req, res, next) {
 
 	Utils.ensureFileExists(Constants.ACCESS_LOG_FILENAME);
 
-	const newData = `${DateUtils.getCurrentISODateAndTime()} - ${req.method} ${req.url} - ${res.statusCode}`;
+	const { method, url, statusCode } = req;
+	const currentDate = DateUtils.getCurrentISODateAndTime()
+
+	const newData = `${currentDate} - ${method} ${url} - ${statusCode}`;
 	Log.access(newData);
 
 	fs.readFile(Constants.ACCESS_LOG_FILENAME, "utf8", (err, data) => {

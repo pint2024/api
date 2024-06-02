@@ -1,9 +1,9 @@
 import { Constants } from "../constants/index.js";
 import { UploadException } from "../exceptions/index.js";
 import { ResponseService, UploadService } from "../services/index.js";
-import { BaseController } from "./index.js";
+import { BaseController } from "./base.controller.js";
 
-export class ConteudoController extends BaseController {
+export class AlbumController extends BaseController {
 	constructor(model, identifier = Constants.DEFAULT_IDENTIFIER) {
 		super(model, identifier);
 	}

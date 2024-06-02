@@ -4,7 +4,6 @@ export { default as ClassificacaoModel } from "./classificacao.model.js";
 export { default as ComentarioModel } from "./comentario.model.js";
 export { default as ConteudoModel } from "./conteudo.model.js";
 export { default as DenunciaModel } from "./denuncia.model.js";
-export { default as DocumentoModel } from "./documento.model.js";
 export { default as EstadoModel } from "./estado.model.js";
 export { default as InteresseModel } from "./interesse.model.js";
 export { default as NotificacaoModel } from "./notificacao.model.js";

@@ -7,7 +7,6 @@ import {
 	ComentarioModel,
 	ConteudoModel,
 	DenunciaModel,
-	DocumentoModel,
 	EstadoModel,
 	InteresseModel,
 	NotificacaoModel,
@@ -31,7 +30,6 @@ export const ModelsConfig = async (sequelize) => {
 	const comentario = ComentarioModel(sequelize, DataTypes);
 	const conteudo = ConteudoModel(sequelize, DataTypes);
 	const denuncia = DenunciaModel(sequelize, DataTypes);
-	const documento = DocumentoModel(sequelize, DataTypes);
 	const estado = EstadoModel(sequelize, DataTypes);
 	const interesse = InteresseModel(sequelize, DataTypes);
 	const notificacao = NotificacaoModel(sequelize, DataTypes);
@@ -58,8 +56,6 @@ export const ModelsConfig = async (sequelize) => {
 	ModelsUtils.defineAssociation(denuncia, comentario);
 	ModelsUtils.defineAssociation(denuncia, utilizador);
 
-	ModelsUtils.defineAssociation(documento, conteudo);
-
 	ModelsUtils.defineAssociation(interesse, subtopico);
 	ModelsUtils.defineAssociation(interesse, utilizador);
 
@@ -83,7 +79,6 @@ export const ModelsConfig = async (sequelize) => {
 	models.comentario = comentario;
 	models.conteudo = conteudo;
 	models.denuncia = denuncia;
-	models.documento = documento;
 	models.estado = estado;
 	models.interesse = interesse;
 	models.notificacao = notificacao;

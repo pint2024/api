@@ -1,9 +1,8 @@
 import jwt from "jsonwebtoken";
 import { Op } from "sequelize";
 import { Constants } from "../constants/index.js";
-import { Response } from "../utils/index.js";
 import { Controller } from "./index.js";
-import { AuthService, EmailService } from "../services/index.js";
+import { AuthService, EmailService, ResponseService } from "../services/index.js";
 
 export class AutenticacaoController extends Controller {
 	constructor(model, identifier = Constants.DEFAULT_IDENTIFIER) {
@@ -13,11 +12,11 @@ export class AutenticacaoController extends Controller {
 	async obter(req, res) {
 		try {
 			const token = AuthService.getTokenHeader(req);
-			if (!token) return Response.error("Token não foi enviado.");
+			if (!token) return ResponseService.error("Token não foi enviado.");
 			const decodedToken = jwt.verify(token, Constants.JWT_CONFIG.TOKEN_PASSWORD_SECRET);
-			return Response.success(res, decodedToken);
+			return ResponseService.success(res, decodedToken);
 		} catch (error) {
-			return Response.error(res, error);
+			return ResponseService.error(res, error);
 		}
 	}
 
@@ -25,13 +24,13 @@ export class AutenticacaoController extends Controller {
 		try {
 			const { token } = req.body;
 			jwt.verify(token, Constants.JWT_CONFIG.TOKEN_PASSWORD_SECRET, async (err, decoded) => {
-				if (err) return Response.error(res, "Invalid refresh token: " + err);
+				if (err) return ResponseService.error(res, "Invalid refresh token: " + err);
 
 				const userData = await this.model.findOne({
 					where: { utilizador_id: decoded.id },
 				});
 
-				if (!userData) return Response.error(res, "User not found", 404);
+				if (!userData) return ResponseService.error(res, "User not found", 404);
 
 				const accessToken = jwt.sign(
 					{
@@ -45,23 +44,23 @@ export class AutenticacaoController extends Controller {
 					{ expiresIn: Constants.JWT_CONFIG.EXPIRES }
 				);
 
-				return Response.success(res, accessToken);
+				return ResponseService.success(res, accessToken);
 			});
 		} catch (error) {
-			return Response.error(res, error);
+			return ResponseService.error(res, error);
 		}
 	}
 
 	async entrar(req, res) {
 		try {
 			const { login, senha } = req.body;
-			if (!senha || !login) return Response.error(res, "Campos em branco!");
+			if (!senha || !login) return ResponseService.error(res, "Campos em branco!");
 
 			const utilizador = await this.model.findOne({
 				where: { [Op.or]: [{ tag: login }, { email: login }] },
 			});
 
-			if (!utilizador) return Response.error(res, "Utilizador não existe!");
+			if (!utilizador) return ResponseService.error(res, "Utilizador não existe!");
 
 			if (AuthService.comparePassword(senha, utilizador.senha)) {
 				if (!utilizador.verificado) {
@@ -72,24 +71,24 @@ export class AutenticacaoController extends Controller {
 						utilizador.perfil,
 						utilizador.imagem
 					);
-					return Response.success(res, response);
+					return ResponseService.success(res, response);
 				} else {
 					await EmailService.mandaConfirmacao(utilizador.email, utilizador.nome + " " + utilizador.sobrenome, await AuthService.createEmailToken());
-					return Response.success(res, "Email de confirmação enviado");
+					return ResponseService.success(res, "Email de confirmação enviado");
 				}
 			} else {
-				return Response.error(res, "Senha está errada.")
+				return ResponseService.error(res, "Senha está errada.")
 			}
 		} catch (error) {
-			return Response.error(res, error.message);
+			return ResponseService.error(res, error.message);
 		}
 	}
 
 	async verificar(req, res) {
 		try {
-			return Response.success(res, "Sucesso caralho");
+			return ResponseService.success(res, "Sucesso caralho");
 		} catch (error) {
-			return Response.error(res, error);
+			return ResponseService.error(res, error);
 		}
 	}
 }

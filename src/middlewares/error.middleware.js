@@ -1,5 +1,5 @@
-import { Response } from "../utils/index.js";
+import { ResponseService } from "../services/response.service.js";
 
 export const ErrorMiddleware = (err, req, res, next) => {
-	return Response.error(res, err.message);
+	return ResponseService.error(res, err.message);
 };

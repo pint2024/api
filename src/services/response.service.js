@@ -1,6 +1,6 @@
-import { Log } from "./index.js";
+import { Log } from "../utils/index.js";
 
-export class Response {
+export class ResponseService {
 	static success(res, response, status = 200) {
 		Log.success("Response Success");
 		return res.status(status).json({ success: true, data: response });

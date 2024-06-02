@@ -30,7 +30,7 @@ export class Constants {
 
 	static DEFAULT_IDENTIFIER = "id";
 
-	static NOTIFICATION_INTERVAL_MIN = 1;
+	static NOTIFICATION_INTERVAL_MIN = 3;
 	
 	static NOTIFICATION_SEND_MIN = 15;
 }

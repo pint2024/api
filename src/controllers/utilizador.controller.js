@@ -10,7 +10,7 @@ export class UtilizadorController extends BaseController {
 
 	async criar(req, res) {
 		try {
-			const file = await UploadService.upload(req, "imagem", "utilizador");
+			const file = await UploadService.uploadSingle(req, "imagem", "utilizador");
 			if (!file) throw new UploadException("Ocorreu um erro a fazer o upload da imagem/ficheiro.");
 			req.body.imagem = file.cloud.public_id;
 			const response = await this.service.criar(req.body);

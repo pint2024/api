@@ -10,7 +10,13 @@ cloudinary.config({
 });
 
 export class UploadService {
-	static async upload(req, key, cloud_folder) {
+	static async uploadSingle(req, key, cloud_folder) {
+		const local = await this.#uploadSingleLocally(req, key);
+		const cloud = await this.#uploadCloud(local.path, cloud_folder);
+		return { local, cloud };
+	}
+
+	static async uploadMultiple(req, key, cloud_folder) {
 		const local = await this.#uploadSingleLocally(req, key);
 		const cloud = await this.#uploadCloud(local.path, cloud_folder);
 		return { local, cloud };

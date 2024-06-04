@@ -10,9 +10,9 @@ export class AlbumController extends BaseController {
 
 	async criar(req, res) {
 		try {
-			const file = await UploadService.upload(req, "imagem", "conteudo");
+			const { local, cloud } = await UploadService.uploadSingle(req, "imagem", "conteudo");
 			if (!file) throw new UploadException("Ocorreu um erro a fazer o upload da imagem/ficheiro.");
-			req.body.imagem = file.cloud.public_id;
+			req.body.imagem = cloud.public_id;
 			const response = await this.service.criar(req.body);
 			return ResponseService.success(res, response);
 		} catch (error) {

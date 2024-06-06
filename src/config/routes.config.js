@@ -2,12 +2,8 @@ import { ConteudoController, AutenticacaoController, BaseController, UtilizadorC
 import { models } from "./index.js";
 import { Log } from "../utils/index.js";
 import { AutenticacaoRoutes, BaseRoutes } from "../routes/index.js";
-import { LoggerMiddleware, AuthMiddleware, ErrorMiddleware } from "../middlewares/index.js";
 
 export const RoutesConfig = async (app) => {
-	app.use(LoggerMiddleware);
-	app.use(AuthMiddleware);
-
 	BaseRoutes(app, new AlbumController(models.album), "/album");
 	AutenticacaoRoutes(app, new AutenticacaoController(models.utilizador), "/autenticacao");
 	BaseRoutes(app, new BaseController(models.centro), "/centro");
@@ -27,8 +23,4 @@ export const RoutesConfig = async (app) => {
 	BaseRoutes(app, new UtilizadorController(models.utilizador), "/utilizador");
 
 	Log.routes("Routes inicializados.");
-
-	app.use(ErrorMiddleware);
-
-	Log.middlewares("Middlewares inicializados.");
 };

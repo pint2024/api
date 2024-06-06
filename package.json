@@ -1,5 +1,5 @@
 {
-	"name": "pint",
+	"name": "softsharesapi",
 	"version": "1.0.0",
 	"description": "SoftShares API",
 	"main": "app.js",

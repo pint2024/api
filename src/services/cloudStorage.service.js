@@ -3,9 +3,9 @@ import { CloudinaryConstants } from "../constants/index.js";
 import { CloudinaryException } from "../exceptions/index.js";
 
 cloudinary.config({
-	cloud_name: CloudinaryConstants.CLOUD_NAME,
-	api_key: CloudinaryConstants.API_KEY,
-	api_secret: CloudinaryConstants.API_SECRET,
+	cloud_name: CloudinaryConstants.CREEDENTIALS.CLOUD_NAME,
+	api_key: CloudinaryConstants.CREEDENTIALS.API_KEY,
+	api_secret: CloudinaryConstants.CREEDENTIALS.API_SECRET,
 });
 
 export class CloudStorageService {

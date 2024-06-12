@@ -1,60 +1,35 @@
+import { LogConstants } from "../constants/index.js";
 import { DateUtils } from "./index.js";
 
-export class Log {
-	static #log(log, type = "") {
-		
-		console.log(`${DateUtils.getCurrentTime()} - LOG${type ? ` [${type}]` : ""}:`);
-		console.log(log);
+export class LogUtils {
+	static #excludedTypes = new Set();
+
+	static #output(message, tipo = null, level = LogUtils.LEVEL.LOG) {
+		if (tipo && LogUtils.#excludedTypes.has(tipo)) return;
+
+		console.log(`${DateUtils.getCurrentTime()} - ${tipo ? `${level} [${tipo}]` : ""}`);
+		console.log(message);
 		console.log();
 	}
 
-	static #log_file() {}
-
-	static success(response) {
-		this.#log(response, "SUCCESS");
+	static log(message, tipo = null) {
+		this.#output(message, tipo, LogUtils.LEVEL.LOG);
 	}
 
-	static error(response) {
-		this.#log(response, "ERROR");
+	static error(message, tipo = null) {
+		this.#output(message, tipo, LogUtils.LEVEL.ERROR);
 	}
 
-	static controllers(response) {
-		this.#log(response, "CONTROLLERS");
+	static excludeTypes(tipos) {
+		tipos.forEach((type) => LogUtils.#excludedTypes.add(type));
 	}
 
-	static service(response) {
-		this.#log(response, "SERVICE");
-	}
+	static TIPO = LogConstants.LOG_TYPE;
 
-	static access(response) {
-		this.#log(response, "ACCESS");
-	}
-
-	static database(response) {
-		this.#log(response, "DATABASE");
-	}
-
-	static server(response) {
-		this.#log(response, "SERVER");
-	}
-
-	static models(response) {
-		this.#log(response, "MODELS");
-	}
-
-	static routes(response) {
-		this.#log(response, "ROUTES");
-	}
-
-	static middlewares(response) {
-		this.#log(response, "MIDDLEWARES");
-	}
-
-	static email(response) {
-		this.#log(response, "EMAIL");
-	}
-
-	static schedule(response) {
-		this.#log(response, "SCHEDULE");
-	}
+	static LEVEL = LogConstants.LOG_LEVEL;
 }
+
+LogUtils.excludeTypes([
+	LogUtils.TIPO.CONTROLLERS, 
+	LogUtils.TIPO.SERVICES,
+]);

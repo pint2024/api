@@ -1,5 +1,5 @@
 import { Sequelize } from "sequelize";
-import { Log } from "../utils/index.js";
+import { LogUtils } from "../utils/index.js";
 import { DatabaseConstants } from "../constants/index.js";
 import { ServerException } from "../exceptions/index.js"
 
@@ -23,9 +23,9 @@ export class DatabaseConfig {
 	static init = async (sequelize) => {
 		try {
 			await sequelize.authenticate();
-			Log.database("Autenticado à base de dados.");
+			LogUtils.log("Autenticado à Base de Dados!", LogUtils.TIPO.DATABASE);
 		} catch (error) {
-			Log.error("Erro ao conectar à base de dados: " + error);
+			LogUtils.error("Erro ao conectar à base de dados: " + error, LogUtils.TIPO.DATABASE);
 			throw new ServerException("Erro ao conectar à base de dados.");
 		}
 	};
@@ -33,9 +33,9 @@ export class DatabaseConfig {
 	static sync = async (sequelize) => {
 		try {
 			await sequelize.sync();
-			Log.database("Base de dados sincronizada com sucesso.");
+			LogUtils.log("Base de Dados sincronizada!", LogUtils.TIPO.DATABASE);
 		} catch (error) {
-			Log.error("Erro ao sincronizar a base de dados: " + error);
+			LogUtils.error("Erro ao sincronizar a base de dados: " + error, LogUtils.TIPO.DATABASE);
 			throw new ServerException("Erro ao sincronizar a base de dados.");
 		}
 	};

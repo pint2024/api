@@ -1,6 +1,6 @@
 import fs from "fs";
 import { Constants } from "../constants/index.js";
-import { Log, Utils } from "../utils/index.js";
+import { LogUtils, Utils } from "../utils/index.js";
 import { DateUtils } from "../utils/index.js";
 
 export function LoggerMiddleware(req, res, next) {
@@ -9,14 +9,15 @@ export function LoggerMiddleware(req, res, next) {
 	Utils.ensureFileExists(Constants.ACCESS_LOG_FILENAME);
 
 	const { method, url, statusCode } = req;
-	const currentDate = DateUtils.getCurrentISODateAndTime()
+	const currentDate = DateUtils.getCurrentISODateAndTime();
+
+	console.log(req);
 
 	const newData = `${currentDate} - ${method} ${url} - ${statusCode}`;
-	Log.access(newData);
 
 	fs.readFile(Constants.ACCESS_LOG_FILENAME, "utf8", (err, data) => {
 		if (err) {
-			Log.error("Erro ao ler o ficheiro de log:", err);
+			LogUtils.error("Erro ao ler o ficheiro de log!", LogUtils.TIPO.REQUEST);
 			return next();
 		}
 
@@ -24,10 +25,12 @@ export function LoggerMiddleware(req, res, next) {
 
 		fs.writeFile(Constants.ACCESS_LOG_FILENAME, newContent, "utf8", (err) => {
 			if (err) {
-				Log.error("Erro ao escrever no ficheiro de log:", err);
+				LogUtils.error("Erro ao ler o ficheiro de log!", LogUtils.TIPO.REQUEST);
 				return next();
 			}
-			next();
+			return next();
 		});
 	});
+
+	LogUtils.log(newData, LogUtils.TIPO.REQUEST);
 }

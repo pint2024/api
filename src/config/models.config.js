@@ -19,7 +19,7 @@ import {
 	UtilizadorModel,
 } from "../models/index.js";
 import { DatabaseConfig } from "./index.js";
-import { Log } from "../utils/index.js";
+import { LogUtils } from "../utils/index.js";
 
 export const models = {};
 
@@ -91,6 +91,6 @@ export const ModelsConfig = async (sequelize) => {
 	models.topico = topico;
 	models.utilizador = utilizador;
 
-	Log.models("Models inicializados.");
+	LogUtils.log("Models inicializados.", LogUtils.TIPO.MODELS);
 	await DatabaseConfig.sync(sequelize);
 };

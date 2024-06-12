@@ -1,7 +1,7 @@
 import bodyParser from "body-parser";
 import dotenv from "dotenv";
 import { Constants } from "../constants/index.js";
-import { Log } from "../utils/index.js";
+import { LogUtils } from "../utils/index.js";
 dotenv.config();
 
 export const ServerConfig = async (app) => {
@@ -28,6 +28,6 @@ export const ServerConfig = async (app) => {
 
 	//! Listen
 	app.listen(app.get("port"), () => {
-		Log.server("Servidor iniciado na porta " + app.get("port") + ".");
+		LogUtils.log("Servidor iniciado na porta " + app.get("port") + ".", LogUtils.TIPO.SERVER);
 	});
 };

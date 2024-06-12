@@ -1,7 +1,7 @@
 import cron from "node-cron";
 import { Constants } from "../constants/index.js";
 import { ScheduleService } from "../services/index.js";
-import { Log } from "../utils/index.js";
+import { LogUtils } from "../utils/index.js";
 
 export class ScheduleConfig {
 	static async init() {
@@ -12,8 +12,8 @@ export class ScheduleConfig {
 	}
 
 	static async #verify() {
-		Log.schedule("Verificando se existem eventos próximos...");
+		LogUtils.log("Verificando se existem eventos próximos...", LogUtils.TIPO.EVENTO);
 		await ScheduleService.verificaProximoEventoOuAtividade();
-		Log.schedule("Verificação de eventos próximos concluída.");
+		LogUtils.log("Verificação de eventos próximos concluída.", LogUtils.TIPO.EVENTO);
 	}
 }

@@ -1,6 +1,6 @@
 import { ConteudoController, AutenticacaoController, BaseController, UtilizadorController, AlbumController } from "../controllers/index.js";
 import { models } from "./index.js";
-import { Log } from "../utils/index.js";
+import { LogUtils } from "../utils/index.js";
 import { AutenticacaoRoutes, BaseRoutes } from "../routes/index.js";
 
 export const RoutesConfig = async (app) => {
@@ -22,5 +22,5 @@ export const RoutesConfig = async (app) => {
 	BaseRoutes(app, new BaseController(models.topico), "/topico");
 	BaseRoutes(app, new UtilizadorController(models.utilizador), "/utilizador");
 
-	Log.routes("Routes inicializados.");
+	LogUtils.log("Routes inicializados!", LogUtils.TIPO.ROUTES);
 };

@@ -1,6 +1,6 @@
 import nodemailer from "nodemailer";
 import { Constants, EmailConstants } from "../constants/index.js";
-import { Log } from "../utils/index.js";
+import { LogUtils } from "../utils/index.js";
 
 const transporter = nodemailer.createTransport({
 	host: "smtp.gmail.com",
@@ -27,9 +27,9 @@ export class EmailService {
 		try {
 			const mailOptions = this.#setupEmail(to, subject, text, html);
 			const info = await transporter.sendMail(mailOptions);
-			Log.email("Email enviado:", to);
+			LogUtils.log("Email enviado: " + to, LogUtils.TIPO.EMAIL);
 		} catch (error) {
-			Log.error("Erro ao enviar email: " + error);
+			LogUtils.error("Erro ao enviar email: " + error, LogUtils.TIPO.EMAIL);
 		}
 	};
 

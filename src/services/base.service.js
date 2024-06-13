@@ -8,11 +8,11 @@ export class BaseService extends Service {
 		super(model, identifier);
 	}
 
-	async obter(id, hasIncludes = true) {
+	async obter(id, manual_models = []) {
 		try {
 			const response = await this.model.findOne({
 				where: { [this.identifier]: id },
-				include: ControllersUtils.modelsDirectlyAssociated(this.model),
+				include: [...ControllersUtils.modelsDirectlyAssociated(this.model), ...manual_models],
 			});
 			if (!response) throw new NotFoundException("Objeto não encontrado.");
 			return response;
@@ -33,7 +33,6 @@ export class BaseService extends Service {
 
 	async listar(query, manual_models = []) {
 		try {
-			console.log(manual_models);
 			const response = await this.model.findAll({
 				where: { ...query },
 				include: [...ControllersUtils.modelsDirectlyAssociated(this.model), ...manual_models],

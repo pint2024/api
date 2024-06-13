@@ -27,6 +27,10 @@ export class TipoController extends BaseController {
 						model: models.utilizador,
 						as: "conteudo_utilizador",
 					},
+					{
+						model: models.subtopico,
+						as: "conteudo_subtopico",
+					},
 				],
 			},
 		];

@@ -33,6 +33,7 @@ export class BaseService extends Service {
 
 	async listar(query, manual_models = []) {
 		try {
+			console.log(manual_models);
 			const response = await this.model.findAll({
 				where: { ...query },
 				include: [...ControllersUtils.modelsDirectlyAssociated(this.model), ...manual_models],

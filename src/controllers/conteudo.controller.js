@@ -1,3 +1,4 @@
+import { models } from "../config/index.js";
 import { Constants } from "../constants/index.js";
 import { UploadException } from "../exceptions/index.js";
 import { ResponseService, UploadService } from "../services/index.js";

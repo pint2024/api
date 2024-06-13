@@ -11,8 +11,6 @@ export function LoggerMiddleware(req, res, next) {
 	const { method, url, statusCode } = req;
 	const currentDate = DateUtils.getCurrentISODateAndTime();
 
-	console.log(req);
-
 	const newData = `${currentDate} - ${method} ${url} - ${statusCode}`;
 
 	fs.readFile(Constants.ACCESS_LOG_FILENAME, "utf8", (err, data) => {

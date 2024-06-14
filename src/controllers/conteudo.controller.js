@@ -20,4 +20,29 @@ export class ConteudoController extends BaseController {
 			return ResponseService.error(res, error.message);
 		}
 	}
+
+	async obter(req, res) {
+		try {
+			const { id } = req.params;
+			const response = await this.service.obter(id, ConteudoController.#modelos_adicionais());
+			return ResponseService.success(res, response);
+		} catch (error) {
+			return ResponseService.error(res, error.message);
+		}
+	}
+
+	static #modelos_adicionais = () => {
+		return [
+			{
+				model: models.subtopico,
+				as: "conteudo_subtopico",
+				include: [
+					{
+						model: models.topico,
+						as: "subtopico_topico",
+					},
+				],
+			},
+		];
+	};
 }

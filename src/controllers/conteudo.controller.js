@@ -43,6 +43,16 @@ export class ConteudoController extends BaseController {
 					},
 				],
 			},
+			{
+				model: models.comentario,
+				as: "comentario_conteudo",
+				include: [
+					{
+						model: models.utilizador,
+						as: "comentario_utilizador",
+					},
+				],
+			},
 		];
 	};
 }

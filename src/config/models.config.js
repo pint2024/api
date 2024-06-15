@@ -50,8 +50,9 @@ export const ModelsConfig = async (sequelize) => {
 
 	ModelsUtils.defineAssociation(conteudo, utilizador);
 	ModelsUtils.defineAssociation(conteudo, subtopico);
-	ModelsUtils.defineAssociation(conteudo, album);
 	ModelsUtils.defineAssociation(conteudo, tipo);
+
+	ModelsUtils.defineAssociation(album, conteudo);
 
 	ModelsUtils.defineAssociation(denuncia, estado);
 	ModelsUtils.defineAssociation(denuncia, comentario);

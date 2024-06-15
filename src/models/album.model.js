@@ -13,6 +13,7 @@ export default function (sequelize, DataTypes) {
 				type: DataTypes.STRING(500),
 				allowNull: false,
 			},
+			conteudo: ModelsUtils.foreignKeyDataType(),
 		},
 		{
 			sequelize,

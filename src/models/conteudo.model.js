@@ -23,7 +23,6 @@ export default function (sequelize, DataTypes) {
 			},
 			utilizador: ModelsUtils.foreignKeyDataType(),
 			subtopico: ModelsUtils.foreignKeyDataType(),
-			album: ModelsUtils.foreignKeyDataType(),
 			data_evento: {
 				type: DataTypes.DATE,
 				allowNull: false,

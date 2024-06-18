@@ -1,6 +1,6 @@
-import { Constants } from "../constants/index.js";
+import { CloudinaryConstants, Constants } from "../constants/index.js";
 import { UploadException } from "../exceptions/index.js";
-import { ResponseService, UploadService } from "../services/index.js";
+import { CloudStorageService, MulterService, ResponseService, UploadService } from "../services/index.js";
 import { BaseController } from "./base.controller.js";
 
 export class AlbumController extends BaseController {
@@ -10,11 +10,20 @@ export class AlbumController extends BaseController {
 
 	async criar(req, res) {
 		try {
-			const { local, cloud } = await UploadService.uploadSingle(req, "imagem", "conteudo");
-			if (!cloud) throw new UploadException("Ocorreu um erro a fazer o upload da imagem/ficheiro.");
-			req.body.imagem = cloud.public_id;
-			const response = await this.service.criar(req.body);
-			return ResponseService.success(res, response);
+			//await UploadService.upload(req, CloudinaryConstants.FILE_TYPE.IMAGEM, CloudinaryConstants.FOLDER_NAME.ALBUM);
+			//console.log(req.body)
+
+			await UploadService.upload_func(
+				req,
+				CloudinaryConstants.FILE_TYPE.IMAGEM,
+				CloudinaryConstants.FOLDER_NAME.ALBUM,
+				() => this.service.criar(req.body)
+			);
+
+			/*const response = await this.service.criar(req.body);
+			if (!response) throw new NotFoundException("Objeto não existe.");
+*/
+			return ResponseService.success(res, "nada");
 		} catch (error) {
 			return ResponseService.error(res, error.message);
 		}

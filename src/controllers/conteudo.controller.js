@@ -11,7 +11,7 @@ export class ConteudoController extends BaseController {
 
 	async criar(req, res) {
 		try {
-			const file = await UploadService.uploadSingle(req, "imagem", "conteudo");
+			const file = await UploadService.upload(req, "imagem", "conteudo");
 			if (!file) throw new UploadException("Ocorreu um erro a fazer o upload da imagem/ficheiro.");
 			req.body.imagem = file.cloud.public_id;
 			const response = await this.service.criar(req.body);

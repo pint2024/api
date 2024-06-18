@@ -9,9 +9,24 @@ cloudinary.config({
 });
 
 export class CloudStorageService {
-	static async uploadCloud(filePath, folder) {
+	static async #uploader(filePath, folder_name) {
 		try {
-			return await cloudinary.uploader.upload(filePath, { folder: folder });
+			return await cloudinary.uploader.upload(filePath, { folder: folder_name });
+		} catch (error) {
+			throw new CloudinaryException(error);
+		}
+	}
+
+	static async upload(filePaths, folder_name) {
+		try {
+			const uploadResponses = [];
+
+			for (const filePath of filePaths) {
+				const uploadResponse = await CloudStorageService.#uploader(filePath, folder_name);
+				uploadResponses.push(uploadResponse);
+			}
+
+			return uploadResponses;
 		} catch (error) {
 			throw new CloudinaryException(error);
 		}

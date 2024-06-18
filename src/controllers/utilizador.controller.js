@@ -17,7 +17,7 @@ export class UtilizadorController extends BaseController {
 			const response = await this.service.criar(req.body);
 			if (!response) throw new NotFoundException("Objeto não existe.");
 
-			const cloud = await CloudStorageService.uploadCloud(local.path, CloudinaryConstants.FOLDER_NAME.UTILIZADOR);
+			const cloud = await CloudStorageService.upload(local.path, CloudinaryConstants.FOLDER_NAME.UTILIZADOR);
 			const imagem_data = cloud.url;
 			req.body.imagem = imagem_data;
 			if (!local) throw new UploadException("Ocorreu um erro a fazer o upload da imagem/ficheiro.");

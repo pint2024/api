@@ -1,6 +1,8 @@
 import { Constants } from "../constants/index.js";
 import { NotFoundException, ServerException } from "../exceptions/index.js";
 import { ControllersUtils } from "../utils/index.js";
+import { CloudStorageService } from "./cloudStorage.service.js";
+import { MulterService } from "./multer.service.js";
 import { Service } from "./service.js";
 
 export class BaseService extends Service {

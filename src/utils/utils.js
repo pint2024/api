@@ -29,4 +29,10 @@ export class Utils {
 		if (!fs.existsSync(directory)) fs.mkdirSync(directory, { recursive: true });
 		if (!fs.existsSync(filePath)) fs.writeFileSync(filePath, "");
 	};
+
+	static getStackTrace() {
+		const error = new Error();
+		const stack = error.stack.split("\n").slice(1);
+		return stack.join("\n");
+	}
 }

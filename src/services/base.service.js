@@ -1,8 +1,6 @@
 import { Constants } from "../constants/index.js";
 import { NotFoundException, ServerException } from "../exceptions/index.js";
-import { ControllersUtils } from "../utils/index.js";
-import { CloudStorageService } from "./cloudStorage.service.js";
-import { MulterService } from "./multer.service.js";
+import { ControllersUtils, ModelsUtils } from "../utils/index.js";
 import { Service } from "./service.js";
 
 export class BaseService extends Service {
@@ -25,6 +23,7 @@ export class BaseService extends Service {
 
 	async criar(data) {
 		try {
+			await ModelsUtils.validateModelData(this.model, data);
 			const response = await this.model.create(data);
 			if (!response) throw new NotFoundException("Objeto não encontrado.");
 			return response;

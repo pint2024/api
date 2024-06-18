@@ -2,6 +2,7 @@ export { CloudinaryException } from "./cloudinary.exception.js";
 export { CreedentialsWrongException } from "./creedentialsWrong.exception.js";
 export { EmailException } from "./email.exception.js";
 export { ErrorException } from "./error.exception.js";
+export { MissingParametersException } from "./missingParameters.exception.js";
 export { MulterException } from "./multer.exception.js";
 export { NotFoundException } from "./notFound.exception.js";
 export { ScheduleException } from "./schedule.exception.js";

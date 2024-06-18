@@ -10,6 +10,10 @@ export class AlbumController extends BaseController {
 
 	async criar(req, res) {
 		try {
+			const model = this.model.build(req.body);
+
+			await model.validate();
+
 			//await UploadService.upload(req, CloudinaryConstants.FILE_TYPE.IMAGEM, CloudinaryConstants.FOLDER_NAME.ALBUM);
 			//console.log(req.body)
 

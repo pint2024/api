@@ -5,10 +5,6 @@ export default function (sequelize, DataTypes) {
 		{
 			id: ModelsUtils.primaryKeyDataType(),
 			data_criacao: ModelsUtils.dataCriacaoDataType(),
-			descricao: {
-				type: DataTypes.STRING(100),
-				allowNull: false,
-			},
 			imagem: {
 				type: DataTypes.STRING(500),
 				allowNull: false,

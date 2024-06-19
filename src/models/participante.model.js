@@ -5,10 +5,7 @@ export default function (sequelize, DataTypes) {
 		{
 			id: ModelsUtils.primaryKeyDataType(),
 			data_criacao: ModelsUtils.dataCriacaoDataType(),
-			observacao: {
-				type: DataTypes.STRING(200),
-				allowNull: false,
-			},
+			utilizador: ModelsUtils.foreignKeyDataType(),
 			conteudo: ModelsUtils.foreignKeyDataType(),
 		},
 		{

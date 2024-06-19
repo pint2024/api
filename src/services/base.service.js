@@ -37,6 +37,7 @@ export class BaseService extends Service {
 			const response = await this.model.findAll({
 				where: { ...query },
 				include: [...ControllersUtils.modelsDirectlyAssociated(this.model), ...manual_models],
+				order: [["data_criacao", "DESC"]],
 			});
 			if (!response) throw new NotFoundException("Objeto não encontrado.");
 			return response;

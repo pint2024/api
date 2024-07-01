@@ -5,6 +5,6 @@ export class Service {
 	constructor(model, identifier = Constants.DEFAULT_IDENTIFIER) {
 		this.model = model;
 		this.identifier = identifier;
-		LogUtils.log(model.name, LogUtils.TIPO.SERVICES);
+		//LogUtils.log(model.name, LogUtils.TIPO.SERVICES);
 	}
 }

@@ -19,21 +19,21 @@ export default function (sequelize, DataTypes) {
 			},
 			endereco: {
 				type: DataTypes.STRING(500),
-				allowNull: true,
+				allowNull: false,
 			},
 			utilizador: ModelsUtils.foreignKeyDataType(),
 			subtopico: ModelsUtils.foreignKeyDataType(),
 			data_evento: {
 				type: DataTypes.DATE,
-				allowNull: false,
+				allowNull: true,
 			},
+			preco: {
+                type: DataTypes.DECIMAL,
+                allowNull: true,
+            },
 			classificacao: {
                 type: DataTypes.SMALLINT,
-                allowNull: false,
-            },
-            preco: {
-                type: DataTypes.DECIMAL,
-                allowNull: false,
+                allowNull: true,
             },
 			tipo: ModelsUtils.foreignKeyDataType(),
 		},

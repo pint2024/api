@@ -1,5 +1,5 @@
 import { LogConstants } from "../constants/index.js";
-import { DateUtils } from "./index.js";
+import { DateHelpers } from "../helpers/index.js";
 
 export class LogUtils {
 	static #excludedTypes = new Set();
@@ -7,7 +7,7 @@ export class LogUtils {
 	static #output(message, tipo = null, level = LogUtils.LEVEL.LOG) {
 		if (tipo && LogUtils.#excludedTypes.has(tipo)) return;
 
-		console.log(`${DateUtils.getCurrentTime()} - ${tipo ? `${level} [${tipo}]` : ""}`);
+		console.log(`${DateHelpers.getCurrentTime()} - ${tipo ? `${level} [${tipo}]` : ""}`);
 		console.log(message);
 		console.log();
 	}

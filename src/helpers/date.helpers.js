@@ -1,4 +1,4 @@
-export class DateUtils {
+export class DateHelpers {
 	static getCurrentTime() {
 		const date = new Date();
 		const hours = String(date.getHours()).padStart(2, '0');

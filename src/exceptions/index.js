@@ -8,3 +8,4 @@ export { NotFoundException } from "./notFound.exception.js";
 export { ScheduleException } from "./schedule.exception.js";
 export { ServerException } from "./server.exception.js";
 export { UploadException } from "./upload.exception.js";
+export { ValidationException } from "./validation.exception.js";

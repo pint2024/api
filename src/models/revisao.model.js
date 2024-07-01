@@ -7,7 +7,7 @@ export default function (sequelize, DataTypes) {
 			data_criacao: ModelsUtils.dataCriacaoDataType(),
 			motivo: {
 				type: DataTypes.STRING(500),
-				allowNull: false,
+				allowNull: true,
 			},
 			estado: ModelsUtils.foreignKeyDataType({ defaultValue: 1 }),
 			conteudo: ModelsUtils.foreignKeyDataType({ allowNull: true }),

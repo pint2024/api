@@ -1,7 +1,7 @@
 import fs from "fs";
 import { Constants } from "../constants/index.js";
 import { LogUtils, Utils } from "../utils/index.js";
-import { DateUtils } from "../utils/index.js";
+import { DateHelpers } from "../helpers/index.js";
 
 export function LoggerMiddleware(req, res, next) {
 	if (req.url === "/favicon.ico") return next();
@@ -9,7 +9,7 @@ export function LoggerMiddleware(req, res, next) {
 	Utils.ensureFileExists(Constants.ACCESS_LOG_FILENAME);
 
 	const { method, url, statusCode } = req;
-	const currentDate = DateUtils.getCurrentISODateAndTime();
+	const currentDate = DateHelpers.getCurrentISODateAndTime();
 
 	const newData = `${currentDate} - ${method} ${url} - ${statusCode}`;
 

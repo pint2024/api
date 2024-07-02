@@ -5,6 +5,10 @@ export default function (sequelize, DataTypes) {
 		{
 			id: ModelsUtils.primaryKeyDataType(),
 			data_criacao: ModelsUtils.dataCriacaoDataType(),
+			classificacao: {
+				type: DataTypes.SMALLINT,
+				allowNull: true,
+			},
 			conteudo: ModelsUtils.foreignKeyDataType({ allowNull: true }),
 			comentario: ModelsUtils.foreignKeyDataType({ allowNull: true }),
 			utilizador: ModelsUtils.foreignKeyDataType(),

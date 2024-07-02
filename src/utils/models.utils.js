@@ -41,4 +41,18 @@ export class ModelsUtils {
 			throw new MissingParametersException(e.errors ? e.errors.map((error) => error.message) : [e.message]);
 		}
 	}
+
+	/**
+	 * Verifica se os dados no JSON já existem na base de dados.
+	 * @param {Model} model - O modelo Sequelize a usar para a verificação.
+	 * @param {Object} data - JSON com os dados a verificar.
+	 * @returns {Promise<Boolean>} - True se os dados existirem, False caso contrário.
+	 */
+	static async checkExistence(model, data) {
+		const response = await model.findOne({
+			where: data,
+		});
+
+		return response;
+	}
 }

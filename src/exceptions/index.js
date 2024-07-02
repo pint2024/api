@@ -5,6 +5,7 @@ export { ErrorException } from "./error.exception.js";
 export { MissingParametersException } from "./missingParameters.exception.js";
 export { MulterException } from "./multer.exception.js";
 export { NotFoundException } from "./notFound.exception.js";
+export { OutOfRangeException } from "./outOfRange.exception.js";
 export { ScheduleException } from "./schedule.exception.js";
 export { ServerException } from "./server.exception.js";
 export { UploadException } from "./upload.exception.js";

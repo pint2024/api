@@ -26,6 +26,7 @@ export class Constants {
 		GET: "/obter/:id",
 		CREATE: "/criar",
 		LIST: "/listar",
+		SIMPLE_LIST: "/simples/listar",
 		UPDATE: "/atualizar/:id",
 		DELETE: "/remover/:id",
 	};

@@ -36,6 +36,15 @@ export class BaseController extends Controller {
 		}
 	}
 
+	async simples_listar(req, res) {
+		try {
+			const response = await this.service.listar(req.body, [], true);
+			return ResponseService.success(res, response);
+		} catch (error) {
+			return ResponseService.error(res, error.message);
+		}
+	}
+
 	async atualizar(req, res) {
 		try {
 			const { id } = req.params;

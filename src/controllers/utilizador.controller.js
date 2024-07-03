@@ -10,7 +10,7 @@ export class UtilizadorController extends BaseController {
 		super(model, identifier);
 	}
 
-	async atualizar_imagem(req, res) {
+	async imagem_atualizar(req, res) {
 		try {
 			const { cloud } = await UploadService.upload(
 				req,
@@ -28,6 +28,7 @@ export class UtilizadorController extends BaseController {
 	async criar(req, res) {
 		try {
 			const { senha } = req.body;
+			req.body.imagem = "";
 			const response = await this.service.criar(req.body);
 			await EmailService.enviaAvisoContaCriada(response.email, response.nome, response.tag, senha);
 			return ResponseService.success(res, response);
@@ -46,6 +47,15 @@ export class UtilizadorController extends BaseController {
 		}
 	}
 
+	async simples_listar(req, res) {
+		try {
+			const response = await this.service.listar(null, UtilizadorController.#modelos_adicionais_simplificado(), true);
+			return ResponseService.success(res, response);
+		} catch (error) {
+			return ResponseService.error(res, error.message);
+		}
+	}
+
 	static #modelos_adicionais = () => {
 		return [
 			{
@@ -57,6 +67,19 @@ export class UtilizadorController extends BaseController {
 						as: "interesse_subtopico",
 					},
 				],
+			},
+		];
+	};
+
+	static #modelos_adicionais_simplificado = () => {
+		return [
+			{
+				model: models.perfil,
+				as: "utilizador_perfil",
+			},
+			{
+				model: models.centro,
+				as: "utilizador_centro",
 			},
 		];
 	};

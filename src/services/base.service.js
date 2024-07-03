@@ -32,11 +32,15 @@ export class BaseService extends Service {
 		}
 	}
 
-	async listar(query, manual_models = []) {
+	async listar(query, manual_models = [], removeDirectlyAssociatedModels = false) {
 		try {
+			const includeModels = removeDirectlyAssociatedModels
+				? [...manual_models]
+				: [...ControllersUtils.modelsDirectlyAssociated(this.model), ...manual_models];
+
 			const response = await this.model.findAll({
 				where: { ...query },
-				include: [...ControllersUtils.modelsDirectlyAssociated(this.model), ...manual_models],
+				include: includeModels,
 				order: [["data_criacao", "DESC"]],
 			});
 			if (!response) throw new NotFoundException("Objeto não encontrado.");

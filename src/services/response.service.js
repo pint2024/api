@@ -1,9 +1,6 @@
 import { LogUtils, Utils } from "../utils/index.js";
 import { StatusConstants } from "../constants/index.js";
 
-import { LogUtils, Utils } from "../utils/index.js";
-import { StatusConstants } from "../constants/index.js";
-
 export class ResponseService {
 	static success(res, response) {
 		LogUtils.log("Response Success", LogUtils.TIPO.RESPONSE);

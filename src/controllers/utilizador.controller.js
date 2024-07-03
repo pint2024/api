@@ -1,6 +1,6 @@
 import { CloudinaryConstants, Constants } from "../constants/index.js";
 import { NotFoundException, UploadException } from "../exceptions/index.js";
-import { CloudStorageService, MulterService, ResponseService, UploadService } from "../services/index.js";
+import { CloudStorageService, EmailService, MulterService, ResponseService, UploadService } from "../services/index.js";
 import { BaseController } from "./base.controller.js";
 import { models } from "../config/models.config.js";
 import { ModelsUtils } from "../utils/models.utils.js";
@@ -12,9 +12,13 @@ export class UtilizadorController extends BaseController {
 
 	async atualizar_imagem(req, res) {
 		try {
-			const { cloud } = await UploadService.upload(req, CloudinaryConstants.FILE_TYPE.IMAGEM, CloudinaryConstants.FOLDER_NAME.UTILIZADOR);
+			const { cloud } = await UploadService.upload(
+				req,
+				CloudinaryConstants.FILE_TYPE.IMAGEM,
+				CloudinaryConstants.FOLDER_NAME.UTILIZADOR
+			);
 			const { id } = req.params;
-			const response = await this.service.atualizar(id, { imagem: cloud[0].url});
+			const response = await this.service.atualizar(id, { imagem: cloud[0].url });
 			return ResponseService.success(res, response);
 		} catch (error) {
 			return ResponseService.error(res, error.message);
@@ -23,7 +27,9 @@ export class UtilizadorController extends BaseController {
 
 	async criar(req, res) {
 		try {
+			const { senha } = req.body;
 			const response = await this.service.criar(req.body);
+			await EmailService.enviaAvisoContaCriada(response.email, response.nome, response.tag, senha);
 			return ResponseService.success(res, response);
 		} catch (error) {
 			return ResponseService.error(res, error.message);

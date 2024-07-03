@@ -4,6 +4,7 @@ import { Constants } from "../constants/index.js";
 import { Controller } from "./index.js";
 import { AuthService, EmailService, ResponseService } from "../services/index.js";
 import { CreedentialsWrongException, NotFoundException, ValidationException } from "../exceptions/index.js";
+import { ModelsUtils } from "../utils/models.utils.js";
 
 export class AutenticacaoController extends Controller {
 	constructor(model, identifier = Constants.DEFAULT_IDENTIFIER) {
@@ -60,46 +61,39 @@ export class AutenticacaoController extends Controller {
 			const utilizador = await this.model.findOne({
 				where: { [Op.or]: [{ tag: login }, { email: login }] },
 			});
-
 			if (!utilizador) throw new CreedentialsWrongException("Utilizador não existe!");
 
-			if (AuthService.comparePassword(senha, utilizador.senha)) {
-				if (utilizador.verificado) {
-					const response = await AuthService.createAuthToken(
-						utilizador.id,
-						utilizador.tag,
-						utilizador.email,
-						utilizador.perfil,
-						utilizador.imagem
-					);
-					return ResponseService.success(res, response);
-				} else {
-					const token = await AuthService.createEmailToken(utilizador.id, utilizador.email);
-					await EmailService.mandaConfirmacao(utilizador.email, utilizador.nome + " " + utilizador.sobrenome, token);
-					return ResponseService.success(res, "Email de confirmação enviado");
-				}
+			if (!AuthService.comparePassword(senha, utilizador.senha))
+				throw new CreedentialsWrongException("Senha está incorreta.");
+
+			if (utilizador.verificado) {
+				const response = await AuthService.createAuthToken(
+					utilizador.id,
+					utilizador.tag,
+					utilizador.email,
+					utilizador.perfil,
+					utilizador.imagem
+				);
+				return ResponseService.success(res, { token: response });
 			} else {
-				throw new CreedentialsWrongException("Senha está errada.");
+				return ResponseService.success(res, "Precisa alterar a senha.");
 			}
 		} catch (error) {
 			return ResponseService.error(res, error.message);
 		}
 	}
 
-	async verificar(req, res) {
+	async atualizar_password(req, res) {
 		try {
-			const { token } = req.params;
-			
-			const decoded_token = await AuthService.verifyEmailToken(token);
-			console.log("a", decoded_token);
-			if (!decoded_token && !decoded_token.id && !decoded_token.email)
-				throw new CreedentialsWrongException("O token não é válido.");
+			const { id, senha, senha_old } = req.body;
 
-			const response = await this.model.findOne({ where: { id: decoded_token.id, email: decoded_token.email } });
+			const response = await ModelsUtils.checkExistence(this.model, { id });
 			if (!response) throw new NotFoundException("Utilizador não existe.");
-			if (response.verificado) throw new ValidationException("Conta já esta verificada!");
 
-			await this.model.update({ verificado: true }, { where: { id: response.id } });
+			if (!AuthService.comparePassword(senha_old, response.senha))
+				throw new CreedentialsWrongException("Senha está incorreta.");
+
+			await this.service.atualizar(id, { senha, verificado: true });
 			const auth_token = await AuthService.createAuthToken(
 				response.id,
 				response.tag,
@@ -107,7 +101,8 @@ export class AutenticacaoController extends Controller {
 				response.perfil,
 				response.imagem
 			);
-			return ResponseService.success(res, auth_token);
+
+			return ResponseService.success(res, { token: auth_token });
 		} catch (error) {
 			return ResponseService.error(res, error.message);
 		}

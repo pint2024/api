@@ -59,7 +59,7 @@ export default function (sequelize, DataTypes) {
 				allowNull: true,
 			},
 			perfil: ModelsUtils.foreignKeyDataType({ defaultValue: 1 }),
-			centro: ModelsUtils.foreignKeyDataType(),
+			centro: ModelsUtils.foreignKeyDataType({ allowNull: true }),
 		},
 		{
 			sequelize,

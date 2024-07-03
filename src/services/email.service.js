@@ -42,11 +42,20 @@ export class EmailService {
 		);
 	};
 
-	static mandaNotificacao = async (email, nome) => {
+	static enviaAvisoContaCriada = async (email, nome, tag, senha) => {
+		await this.#sendEmail(
+			email,
+			"A sua conta foi criada!",
+			`Olá ${nome},\n\nOs dados de autenticação são os seguintes:\n\nLogin: ${tag}\n Password: ${senha}`,
+			`<p>Olá ${nome},</p><p>Os dados de autenticação são os seguintes:</p><p>Login: ${tag}</p><p>Password: ${senha}</p>`
+		);
+	};
+
+	static enviaNotificacao = async (email, nome) => {
 		await this.#sendEmail(
 			email,
 			`Notificação`,
-			`Olá ${nome},\n\nPor favor, verifique o seu email clicando no link abaixo:\n`,
+			`Olá ${nome},\n\nPor favor, verifique o seu email clicando no link abaixo:\n`
 		);
 	};
 }

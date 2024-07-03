@@ -6,7 +6,7 @@ export const AutenticacaoRoutes = (app, controllerClass, url_base) => {
 	router.route("/obter").get(app, (req, res) => controllerClass.obter(req, res));
 	router.route("/atualizar").post((req, res) => controllerClass.atualizar(req, res));
 	router.route("/entrar").post((req, res) => controllerClass.entrar(req, res));
-	router.route("/verificar").get((req, res) => controllerClass.verificar(req, res));
+	router.route("/verificar/:token").get((req, res) => controllerClass.verificar(req, res));
 
 	app.use(url_base, router);
 };

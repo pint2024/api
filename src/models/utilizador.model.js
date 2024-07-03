@@ -35,7 +35,7 @@ export default function (sequelize, DataTypes) {
 			verificado: {
 				type: DataTypes.BOOLEAN,
 				allowNull: false,
-				defaultValue: true,
+				defaultValue: false,
 			},
 			inativo: {
 				type: DataTypes.BOOLEAN,

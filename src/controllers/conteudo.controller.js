@@ -28,7 +28,7 @@ export class ConteudoController extends BaseController {
 			if (!isValid) throw new ValidationException("Faltam campos!");
 
 			const paths = UploadService.formatPathsArray(local);
-			const cloud = await CloudStorageService.upload(paths, CloudinaryConstants.FOLDER_NAME.ALBUM);
+			const cloud = await CloudStorageService.upload(paths, CloudinaryConstants.FOLDER_NAME.CONTEUDO);
 			if (!cloud) throw new UploadException("Ocorreu um erro a fazer o upload da imagem/ficheiro.");
 
 			req.body.imagem = cloud[0].url;

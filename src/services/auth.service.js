@@ -1,4 +1,5 @@
 import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
 import { Constants } from "../constants/index.js";
 
 export class AuthService {
@@ -39,10 +40,12 @@ export class AuthService {
 		return jwt.verify(token, Constants.JWT_CONFIG.TOKEN_AUTH_SECRET);
 	};
 
+	static verifyEmailToken = async (token) => {
+		return jwt.verify(token, Constants.JWT_CONFIG.TOKEN_EMAIL_SECRET);
+	};
+
 	static comparePassword = (senha_recebida, senha) => {
-		//return bcrypt.compareSync(senha_recebida, senha);
-		if (senha_recebida == senha) return true;
-		return false;
+		return bcrypt.compareSync(senha_recebida, senha);
 	};
 
 	static hasPermission = (user, method, path) => {

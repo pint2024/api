@@ -3,6 +3,7 @@ import { Op } from "sequelize";
 import { Constants } from "../constants/index.js";
 import { Controller } from "./index.js";
 import { AuthService, EmailService, ResponseService } from "../services/index.js";
+import { CreedentialsWrongException, NotFoundException, ValidationException } from "../exceptions/index.js";
 
 export class AutenticacaoController extends Controller {
 	constructor(model, identifier = Constants.DEFAULT_IDENTIFIER) {
@@ -54,16 +55,16 @@ export class AutenticacaoController extends Controller {
 	async entrar(req, res) {
 		try {
 			const { login, senha } = req.body;
-			if (!senha || !login) return ResponseService.error(res, "Campos em branco!");
+			if (!senha || !login) throw new CreedentialsWrongException("Campos em branco!");
 
 			const utilizador = await this.model.findOne({
 				where: { [Op.or]: [{ tag: login }, { email: login }] },
 			});
 
-			if (!utilizador) return ResponseService.error(res, "Utilizador não existe!");
+			if (!utilizador) throw new CreedentialsWrongException("Utilizador não existe!");
 
 			if (AuthService.comparePassword(senha, utilizador.senha)) {
-				if (!utilizador.verificado) {
+				if (utilizador.verificado) {
 					const response = await AuthService.createAuthToken(
 						utilizador.id,
 						utilizador.tag,
@@ -73,11 +74,12 @@ export class AutenticacaoController extends Controller {
 					);
 					return ResponseService.success(res, response);
 				} else {
-					await EmailService.mandaConfirmacao(utilizador.email, utilizador.nome + " " + utilizador.sobrenome, await AuthService.createEmailToken());
+					const token = await AuthService.createEmailToken(utilizador.id, utilizador.email);
+					await EmailService.mandaConfirmacao(utilizador.email, utilizador.nome + " " + utilizador.sobrenome, token);
 					return ResponseService.success(res, "Email de confirmação enviado");
 				}
 			} else {
-				return ResponseService.error(res, "Senha está errada.")
+				throw new CreedentialsWrongException("Senha está errada.");
 			}
 		} catch (error) {
 			return ResponseService.error(res, error.message);
@@ -86,9 +88,28 @@ export class AutenticacaoController extends Controller {
 
 	async verificar(req, res) {
 		try {
-			return ResponseService.success(res, "Sucesso caralho");
+			const { token } = req.params;
+			
+			const decoded_token = await AuthService.verifyEmailToken(token);
+			console.log("a", decoded_token);
+			if (!decoded_token && !decoded_token.id && !decoded_token.email)
+				throw new CreedentialsWrongException("O token não é válido.");
+
+			const response = await this.model.findOne({ where: { id: decoded_token.id, email: decoded_token.email } });
+			if (!response) throw new NotFoundException("Utilizador não existe.");
+			if (response.verificado) throw new ValidationException("Conta já esta verificada!");
+
+			await this.model.update({ verificado: true }, { where: { id: response.id } });
+			const auth_token = await AuthService.createAuthToken(
+				response.id,
+				response.tag,
+				response.email,
+				response.perfil,
+				response.imagem
+			);
+			return ResponseService.success(res, auth_token);
 		} catch (error) {
-			return ResponseService.error(res, error);
+			return ResponseService.error(res, error.message);
 		}
 	}
 }

@@ -15,7 +15,7 @@ export class Utils {
 	}
 
 	static tagDefault = (nome, sobrenome) => {
-		return `@${Utils.toLower(nome)}${Utils.toLower(sobrenome)}`;
+		return `${Utils.toLower(nome)}${Utils.toLower(sobrenome)}`;
 	};
 
 	static ensureDirectoryExists = (directory) => {

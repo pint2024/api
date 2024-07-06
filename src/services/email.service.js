@@ -33,7 +33,15 @@ export class EmailService {
 		}
 	};
 
-	static mandaConfirmacao = async (email, nome, token) => {
+	static enviaVerificacaoPassword = async (email, nome, token) => {
+		await this.#sendEmail(
+			email,
+			"Verificação da alteração da Palavra-passe",
+			`Olá ${nome},\n\nPor favor, acesse o link abaixo para resetar a palavra-passe:\n\n${Constants.FRONTEND_URL}/resetar-passe?token=${token}`
+		);
+	};
+
+	static enviaConfirmacao = async (email, nome, token) => {
 		await this.#sendEmail(
 			email,
 			"Confirmação de Email",

@@ -11,27 +11,23 @@ export class AuthService {
 		return null;
 	};
 
-	static createAuthToken = async (id, tag, email, perfil, imagem) => {
+	static createAuthToken = async (id) => {
 		return jwt.sign(
 			{
 				id: id,
-				tag: tag,
-				email: email,
-				perfil: perfil,
-				imagem: imagem,
 			},
 			Constants.JWT_CONFIG.TOKEN_AUTH_SECRET,
 			{ expiresIn: Constants.JWT_CONFIG.EXPIRES }
 		);
 	};
 
-	static createEmailToken = async (id, email) => {
+	static createForgetPasswordToken = async (id, email) => {
 		return jwt.sign(
 			{
 				id: id,
 				email: email,
 			},
-			Constants.JWT_CONFIG.TOKEN_EMAIL_SECRET,
+			Constants.JWT_CONFIG.TOKEN_FORGET_PASSWORD_SECRET,
 			{ expiresIn: Constants.JWT_CONFIG.EXPIRES }
 		);
 	};
@@ -40,8 +36,8 @@ export class AuthService {
 		return jwt.verify(token, Constants.JWT_CONFIG.TOKEN_AUTH_SECRET);
 	};
 
-	static verifyEmailToken = async (token) => {
-		return jwt.verify(token, Constants.JWT_CONFIG.TOKEN_EMAIL_SECRET);
+	static verifyForgetPasswordToken = async (token) => {
+		return jwt.verify(token, Constants.JWT_CONFIG.TOKEN_FORGET_PASSWORD_SECRET);
 	};
 
 	static comparePassword = (senha_recebida, senha) => {

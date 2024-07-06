@@ -49,10 +49,6 @@ export class ModelsUtils {
 	 * @returns {Promise<Boolean>} - True se os dados existirem, False caso contrário.
 	 */
 	static async checkExistence(model, data) {
-		const response = await model.findOne({
-			where: data,
-		});
-
-		return response;
+		return await model.findOne({ where: data });
 	}
 }

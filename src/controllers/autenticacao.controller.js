@@ -14,9 +14,15 @@ export class AutenticacaoController extends Controller {
 	async obter(req, res) {
 		try {
 			const token = AuthService.getTokenHeader(req);
-			if (!token) return ResponseService.error("Token não foi enviado.");
-			const decodedToken = jwt.verify(token, Constants.JWT_CONFIG.TOKEN_PASSWORD_SECRET);
-			return ResponseService.success(res, decodedToken);
+			if (!token) throw new NotFoundException("Token não foi recebido!");
+
+			const decoded_token = await AuthService.verifyAuthToken(token);
+			if (!decoded_token) throw new NotFoundException("Erro ao descodificar o token.");
+
+			const response = await this.service.buscar(decoded_token.id);
+			if (!response) throw new NotFoundException("Utilizador não existe!");
+
+			return ResponseService.success(res, response);
 		} catch (error) {
 			return ResponseService.error(res, error);
 		}
@@ -24,30 +30,18 @@ export class AutenticacaoController extends Controller {
 
 	async atualizar(req, res) {
 		try {
-			const { token } = req.body;
-			jwt.verify(token, Constants.JWT_CONFIG.TOKEN_PASSWORD_SECRET, async (err, decoded) => {
-				if (err) return ResponseService.error(res, "Invalid refresh token: " + err);
+			const token = AuthService.getTokenHeader(req);
+			if (!token) throw new NotFoundException("Token não foi recebido!");
 
-				const userData = await this.model.findOne({
-					where: { utilizador_id: decoded.id },
-				});
+			const decoded_token = await AuthService.verifyAuthToken(token);
+			if (!decoded_token) throw new NotFoundException("Erro ao descodificar o token.");
 
-				if (!userData) return ResponseService.error(res, "User not found", 404);
+			const response = await this.service.buscar(decoded_token.id);
+			if (!response) throw new NotFoundException("Utilizador não existe!");
 
-				const accessToken = jwt.sign(
-					{
-						id: userData.id,
-						tag: userData.tag,
-						email: userData.email,
-						perfil: userData.perfil,
-						imagem: userData.imagem,
-					},
-					Constants.JWT_CONFIG.TOKEN_PASSWORD_SECRET,
-					{ expiresIn: Constants.JWT_CONFIG.EXPIRES }
-				);
+			const new_token = await AuthService.createAuthToken(response.id);
 
-				return ResponseService.success(res, accessToken);
-			});
+			return ResponseService.success(res, { token: new_token });
 		} catch (error) {
 			return ResponseService.error(res, error);
 		}
@@ -66,18 +60,53 @@ export class AutenticacaoController extends Controller {
 			if (!AuthService.comparePassword(senha, utilizador.senha))
 				throw new CreedentialsWrongException("Senha está incorreta.");
 
+			let success_response;
+
 			if (utilizador.verificado) {
-				const response = await AuthService.createAuthToken(
-					utilizador.id,
-					utilizador.tag,
-					utilizador.email,
-					utilizador.perfil,
-					utilizador.imagem
-				);
-				return ResponseService.success(res, { token: response });
+				const response = await AuthService.createAuthToken(utilizador.id);
+				success_response = { token: response };
 			} else {
-				return ResponseService.success(res, "Precisa alterar a senha.");
+				success_response = "Precisa alterar a senha.";
 			}
+			return ResponseService.success(res, success_response);
+		} catch (error) {
+			return ResponseService.error(res, error.message);
+		}
+	}
+
+	async forgot_password(req, res) {
+		try {
+			const { email } = req.body;
+
+			const response = await this.service.buscar(email, "email");
+			if (!response) throw new NotFoundException("Utilizador não existe.");
+
+			const token = await AuthService.createForgetPasswordToken(response.id, response.email);
+			await EmailService.enviaVerificacaoPassword(response.email, response.nome, token);
+
+			return ResponseService.success(res, "Email de verificacao da palavra-passe foi enviado!");
+		} catch (error) {
+			return ResponseService.error(res, error.message);
+		}
+	}
+
+	async reset_password(req, res) {
+		try {
+			const { senha, confirmacao_senha } = req.body;
+			if (senha != confirmacao_senha) throw new CreedentialsWrongException("Senhas não coincidem.");
+
+			const token = AuthService.getTokenHeader(req);
+			if (!token) throw new NotFoundException("Token não foi recebido!");
+
+			const decoded_token = await AuthService.verifyForgetPasswordToken(token);
+			if (!decoded_token) throw new NotFoundException("Erro ao descodificar o token.");
+
+			const response = await ModelsUtils.checkExistence(this.model, { id: decoded_token.id });
+			if (!response) throw new NotFoundException("Utilizador não existe.");
+
+			await this.service.atualizar(response.id, { senha: confirmacao_senha });
+
+			return ResponseService.success(res, "Senha atualizada com sucesso!");
 		} catch (error) {
 			return ResponseService.error(res, error.message);
 		}

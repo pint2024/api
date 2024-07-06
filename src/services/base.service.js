@@ -8,6 +8,18 @@ export class BaseService extends Service {
 		super(model, identifier);
 	}
 
+	async buscar(id, identifier = null) {
+		try {
+			const response = await this.model.findOne({
+				where: { [identifier ? identifier : this.identifier]: id },
+			});
+			if (!response) throw new NotFoundException("Objeto não encontrado.");
+			return response;
+		} catch (e) {
+			throw new ServerException(e);
+		}
+	}
+
 	async obter(id, manual_models = []) {
 		try {
 			const response = await this.model.findOne({

@@ -33,6 +33,19 @@ export class BaseService extends Service {
 		}
 	}
 
+	async simples_obter(id, manual_models = []) {
+		try {
+			const response = await this.model.findOne({
+				where: { [this.identifier]: id },
+				include: [...manual_models],
+			});
+			if (!response) throw new NotFoundException("Objeto não encontrado.");
+			return response;
+		} catch (e) {
+			throw new ServerException(e);
+		}
+	}
+
 	async criar(data) {
 		try {
 			await ModelsUtils.validateModelData(this.model, data);
@@ -53,7 +66,27 @@ export class BaseService extends Service {
 			const response = await this.model.findAll({
 				where: { ...query },
 				include: includeModels,
-				order: [["data_criacao", "DESC"]],
+				order: [
+					["data_criacao", "DESC"],
+					["id", "DESC"],
+				],
+			});
+			if (!response) throw new NotFoundException("Objeto não encontrado.");
+			return response;
+		} catch (e) {
+			throw new ServerException(e);
+		}
+	}
+
+	async simples_listar(query, manual_models = []) {
+		try {
+			const response = await this.model.findAll({
+				where: { ...query },
+				include: [...manual_models],
+				order: [
+					["data_criacao", "DESC"],
+					["id", "DESC"],
+				],
 			});
 			if (!response) throw new NotFoundException("Objeto não encontrado.");
 			return response;
@@ -88,11 +121,11 @@ export class BaseService extends Service {
 
 	async remover_querry(query) {
 		try {
-			console.log(query)
+			console.log(query);
 			const response = await this.model.destroy({
 				where: { ...query },
 			});
-			console.log("a")
+			console.log("a");
 			if (!response) throw new NotFoundException("Objeto não encontrado.");
 			return response;
 		} catch (e) {

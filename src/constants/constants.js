@@ -24,6 +24,7 @@ export class Constants {
 
 	static URL_NAMING = {
 		GET: "/obter/:id",
+		SIMPLE_GET: "/simples/obter/:id",
 		CREATE: "/criar",
 		LIST: "/listar",
 		SIMPLE_LIST: "/simples/listar",

@@ -10,7 +10,7 @@ export class TopicoController extends BaseController {
 
 	async simples_listar(req, res) {
 		try {
-			const response = await this.service.listar(null, TopicoController.#modelos_adicionais_simplificado(), true);
+			const response = await this.service.simples_listar(req.body, TopicoController.#modelos_adicionais_simplificado());
 			return ResponseService.success(res, response);
 		} catch (error) {
 			return ResponseService.error(res, error.message);

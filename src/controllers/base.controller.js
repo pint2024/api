@@ -18,6 +18,16 @@ export class BaseController extends Controller {
 		}
 	}
 
+	async simples_obter(req, res) {
+		try {
+			const { id } = req.params;
+			const response = await this.service.simples_obter(id);
+			return ResponseService.success(res, response);
+		} catch (error) {
+			return ResponseService.error(res, error.message);
+		}
+	}
+
 	async criar(req, res) {
 		try {
 			const response = await this.service.criar(req.body);
@@ -38,7 +48,7 @@ export class BaseController extends Controller {
 
 	async simples_listar(req, res) {
 		try {
-			const response = await this.service.listar(req.body, [], true);
+			const response = await this.service.simples_listar(req.body, []);
 			return ResponseService.success(res, response);
 		} catch (error) {
 			return ResponseService.error(res, error.message);

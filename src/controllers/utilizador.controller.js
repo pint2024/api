@@ -49,7 +49,17 @@ export class UtilizadorController extends BaseController {
 
 	async simples_listar(req, res) {
 		try {
-			const response = await this.service.listar(null, UtilizadorController.#modelos_adicionais_simplificado(), true);
+			const response = await this.service.simples_listar(req.body, UtilizadorController.#modelos_adicionais_simplificado());
+			return ResponseService.success(res, response);
+		} catch (error) {
+			return ResponseService.error(res, error.message);
+		}
+	}
+
+	async simples_obter(req, res) {
+		try {
+			const { id } = req.params;
+			const response = await this.service.simples_obter(id, UtilizadorController.#modelos_adicionais_obter_simplificado());
 			return ResponseService.success(res, response);
 		} catch (error) {
 			return ResponseService.error(res, error.message);
@@ -67,6 +77,29 @@ export class UtilizadorController extends BaseController {
 						as: "interesse_subtopico",
 					},
 				],
+			},
+		];
+	};
+
+	static #modelos_adicionais_obter_simplificado = () => {
+		return [
+			{
+				model: models.interesse,
+				as: "interesse_utilizador",
+				include: [
+					{
+						model: models.subtopico,
+						as: "interesse_subtopico",
+					},
+				],
+			},
+			{
+				model: models.perfil,
+				as: "utilizador_perfil",
+			},
+			{
+				model: models.centro,
+				as: "utilizador_centro",
 			},
 		];
 	};

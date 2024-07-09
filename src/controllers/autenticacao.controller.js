@@ -60,15 +60,14 @@ export class AutenticacaoController extends Controller {
 			if (!AuthService.comparePassword(senha, utilizador.senha))
 				throw new CreedentialsWrongException("Senha está incorreta.");
 
-			let success_response;
-
 			if (utilizador.verificado) {
 				const response = await AuthService.createAuthToken(utilizador.id);
-				success_response = { token: response };
+				return ResponseService.success(res, { token: response });
 			} else {
-				success_response = "Precisa alterar a senha.";
+				console.log(utilizador.id);
+				const response = await AuthService.createAtualizarPasswordToken(utilizador.id);
+				return ResponseService.message(res, "Precisa alterar a senha.", { token: response });
 			}
-			return ResponseService.success(res, success_response);
 		} catch (error) {
 			return ResponseService.error(res, error.message);
 		}
@@ -114,15 +113,20 @@ export class AutenticacaoController extends Controller {
 
 	async atualizar_password(req, res) {
 		try {
-			const { id, senha, senha_old } = req.body;
+			const { token, senha, senha_old } = req.body;
 
-			const response = await ModelsUtils.checkExistence(this.model, { id });
+			const decoded_token = await AuthService.verifyAtualizarPasswordToken(token);
+			if (!decoded_token) throw new NotFoundException("Erro ao descodificar o token.");
+
+			console.log(decoded_token);
+
+			const response = await ModelsUtils.checkExistence(this.model, { id: decoded_token.id });
 			if (!response) throw new NotFoundException("Utilizador não existe.");
 
 			if (!AuthService.comparePassword(senha_old, response.senha))
 				throw new CreedentialsWrongException("Senha está incorreta.");
 
-			await this.service.atualizar(id, { senha, verificado: true });
+			await this.service.atualizar(response.id, { senha, verificado: true });
 			const auth_token = await AuthService.createAuthToken(
 				response.id,
 				response.tag,
@@ -130,6 +134,8 @@ export class AutenticacaoController extends Controller {
 				response.perfil,
 				response.imagem
 			);
+
+			console.log("aaa", response);
 
 			return ResponseService.success(res, { token: auth_token });
 		} catch (error) {

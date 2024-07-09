@@ -32,12 +32,26 @@ export class AuthService {
 		);
 	};
 
+	static createAtualizarPasswordToken = async (id) => {
+		return jwt.sign(
+			{
+				id: id,
+			},
+			Constants.JWT_CONFIG.TOKEN_ATUALIZAR_PASSWORD_SECRET,
+			{ expiresIn: Constants.JWT_CONFIG.EXPIRES }
+		);
+	};
+
 	static verifyAuthToken = async (token) => {
 		return jwt.verify(token, Constants.JWT_CONFIG.TOKEN_AUTH_SECRET);
 	};
 
 	static verifyForgetPasswordToken = async (token) => {
 		return jwt.verify(token, Constants.JWT_CONFIG.TOKEN_FORGET_PASSWORD_SECRET);
+	};
+
+	static verifyAtualizarPasswordToken = async (token) => {
+		return jwt.verify(token, Constants.JWT_CONFIG.TOKEN_ATUALIZAR_PASSWORD_SECRET);
 	};
 
 	static comparePassword = (senha_recebida, senha) => {

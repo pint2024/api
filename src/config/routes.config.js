@@ -1,7 +1,19 @@
-import { ConteudoController, AutenticacaoController, BaseController, UtilizadorController, AlbumController, TipoController, RevisaoController, ClassificacaoController, TopicoController, CentroController, InteresseController } from "../controllers/index.js";
+import {
+	ConteudoController,
+	AutenticacaoController,
+	BaseController,
+	UtilizadorController,
+	AlbumController,
+	TipoController,
+	RevisaoController,
+	ClassificacaoController,
+	TopicoController,
+	CentroController,
+	InteresseController,
+} from "../controllers/index.js";
 import { models } from "./index.js";
 import { LogUtils } from "../utils/index.js";
-import { AutenticacaoRoutes, BaseRoutes, UtilizadorRoutes } from "../routes/index.js";
+import { AutenticacaoRoutes, BaseRoutes, UtilizadorRoutes, ConteudoRoutes } from "../routes/index.js";
 
 export const RoutesConfig = async (app) => {
 	BaseRoutes(app, new AlbumController(models.album), "/album");
@@ -9,7 +21,7 @@ export const RoutesConfig = async (app) => {
 	BaseRoutes(app, new CentroController(models.centro), "/centro");
 	BaseRoutes(app, new ClassificacaoController(models.classificacao), "/classificacao");
 	BaseRoutes(app, new BaseController(models.comentario), "/comentario");
-	BaseRoutes(app, new ConteudoController(models.conteudo), "/conteudo");
+	ConteudoRoutes(app, new ConteudoController(models.conteudo), "/conteudo");
 	BaseRoutes(app, new BaseController(models.denuncia), "/denuncia");
 	BaseRoutes(app, new BaseController(models.estado), "/estado");
 	BaseRoutes(app, new InteresseController(models.interesse), "/interesse");

@@ -1,5 +1,5 @@
 import { models } from "../config/index.js";
-import { CloudinaryConstants, Constants } from "../constants/index.js";
+import { CloudinaryConstants, Constants, DataConstants } from "../constants/index.js";
 import { UploadException, ValidationException } from "../exceptions/index.js";
 import { ValidateParamsHelpers } from "../helpers/index.js";
 import { BaseService, CloudStorageService, MulterService, ResponseService, UploadService } from "../services/index.js";
@@ -49,6 +49,26 @@ export class ConteudoController extends BaseController {
 			const { id } = req.params;
 			const response = await this.service.obter(id, ConteudoController.#modelos_adicionais());
 			return ResponseService.success(res, response);
+		} catch (error) {
+			return ResponseService.error(res, error.message);
+		}
+	}
+
+	async listagem_listar(req, res) {
+		try {
+			console.log(req.body);
+
+			const responseEspaco = await this.service.listar({ tipo: DataConstants.TIPO_CONTEUDO.ESPACO, ...req.body });
+			const responseAtividade = await this.service.listar({ tipo: DataConstants.TIPO_CONTEUDO.ATIVIDADE, ...req.body });
+			const responseEvento = await this.service.listar({ tipo: DataConstants.TIPO_CONTEUDO.EVENTO, ...req.body });
+			const responseRecomendacao = await this.service.listar({ tipo: DataConstants.TIPO_CONTEUDO.RECOMENDACAO, ...req.body });
+
+			return ResponseService.success(res, {
+				[DataConstants.TIPO_CONTEUDO.ESPACO]: responseEspaco,
+				[DataConstants.TIPO_CONTEUDO.ATIVIDADE]: responseAtividade,
+				[DataConstants.TIPO_CONTEUDO.EVENTO]: responseEvento,
+				[DataConstants.TIPO_CONTEUDO.RECOMENDACAO]: responseRecomendacao,
+			});
 		} catch (error) {
 			return ResponseService.error(res, error.message);
 		}

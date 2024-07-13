@@ -135,8 +135,6 @@ export class AutenticacaoController extends Controller {
 				response.imagem
 			);
 
-			console.log("aaa", response);
-
 			return ResponseService.success(res, { token: auth_token });
 		} catch (error) {
 			return ResponseService.error(res, error.message);

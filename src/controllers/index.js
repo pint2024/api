@@ -3,6 +3,7 @@ export { ConteudoController } from "./conteudo.controller.js";
 export { AutenticacaoController } from "./autenticacao.controller.js";
 export { Controller } from "./controller.js";
 export { InteresseController } from "./interesse.controller.js";
+export { ParticipanteController } from "./participante.controller.js";
 export { BaseController } from "./base.controller.js";
 export { CentroController } from "./centro.controller.js";
 export { ClassificacaoController } from "./classificacao.controller.js";

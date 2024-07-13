@@ -10,4 +10,10 @@ export class DataConstants {
 		RECOMENDACAO: 3,
 		ESPACO: 4,
 	};
+
+	static ESTADO = {
+		ANALISE: 1,
+		APROVADO: 2,
+		REJEITADO: 3,
+	};
 }

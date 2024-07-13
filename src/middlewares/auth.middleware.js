@@ -1,18 +1,16 @@
-import { ErrorException } from "../exceptions/index.js";
-import { AuthService } from "../services/index.js";
-export const AuthMiddleware = (req, res, next) => {
+import { AuthService, ResponseService } from "../services/index.js";
+export const AuthMiddleware = async (req, res, next) => {
 	try {
-		return next();
 		const token = AuthService.getTokenHeader(req);
-		if (token == null) throw new ErrorException("Token não existe.");
 
-		const decoded = AuthService.verifyToken(token);
-		if (AuthService.hasPermission(decoded, req.method, req.originalUrl)) {
-			next();
-		} else {
-			throw new ErrorException("Não tem permissão.");
+		if (token) {
+			const decoded = await AuthService.verifyAuthToken(token);
+			const user = await AuthService.getUserById(decoded.id);
+			req.user = user;
 		}
-	} catch (err) {
-		throw new ErrorException(err.message);
+
+		next();
+	} catch (erro) {
+		return ResponseService.error(res, erro.message)
 	}
 };

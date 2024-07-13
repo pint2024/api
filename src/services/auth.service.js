@@ -1,6 +1,9 @@
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import { Constants } from "../constants/index.js";
+import { ErrorException } from "../exceptions/error.exception.js";
+import { BaseService } from "./base.service.js";
+import { models } from "../config/models.config.js";
 
 export class AuthService {
 	static getTokenHeader = (req) => {
@@ -61,4 +64,16 @@ export class AuthService {
 	static hasPermission = (user, method, path) => {
 		return true;
 	};
+
+	static async getUserById(id) {
+		try {
+			const baseService = new BaseService(models.utilizador);
+			const user = await baseService.buscar(id);
+			if (!user) throw new NotFoundException("Utilizador não existe!");
+
+			return user;
+		} catch (error) {
+			throw new ErrorException("Erro a obter o utilizador pelo token.");
+		}
+	}
 }

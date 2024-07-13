@@ -56,12 +56,28 @@ export class ConteudoController extends BaseController {
 
 	async listagem_listar(req, res) {
 		try {
-			console.log(req.body);
+			const { perfil } = req.user;
 
-			const responseEspaco = await this.service.listar({ tipo: DataConstants.TIPO_CONTEUDO.ESPACO, ...req.body });
-			const responseAtividade = await this.service.listar({ tipo: DataConstants.TIPO_CONTEUDO.ATIVIDADE, ...req.body });
-			const responseEvento = await this.service.listar({ tipo: DataConstants.TIPO_CONTEUDO.EVENTO, ...req.body });
-			const responseRecomendacao = await this.service.listar({ tipo: DataConstants.TIPO_CONTEUDO.RECOMENDACAO, ...req.body });
+			const responseEspaco = await this.service.listar({
+				...{ tipo: DataConstants.TIPO_CONTEUDO.ESPACO },
+				...req.body,
+			});
+			const responseAtividade = await this.service.listar({
+				...{ tipo: DataConstants.TIPO_CONTEUDO.ATIVIDADE },
+				...req.body,
+			});
+			const responseEvento = await this.service.listar({ ...{ tipo: DataConstants.TIPO_CONTEUDO.EVENTO }, ...req.body });
+			const responseRecomendacao = await this.service.listar({
+				...{ tipo: DataConstants.TIPO_CONTEUDO.RECOMENDACAO },
+				...req.body,
+			});
+
+			if (perfil == DataConstants.PERFIL.USER) {
+				ConteudoController.#verifyRevision(responseEspaco);
+				ConteudoController.#verifyRevision(responseAtividade);
+				ConteudoController.#verifyRevision(responseEvento);
+				ConteudoController.#verifyRevision(responseRecomendacao);
+			}
 
 			return ResponseService.success(res, {
 				[DataConstants.TIPO_CONTEUDO.ESPACO]: responseEspaco,
@@ -71,6 +87,20 @@ export class ConteudoController extends BaseController {
 			});
 		} catch (error) {
 			return ResponseService.error(res, error.message);
+		}
+	}
+
+	static #verifyRevision(data) {
+		for (let i = data.length - 1; i >= 0; i--) {
+			if (
+				data[i] && // Verifica se data[i] está definido
+				data[i].revisao_conteudo && // Verifica se data[i].revisao_conteudo está definido
+				data[i].revisao_conteudo[0] && // Verifica se o primeiro elemento de revisao_conteudo existe
+				(data[i].revisao_conteudo[0].estado == DataConstants.ESTADO.ANALISE ||
+					data[i].revisao_conteudo[0].estado == DataConstants.ESTADO.REJEITADO)
+			) {
+				data.splice(i, 1);
+			}
 		}
 	}
 

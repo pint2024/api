@@ -2,6 +2,7 @@ import { models } from "../config/index.js";
 import { Constants, DataConstants } from "../constants/index.js";
 import { ScheduleException } from "../exceptions/index.js";
 import { LogUtils } from "../utils/index.js";
+import { NotificationService } from "./index.js";
 
 export class ScheduleService {
 	static async verificaProximoEventoOuAtividade() {
@@ -16,8 +17,7 @@ export class ScheduleService {
 			await conteudos.forEach(async (conteudo) => {
 				if (this.#isConteudoAtividadeOuEvento(conteudo.tipo) && this.#isDateWithinInterval(conteudo.data_evento)) {
 					LogUtils.log(`Evento próximo encontrado para o conteúdo: ${conteudo.titulo}`, LogUtils.TIPO.EVENTO);
-					//const utilizador = conteudo.conteudo_utilizador;
-					//EmailService.mandaNotificacao(utilizador.email, utilizador.nome + " " + utilizador.sobrenome);
+					NotificationService.subscribedContentBegining(conteudo.conteudo_utilizador);
 				}
 			});
 		} catch (error) {

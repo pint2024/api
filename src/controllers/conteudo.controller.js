@@ -46,8 +46,23 @@ export class ConteudoController extends BaseController {
 
 	async obter(req, res) {
 		try {
+			const { perfil } = req.user;
 			const { id } = req.params;
+
 			const response = await this.service.obter(id, ConteudoController.#modelos_adicionais());
+			if (perfil == DataConstants.PERFIL.USER) ConteudoController.#verifyRevision(response);
+
+			return ResponseService.success(res, response);
+		} catch (error) {
+			return ResponseService.error(res, error.message);
+		}
+	}
+
+	async listar(req, res) {
+		try {
+			const { perfil } = req.user;
+			const response = await this.service.listar(req.body);
+			if (perfil == DataConstants.PERFIL.USER) ConteudoController.#verifyRevision(response);
 			return ResponseService.success(res, response);
 		} catch (error) {
 			return ResponseService.error(res, error.message);

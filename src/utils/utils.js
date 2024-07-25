@@ -15,8 +15,17 @@ export class Utils {
 	}
 
 	static tagDefault = (nome, sobrenome) => {
-		return `${Utils.toLower(nome)}${Utils.toLower(sobrenome)}`;
+		let tag = `${Utils.toLower(nome)}${Utils.toLower(sobrenome)}`;
+		tag = Utils.removeSpecialChars(tag);
+		return tag.length > 21 ? tag.slice(0, 21) : tag;
 	};
+
+	static removeSpecialChars(str) {
+		return str
+			.normalize("NFD")
+			.replace(/[\u0300-\u036f]/g, "")
+			.replace(/[^a-zA-Z0-9]/g, "");
+	}
 
 	static ensureDirectoryExists = (directory) => {
 		if (!fs.existsSync(directory)) {

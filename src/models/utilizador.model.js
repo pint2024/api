@@ -82,7 +82,8 @@ export default function (sequelize, DataTypes) {
 		while (!encontrou) {
 			const tagResponse = await Models.findOne({ where: { tag } });
 			if (tagResponse) {
-				tag = tagDefault + Utils.random(0, 10000);
+				const randomSuffix = Utils.random(0, 10000).toString();
+				tag = tagDefault.slice(0, 21 - randomSuffix.length) + randomSuffix;
 			} else {
 				encontrou = true;
 			}

@@ -1,5 +1,5 @@
 import { models } from "../config/index.js";
-import { Constants } from "../constants/index.js";
+import { Constants, DataConstants } from "../constants/index.js";
 import { ResponseService } from "../services/index.js";
 import { BaseController } from "./index.js";
 
@@ -16,6 +16,18 @@ export class RevisaoController extends BaseController {
 			return ResponseService.error(res, error.message);
 		}
 	}
+
+	/*async em_revisao_listar(req, res) {
+		try {
+			req.body = {
+				estado: DataConstants.ESTADO.REJEITADO
+			}
+			const response = await this.service.listar(req.body, RevisaoController.#modelos_adicionais());
+			return ResponseService.success(res, response);
+		} catch (error) {
+			return ResponseService.error(res, error.message);
+		}
+	}*/
 
 	static #modelos_adicionais = () => {
 		return [

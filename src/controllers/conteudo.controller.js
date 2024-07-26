@@ -46,7 +46,7 @@ export class ConteudoController extends BaseController {
 
 	async obter(req, res) {
 		try {
-			const { perfil } = req.user;
+			const { perfil, centro } = req.user;
 			const { id } = req.params;
 
 			const response = await this.service.obter(id, ConteudoController.#modelos_adicionais());
@@ -60,9 +60,11 @@ export class ConteudoController extends BaseController {
 
 	async listar(req, res) {
 		try {
-			const { perfil } = req.user;
+			const { perfil, centro } = req.user;
+
 			const response = await this.service.listar(req.body);
 			if (perfil == DataConstants.PERFIL.USER) ConteudoController.#verifyRevision(response);
+
 			return ResponseService.success(res, response);
 		} catch (error) {
 			return ResponseService.error(res, error.message);
@@ -71,7 +73,7 @@ export class ConteudoController extends BaseController {
 
 	async listagem_listar(req, res) {
 		try {
-			const { perfil } = req.user;
+			const { perfil, centro } = req.user;
 
 			const responseEspaco = await this.service.listar({
 				...{ tipo: DataConstants.TIPO_CONTEUDO.ESPACO },
@@ -93,6 +95,10 @@ export class ConteudoController extends BaseController {
 				ConteudoController.#verifyRevision(responseEvento);
 				ConteudoController.#verifyRevision(responseRecomendacao);
 			}
+			/*ConteudoController.#verifyCentro(responseEspaco, centro);
+			ConteudoController.#verifyCentro(responseAtividade, centro);
+			ConteudoController.#verifyCentro(responseEvento, centro);
+			ConteudoController.#verifyCentro(responseRecomendacao, centro);*/
 
 			return ResponseService.success(res, {
 				[DataConstants.TIPO_CONTEUDO.ESPACO]: responseEspaco,
@@ -113,6 +119,18 @@ export class ConteudoController extends BaseController {
 				data[i].revisao_conteudo[0] && // Verifica se o primeiro elemento de revisao_conteudo existe
 				(data[i].revisao_conteudo[0].estado == DataConstants.ESTADO.ANALISE ||
 					data[i].revisao_conteudo[0].estado == DataConstants.ESTADO.REJEITADO)
+			) {
+				data.splice(i, 1);
+			}
+		}
+	}
+
+	static #verifyCentro(data, user_centro) {
+		for (let i = data.length - 1; i >= 0; i--) {
+			if (
+				data[i] &&
+				data[i].conteudo_utilizador &&
+				data[i].conteudo_utilizador.centro != user_centro
 			) {
 				data.splice(i, 1);
 			}

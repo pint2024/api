@@ -71,6 +71,19 @@ export class ConteudoController extends BaseController {
 		}
 	}
 
+	async participando_listar(req, res) {
+		try {
+			const { id } = req.user;
+
+			const response = await this.service.listar(req.body);
+			ConteudoController.#verifyParticipante(response, id);
+
+			return ResponseService.success(res, response);
+		} catch (error) {
+			return ResponseService.error(res, error.message);
+		}
+	}
+
 	async listagem_listar(req, res) {
 		try {
 			const { perfil, centro } = req.user;
@@ -125,13 +138,22 @@ export class ConteudoController extends BaseController {
 		}
 	}
 
-	static #verifyCentro(data, user_centro) {
+	static #verifyParticipante(data, id) {
 		for (let i = data.length - 1; i >= 0; i--) {
 			if (
-				data[i] &&
-				data[i].conteudo_utilizador &&
-				data[i].conteudo_utilizador.centro != user_centro
+				!data[i] || // Verifica se data[i] está definido
+				!data[i].participante_conteudo || // Verifica se participante_conteudo está definido
+				data[i].participante_conteudo.length === 0 || // Verifica se participante_conteudo não está vazio
+				data[i].participante_conteudo[0].utilizador !== id // Verifica se o utilizador não corresponde ao id
 			) {
+				data.splice(i, 1);
+			}
+		}
+	}
+
+	static #verifyCentro(data, user_centro) {
+		for (let i = data.length - 1; i >= 0; i--) {
+			if (data[i] && data[i].conteudo_utilizador && data[i].conteudo_utilizador.centro != user_centro) {
 				data.splice(i, 1);
 			}
 		}

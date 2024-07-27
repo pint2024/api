@@ -13,10 +13,7 @@ export class ParticipanteController extends BaseController {
 		try {
 			const exists = await ModelsUtils.checkExistence(this.model, req.body);
 			if (exists) throw new ErrorException("Utilizador já esta a participar!");
-			console.log(exists);
-
 			const response = await this.service.criar(req.body);
-			console.log(response);
 			return ResponseService.success(res, response);
 		} catch (error) {
 			return ResponseService.error(res, error.message);
@@ -25,6 +22,7 @@ export class ParticipanteController extends BaseController {
 
 	async remover(req, res) {
 		try {
+			console.log("oi");
 			const exists = await ModelsUtils.checkExistence(this.model, req.body);
 			if (!exists) throw new ErrorException("Utilizador não está a participar!");
 

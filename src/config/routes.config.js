@@ -15,7 +15,7 @@ import {
 } from "../controllers/index.js";
 import { models } from "./index.js";
 import { LogUtils } from "../utils/index.js";
-import { AutenticacaoRoutes, BaseRoutes, UtilizadorRoutes, ConteudoRoutes } from "../routes/index.js";
+import { AutenticacaoRoutes, BaseRoutes, UtilizadorRoutes, ConteudoRoutes, ParticipanteRoutes } from "../routes/index.js";
 
 export const RoutesConfig = async (app) => {
 	BaseRoutes(app, new AlbumController(models.album), "/album");
@@ -28,7 +28,7 @@ export const RoutesConfig = async (app) => {
 	BaseRoutes(app, new BaseController(models.estado), "/estado");
 	BaseRoutes(app, new InteresseController(models.interesse), "/interesse");
 	BaseRoutes(app, new BaseController(models.notificacao), "/notificacao");
-	BaseRoutes(app, new ParticipanteController(models.participante), "/participante");
+	ParticipanteRoutes(app, new ParticipanteController(models.participante), "/participante");
 	BaseRoutes(app, new BaseController(models.perfil), "/perfil");
 	BaseRoutes(app, new RevisaoController(models.revisao), "/revisao");
 	BaseRoutes(app, new BaseController(models.subtopico), "/subtopico");

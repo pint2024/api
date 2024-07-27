@@ -7,7 +7,7 @@ import { Constants } from "../constants/index.js";
  * @param controllerClass instancia do controllerClass definido com o modelo e identificador (opcional)
  * @param url_base parametro base da rota
  */
-export const ConteudoRoutes = (app, controllerClass, url_base) => {
+export const ParticipanteRoutes = (app, controllerClass, url_base) => {
 	const router = express.Router();
 
 	router.route(Constants.URL_NAMING.GET).get((req, res) => controllerClass.obter(req, res));
@@ -15,10 +15,8 @@ export const ConteudoRoutes = (app, controllerClass, url_base) => {
 	router.route(Constants.URL_NAMING.CREATE).post((req, res) => controllerClass.criar(req, res));
 	router.route(Constants.URL_NAMING.LIST).post((req, res) => controllerClass.listar(req, res));
 	router.route(Constants.URL_NAMING.SIMPLE_LIST).post((req, res) => controllerClass.simples_listar(req, res));
-	router.route("/listagem/listar").post((req, res) => controllerClass.listagem_listar(req, res));
-	router.route("/participando/listar").post((req, res) => controllerClass.participando_listar(req, res));
 	router.route(Constants.URL_NAMING.UPDATE).put((req, res) => controllerClass.atualizar(req, res));
-	router.route(Constants.URL_NAMING.DELETE).delete((req, res) => controllerClass.remover(req, res));
+	router.route("/remover").post((req, res) => controllerClass.remover(req, res));
 
 	app.use(url_base, router);
 };

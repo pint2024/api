@@ -5,6 +5,7 @@ import { Controller } from "./index.js";
 import { AuthService, EmailService, ResponseService } from "../services/index.js";
 import { CreedentialsWrongException, NotFoundException, ValidationException } from "../exceptions/index.js";
 import { ModelsUtils } from "../utils/models.utils.js";
+import { models } from "../config/index.js";
 
 export class AutenticacaoController extends Controller {
 	constructor(model, identifier = Constants.DEFAULT_IDENTIFIER) {
@@ -19,7 +20,7 @@ export class AutenticacaoController extends Controller {
 			const decoded_token = await AuthService.verifyAuthToken(token);
 			if (!decoded_token) throw new NotFoundException("Erro ao descodificar o token.");
 
-			const response = await this.service.buscar(decoded_token.id);
+			const response = await this.service.buscar(decoded_token.id, null, AutenticacaoController.#modelos_adicionais());
 			if (!response) throw new NotFoundException("Utilizador não existe!");
 
 			return ResponseService.success(res, response);
@@ -140,4 +141,17 @@ export class AutenticacaoController extends Controller {
 			return ResponseService.error(res, error.message);
 		}
 	}
+
+	static #modelos_adicionais = () => {
+		return [
+			{
+				model: models.centro,
+				as: "utilizador_centro",
+			},
+			{
+				model: models.perfil,
+				as: "utilizador_perfil",
+			},
+		];
+	};
 }

@@ -92,11 +92,9 @@ export class AutenticacaoController extends Controller {
 
 	async reset_password(req, res) {
 		try {
-			const { senha, confirmacao_senha } = req.body;
-			if (senha != confirmacao_senha) throw new CreedentialsWrongException("Senhas não coincidem.");
-
-			const token = AuthService.getTokenHeader(req);
+			const { senha, confirmacao_senha, token } = req.body;
 			if (!token) throw new NotFoundException("Token não foi recebido!");
+			if (senha != confirmacao_senha) throw new CreedentialsWrongException("Senhas não coincidem.");
 
 			const decoded_token = await AuthService.verifyForgetPasswordToken(token);
 			if (!decoded_token) throw new NotFoundException("Erro ao descodificar o token.");

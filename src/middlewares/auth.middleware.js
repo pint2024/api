@@ -7,6 +7,7 @@ export const AuthMiddleware = async (req, res, next) => {
 			const decoded = await AuthService.verifyAuthToken(token);
 			const user = await AuthService.getUserById(decoded.id);
 			req.user = user;
+			req.token = token;
 		}
 
 		next();

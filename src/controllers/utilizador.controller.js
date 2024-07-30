@@ -4,6 +4,7 @@ import { CloudStorageService, EmailService, MulterService, ResponseService, Uplo
 import { BaseController } from "./base.controller.js";
 import { models } from "../config/models.config.js";
 import { ModelsUtils } from "../utils/models.utils.js";
+import { CryptoUtils } from "../utils/crypto.utils.js";
 
 export class UtilizadorController extends BaseController {
 	constructor(model, identifier = Constants.DEFAULT_IDENTIFIER) {
@@ -27,10 +28,13 @@ export class UtilizadorController extends BaseController {
 
 	async criar(req, res) {
 		try {
-			const { senha } = req.body;
 			req.body.imagem = "";
+			req.body.senha = CryptoUtils.generatePassword(Constants.DEFAULT_PASSWORD_LENGHT);
+
 			const response = await this.service.criar(req.body);
-			await EmailService.enviaAvisoContaCriada(response.email, response.nome, response.tag, senha);
+
+			await EmailService.enviaAvisoContaCriada(response.email, response.nome, response.tag, req.body.senha);
+
 			return ResponseService.success(res, response);
 		} catch (error) {
 			return ResponseService.error(res, error.message);
@@ -49,7 +53,10 @@ export class UtilizadorController extends BaseController {
 
 	async simples_listar(req, res) {
 		try {
-			const response = await this.service.simples_listar(req.body, UtilizadorController.#modelos_adicionais_simplificado());
+			const response = await this.service.simples_listar(
+				req.body,
+				UtilizadorController.#modelos_adicionais_simplificado()
+			);
 			return ResponseService.success(res, response);
 		} catch (error) {
 			return ResponseService.error(res, error.message);
@@ -59,7 +66,10 @@ export class UtilizadorController extends BaseController {
 	async simples_obter(req, res) {
 		try {
 			const { id } = req.params;
-			const response = await this.service.simples_obter(id, UtilizadorController.#modelos_adicionais_obter_simplificado());
+			const response = await this.service.simples_obter(
+				id,
+				UtilizadorController.#modelos_adicionais_obter_simplificado()
+			);
 			return ResponseService.success(res, response);
 		} catch (error) {
 			return ResponseService.error(res, error.message);

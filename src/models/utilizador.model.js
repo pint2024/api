@@ -75,6 +75,7 @@ export default function (sequelize, DataTypes) {
 			],
 		}
 	);
+
 	Models.beforeCreate(async (user, options) => {
 		const tagDefault = Utils.tagDefault(user.nome, user.sobrenome);
 		let tag = tagDefault;

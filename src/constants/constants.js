@@ -36,4 +36,6 @@ export class Constants {
 	static NOTIFICATION_INTERVAL_MIN = 3;
 
 	static NOTIFICATION_SEND_MIN = 15;
+
+	static DEFAULT_PASSWORD_LENGHT = 8;
 }

@@ -12,6 +12,7 @@ import {
 	InteresseController,
 	ParticipanteController,
 	DenunciaController,
+	ComentarioController,
 } from "../controllers/index.js";
 import { models } from "./index.js";
 import { LogUtils } from "../utils/index.js";
@@ -22,7 +23,7 @@ export const RoutesConfig = async (app) => {
 	AutenticacaoRoutes(app, new AutenticacaoController(models.utilizador), "/autenticacao");
 	BaseRoutes(app, new CentroController(models.centro), "/centro");
 	BaseRoutes(app, new ClassificacaoController(models.classificacao), "/classificacao");
-	BaseRoutes(app, new BaseController(models.comentario), "/comentario");
+	BaseRoutes(app, new ComentarioController(models.comentario), "/comentario");
 	ConteudoRoutes(app, new ConteudoController(models.conteudo), "/conteudo");
 	BaseRoutes(app, new DenunciaController(models.denuncia), "/denuncia");
 	BaseRoutes(app, new BaseController(models.estado), "/estado");

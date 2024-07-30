@@ -2,13 +2,32 @@ import { models } from "../config/index.js";
 import { CloudinaryConstants, Constants, DataConstants } from "../constants/index.js";
 import { UploadException, ValidationException } from "../exceptions/index.js";
 import { ValidateParamsHelpers } from "../helpers/index.js";
-import { BaseService, CloudStorageService, MulterService, ResponseService, UploadService } from "../services/index.js";
+import {
+	BaseService,
+	CloudStorageService,
+	EmailService,
+	MulterService,
+	ResponseService,
+	ScheduleService,
+	UploadService,
+} from "../services/index.js";
 import { ModelsUtils } from "../utils/models.utils.js";
 import { BaseController } from "./index.js";
 
 export class ConteudoController extends BaseController {
 	constructor(model, identifier = Constants.DEFAULT_IDENTIFIER) {
 		super(model, identifier);
+	}
+
+	async atualizar(req, res) {
+		try {
+			const { id } = req.params;
+			const response = await this.service.atualizar(id, req.body);
+			ScheduleService.enviaEmailDeAlteracoes(id);
+			return ResponseService.success(res, response);
+		} catch (error) {
+			return ResponseService.error(res, error.message);
+		}
 	}
 
 	async upload(req) {
@@ -35,9 +54,9 @@ export class ConteudoController extends BaseController {
 
 			const response = await this.service.criar(req.body);
 
-			const revisaService = new BaseService(models.revisao);
-			const revisao_response = await revisaService.criar({ conteudo: response.id });
-
+			const revisaoService = new BaseService(models.revisao);
+			const revisao_response = await revisaoService.criar({ conteudo: response.id });
+			ScheduleService.enviaEmailParaInteressados(response.id);
 			return ResponseService.success(res, { conteudo: response, revisao: revisao_response });
 		} catch (error) {
 			return ResponseService.error(res, error.message);

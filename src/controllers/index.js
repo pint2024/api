@@ -1,6 +1,7 @@
 export { AlbumController } from "./album.controller.js";
-export { ConteudoController } from "./conteudo.controller.js";
 export { AutenticacaoController } from "./autenticacao.controller.js";
+export { ConteudoController } from "./conteudo.controller.js";
+export { ComentarioController } from "./comentario.controller.js";
 export { Controller } from "./controller.js";
 export { DenunciaController } from "./denuncia.controller.js";
 export { InteresseController } from "./interesse.controller.js";

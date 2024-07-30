@@ -13,7 +13,7 @@ export class ScheduleConfig {
 
 	static async #verify() {
 		LogUtils.log("Verificando se existem eventos próximos...", LogUtils.TIPO.EVENTO);
-		await ScheduleService.verificaProximoEventoOuAtividade();
+		//await ScheduleService.verificaProximoEventoOuAtividade();
 		LogUtils.log("Verificação de eventos próximos concluída.", LogUtils.TIPO.EVENTO);
 	}
 }

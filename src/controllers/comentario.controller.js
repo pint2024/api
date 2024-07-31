@@ -24,10 +24,21 @@ export class ComentarioController extends BaseController {
 
 	async revisao_listar(req, res) {
 		try {
+			const { centro } = req.user;
 			const response = await this.service.simples_listar(req.body, ComentarioController.#modelos_adicionais_revisao());
+			ComentarioController.#verifyCentro(response, centro);
 			return ResponseService.success(res, response);
 		} catch (error) {
 			return ResponseService.error(res, error.message);
+		}
+	}
+
+	static #verifyCentro(data, user_centro) {
+		for (let i = data.length - 1; i >= 0; i--) {
+			console.log(data[i].comentario_utilizador.centro, user_centro);
+			if (data[i] && data[i].comentario_utilizador && data[i].comentario_utilizador.centro != user_centro) {
+				data.splice(i, 1);
+			}
 		}
 	}
 

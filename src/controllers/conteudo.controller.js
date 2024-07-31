@@ -79,7 +79,9 @@ export class ConteudoController extends BaseController {
 
 	async revisao_listar(req, res) {
 		try {
+			const { centro } = req.user;
 			const response = await this.service.simples_listar(req.body, ConteudoController.#modelos_adicionais_revisao());
+			ConteudoController.#verifyCentro(response, centro);
 			return ResponseService.success(res, response);
 		} catch (error) {
 			return ResponseService.error(res, error.message);

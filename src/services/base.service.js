@@ -122,11 +122,9 @@ export class BaseService extends Service {
 
 	async remover_querry(query) {
 		try {
-			console.log(query);
 			const response = await this.model.destroy({
 				where: { ...query },
 			});
-			console.log("a");
 			if (!response) throw new NotFoundException("Objeto não encontrado.");
 			return response;
 		} catch (e) {

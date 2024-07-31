@@ -58,7 +58,6 @@ export class ScheduleService {
 
 			const criador_email = conteudo_data.conteudo_utilizador.email;
 
-			console.log("enviaEmailNovaParticipacao", criador_email);
 			EmailService.enviaNovaParticipacao(criador_email, conteudo_data.titulo, conteudo_data.id);
 		} catch (error) {
 			throw new ScheduleException("Erro ao verificar eventos próximos:", error);

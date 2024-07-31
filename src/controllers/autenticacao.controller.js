@@ -65,7 +65,6 @@ export class AutenticacaoController extends Controller {
 				const response = await AuthService.createAuthToken(utilizador.id);
 				return ResponseService.success(res, { token: response });
 			} else {
-				console.log(utilizador.id);
 				const response = await AuthService.createAtualizarPasswordToken(utilizador.id);
 				return ResponseService.message(res, "Precisa alterar a senha.", { token: response });
 			}
@@ -116,8 +115,6 @@ export class AutenticacaoController extends Controller {
 
 			const decoded_token = await AuthService.verifyAtualizarPasswordToken(token);
 			if (!decoded_token) throw new NotFoundException("Erro ao descodificar o token.");
-
-			console.log(decoded_token);
 
 			const response = await ModelsUtils.checkExistence(this.model, { id: decoded_token.id });
 			if (!response) throw new NotFoundException("Utilizador não existe.");

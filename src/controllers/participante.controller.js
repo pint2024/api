@@ -23,7 +23,6 @@ export class ParticipanteController extends BaseController {
 
 	async remover(req, res) {
 		try {
-			console.log("oi");
 			const exists = await ModelsUtils.checkExistence(this.model, req.body);
 			if (!exists) throw new ErrorException("Utilizador não está a participar!");
 

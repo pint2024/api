@@ -65,12 +65,21 @@ export class ConteudoController extends BaseController {
 
 	async obter(req, res) {
 		try {
-			const { perfil, centro } = req.user;
+			const { perfil } = req.user;
 			const { id } = req.params;
 
 			const response = await this.service.obter(id, ConteudoController.#modelos_adicionais());
 			if (perfil == DataConstants.PERFIL.USER) ConteudoController.#verifyRevision(response);
 
+			return ResponseService.success(res, response);
+		} catch (error) {
+			return ResponseService.error(res, error.message);
+		}
+	}
+
+	async revisao_listar(req, res) {
+		try {
+			const response = await this.service.simples_listar(req.body, ConteudoController.#modelos_adicionais_revisao());
 			return ResponseService.success(res, response);
 		} catch (error) {
 			return ResponseService.error(res, error.message);
@@ -199,6 +208,33 @@ export class ConteudoController extends BaseController {
 						as: "comentario_utilizador",
 					},
 				],
+			},
+		];
+	};
+
+	static #modelos_adicionais_revisao = () => {
+		return [
+			{
+				model: models.revisao,
+				as: "revisao_conteudo",
+				include: [
+					{
+						model: models.estado,
+						as: "revisao_estado",
+					},
+				],
+			},
+			{
+				model: models.tipo,
+				as: "conteudo_tipo",
+			},
+			{
+				model: models.subtopico,
+				as: "conteudo_subtopico",
+			},
+			{
+				model: models.utilizador,
+				as: "conteudo_utilizador",
 			},
 		];
 	};

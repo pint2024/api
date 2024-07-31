@@ -17,6 +17,7 @@ export const ConteudoRoutes = (app, controllerClass, url_base) => {
 	router.route(Constants.URL_NAMING.SIMPLE_LIST).post((req, res) => controllerClass.simples_listar(req, res));
 	router.route("/listagem/listar").post((req, res) => controllerClass.listagem_listar(req, res));
 	router.route("/participando/listar").post((req, res) => controllerClass.participando_listar(req, res));
+	router.route("/revisao/listar").post((req, res) => controllerClass.revisao_listar(req, res));
 	router.route(Constants.URL_NAMING.UPDATE).put((req, res) => controllerClass.atualizar(req, res));
 	router.route(Constants.URL_NAMING.DELETE).delete((req, res) => controllerClass.remover(req, res));
 

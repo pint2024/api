@@ -12,7 +12,7 @@ export class Constants {
 
 	static SV_PORT = process.env.PORT || 8000;
 
-	static FRONTEND_URL = "http://localhost:3000";
+	static FRONTEND_URL = "https://web-6grl.onrender.com";
 
 	static FUNCION_NAMING = {
 		LIST: "list",

@@ -46,7 +46,7 @@ export class EmailService {
 			email,
 			"Confirmação de Email",
 			`Olá ${nome},\n\nPor favor, verifique o seu email clicando no link abaixo:\n\n${Constants.FRONTEND_URL}/verify?token=${token}`,
-			`<p>Olá ${nome},</p><p>Por favor, verifique o seu email clicando no link abaixo:</p><a href="http://localhost:${Constants.SV_PORT}/autenticacao/verificar/${token}">Verificar Email</a>`
+			`<p>Olá ${nome},</p><p>Por favor, verifique o seu email clicando no link abaixo:</p><a href="${Constants.FRONTEND_URL}/autenticacao/verificar/${token}">Verificar Email</a>`
 		);
 	};
 

@@ -21,6 +21,14 @@ export default function (sequelize, DataTypes) {
 				type: DataTypes.STRING(500),
 				allowNull: false,
 			},
+			latitude: {
+				type: DataTypes.INTEGER,
+				allowNull: true,
+			},
+			longitude: {
+				type: DataTypes.INTEGER,
+				allowNull: true,
+			},
 			utilizador: ModelsUtils.foreignKeyDataType(),
 			subtopico: ModelsUtils.foreignKeyDataType(),
 			data_evento: {

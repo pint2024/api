@@ -62,6 +62,20 @@ export class ComentarioController extends BaseController {
 				model: models.conteudo,
 				as: "comentario_conteudo",
 			},
+			{
+				model: models.denuncia,
+				as: "denuncia_comentario",
+				include: [
+					{
+						model: models.estado,
+						as: "denuncia_estado",
+					},
+					{
+						model: models.utilizador,
+						as: "denuncia_utilizador",
+					},
+				],
+			},
 		];
 	};
 }

@@ -27,6 +27,10 @@ export class DenunciaController extends BaseController {
 						model: models.utilizador,
 						as: "comentario_utilizador",
 					},
+					{
+						model: models.conteudo,
+						as: "comentario_conteudo",
+					},
 				],
 			},
 		];

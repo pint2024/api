@@ -17,7 +17,9 @@ export class AuthLoginService {
 		if (!isExternalLogin && !AuthService.comparePassword(senha, utilizador.senha))
 			throw new CreedentialsWrongException("Senha está incorreta.");
 
-		if (utilizador.verificado) {
+		if (utilizador.inativo) {
+			return { contaEstaInativa: true };
+		} else if (utilizador.verificado) {
 			const token = await AuthService.createAuthToken(utilizador.id);
 			return { token, precisaAtualizarSenha: false };
 		} else {

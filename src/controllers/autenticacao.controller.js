@@ -53,8 +53,9 @@ export class AutenticacaoController extends Controller {
 		try {
 			const { login, senha } = req.body;
 			const resultado = await AuthLoginService.entrar(login, senha);
-
-			if (resultado.precisaAtualizarSenha) {
+			if (resultado?.contaEstaInativa) {
+				return ResponseService.unauthorized(res, "A sua conta foi inativada.");
+			} else if (resultado.precisaAtualizarSenha) {
 				return ResponseService.message(res, "Precisa alterar a senha.", { token: resultado.token });
 			} else {
 				return ResponseService.success(res, { token: resultado.token });
@@ -87,7 +88,9 @@ export class AutenticacaoController extends Controller {
 				console.log("utilizador verificado", updateVerifiedUser);
 			}
 			const loggedUser = await AuthLoginService.entrar(email, null, true);
-			if (loggedUser.precisaAtualizarSenha) {
+			if (loggedUser?.contaEstaInativa) {
+				return ResponseService.unauthorized(res, "A sua conta foi inativada.");
+			} else if (loggedUser.precisaAtualizarSenha) {
 				return ResponseService.message(res, "Precisa alterar a senha.", { token: loggedUser.token });
 			} else {
 				return ResponseService.success(res, { token: loggedUser.token });

@@ -22,6 +22,6 @@ export class ResponseService {
 
 	static message(res, message = "Unauthorized access", response = {}, success = false) {
 		LogUtils.log("Response Unauthorized", LogUtils.TIPO.RESPONSE);
-		return res.status(StatusConstants.CODES.MESSAGE).json({ success: success, message: message, data: response});
+		return res.status(StatusConstants.CODES.MESSAGE).json({ success: success, message: message, data: response });
 	}
 }

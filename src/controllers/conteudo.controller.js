@@ -120,17 +120,17 @@ export class ConteudoController extends BaseController {
 
 			const responseEspaco = await this.service.listar({
 				...{ tipo: DataConstants.TIPO_CONTEUDO.ESPACO },
-				...req.body,
-			});
+				...req.body
+			}, ConteudoController.#modelos_adicionais_listagem());
 			const responseAtividade = await this.service.listar({
 				...{ tipo: DataConstants.TIPO_CONTEUDO.ATIVIDADE },
-				...req.body,
-			});
-			const responseEvento = await this.service.listar({ ...{ tipo: DataConstants.TIPO_CONTEUDO.EVENTO }, ...req.body });
+				...req.body
+			}, ConteudoController.#modelos_adicionais_listagem());
+			const responseEvento = await this.service.listar({ ...{ tipo: DataConstants.TIPO_CONTEUDO.EVENTO }, ...req.body }, ConteudoController.#modelos_adicionais_listagem());
 			const responseRecomendacao = await this.service.listar({
 				...{ tipo: DataConstants.TIPO_CONTEUDO.RECOMENDACAO },
-				...req.body,
-			});
+				...req.body
+			}, ConteudoController.#modelos_adicionais_listagem());
 
 			if (perfil == DataConstants.PERFIL.USER) {
 				ConteudoController.#verifyRevision(responseEspaco);
@@ -208,6 +208,21 @@ export class ConteudoController extends BaseController {
 					{
 						model: models.utilizador,
 						as: "comentario_utilizador",
+					},
+				],
+			},
+		];
+	};
+
+	static #modelos_adicionais_listagem = () => {
+		return [
+			{
+				model: models.subtopico,
+				as: "conteudo_subtopico",
+				include: [
+					{
+						model: models.topico,
+						as: "subtopico_topico",
 					},
 				],
 			},

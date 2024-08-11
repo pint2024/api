@@ -1,10 +1,8 @@
 import { CloudinaryConstants, Constants } from "../constants/index.js";
-import { NotFoundException, UploadException } from "../exceptions/index.js";
-import { CloudStorageService, EmailService, MulterService, ResponseService, UploadService } from "../services/index.js";
+import { ResponseService, UploadService } from "../services/index.js";
 import { BaseController } from "./base.controller.js";
 import { models } from "../config/models.config.js";
-import { ModelsUtils } from "../utils/models.utils.js";
-import { CryptoUtils } from "../utils/crypto.utils.js";
+import { AuthLoginService } from "../services/authLogin.service.js";
 
 export class UtilizadorController extends BaseController {
 	constructor(model, identifier = Constants.DEFAULT_IDENTIFIER) {
@@ -28,13 +26,7 @@ export class UtilizadorController extends BaseController {
 
 	async criar(req, res) {
 		try {
-			req.body.imagem = "";
-			req.body.senha = CryptoUtils.generatePassword(Constants.DEFAULT_PASSWORD_LENGHT);
-
-			const response = await this.service.criar(req.body);
-
-			await EmailService.enviaAvisoContaCriada(response.email, response.nome, response.tag, req.body.senha);
-
+			const response = await AuthLoginService.criar(req.body);
 			return ResponseService.success(res, response);
 		} catch (error) {
 			return ResponseService.error(res, error.message);

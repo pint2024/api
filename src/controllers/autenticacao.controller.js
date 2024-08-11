@@ -1,11 +1,12 @@
 import jwt from "jsonwebtoken";
 import { Op } from "sequelize";
 import { Constants } from "../constants/index.js";
-import { Controller } from "./index.js";
+import { Controller, UtilizadorController } from "./index.js";
 import { AuthService, EmailService, ResponseService } from "../services/index.js";
 import { CreedentialsWrongException, NotFoundException, ValidationException } from "../exceptions/index.js";
 import { ModelsUtils } from "../utils/models.utils.js";
 import { models } from "../config/index.js";
+import { AuthLoginService } from "../services/authLogin.service.js";
 
 export class AutenticacaoController extends Controller {
 	constructor(model, identifier = Constants.DEFAULT_IDENTIFIER) {
@@ -51,22 +52,45 @@ export class AutenticacaoController extends Controller {
 	async entrar(req, res) {
 		try {
 			const { login, senha } = req.body;
-			if (!senha || !login) throw new CreedentialsWrongException("Campos em branco!");
+			const resultado = await AuthLoginService.entrar(login, senha);
 
-			const utilizador = await this.model.findOne({
-				where: { [Op.or]: [{ tag: login }, { email: login }] },
-			});
-			if (!utilizador) throw new CreedentialsWrongException("Utilizador não existe!");
-
-			if (!AuthService.comparePassword(senha, utilizador.senha))
-				throw new CreedentialsWrongException("Senha está incorreta.");
-
-			if (utilizador.verificado) {
-				const response = await AuthService.createAuthToken(utilizador.id);
-				return ResponseService.success(res, { token: response });
+			if (resultado.precisaAtualizarSenha) {
+				return ResponseService.message(res, "Precisa alterar a senha.", { token: resultado.token });
 			} else {
-				const response = await AuthService.createAtualizarPasswordToken(utilizador.id);
-				return ResponseService.message(res, "Precisa alterar a senha.", { token: response });
+				return ResponseService.success(res, { token: resultado.token });
+			}
+		} catch (error) {
+			return ResponseService.error(res, error.message);
+		}
+	}
+
+	async external_login(req, res) {
+		try {
+			const { token } = req.body;
+			const dataJson = await AuthService.verifyGoogleLoginToken(token);
+			const { email, picture, given_name, family_name } = dataJson;
+			console.log(dataJson);
+
+			const utilizador = await this.model.findOne({ where: { email: email } });
+			console.log(utilizador);
+			if (!utilizador) {
+				const newUser = await AuthLoginService.criar({
+					email,
+					nome: given_name,
+					sobrenome: family_name,
+					imagem: picture,
+					verificado: true,
+				});
+				console.log(newUser);
+			} else {
+				const updateVerifiedUser = await this.service.atualizar(utilizador.id, { verificado: true });
+				console.log("utilizador verificado", updateVerifiedUser);
+			}
+			const loggedUser = await AuthLoginService.entrar(email, null, true);
+			if (loggedUser.precisaAtualizarSenha) {
+				return ResponseService.message(res, "Precisa alterar a senha.", { token: loggedUser.token });
+			} else {
+				return ResponseService.success(res, { token: loggedUser.token });
 			}
 		} catch (error) {
 			return ResponseService.error(res, error.message);

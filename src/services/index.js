@@ -1,4 +1,5 @@
 export { AuthService } from "./auth.service.js";
+export { AuthLoginService } from "./authLogin.service.js";
 export { BaseService } from "./base.service.js";
 export { CloudStorageService } from "./cloudStorage.service.js";
 export { EmailService } from "./email.service.js";

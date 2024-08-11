@@ -1,9 +1,10 @@
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
-import { Constants } from "../constants/index.js";
+import { Constants, GoogleCredentials } from "../constants/index.js";
 import { ErrorException } from "../exceptions/error.exception.js";
 import { BaseService } from "./base.service.js";
 import { models } from "../config/models.config.js";
+import { OAuth2Client } from "google-auth-library";
 
 export class AuthService {
 	static getTokenHeader = (req) => {
@@ -56,6 +57,12 @@ export class AuthService {
 	static verifyAtualizarPasswordToken = async (token) => {
 		return jwt.verify(token, Constants.JWT_CONFIG.TOKEN_ATUALIZAR_PASSWORD_SECRET);
 	};
+
+	static verifyGoogleLoginToken = async (token) => {
+		const client = new OAuth2Client(GoogleCredentials.GOOGLE_CLIENT_ID);
+		const ticket = await client.verifyIdToken({ idToken: token, audience: GoogleCredentials.GOOGLE_CLIENT_ID });
+		return ticket.getPayload();
+	}
 
 	static comparePassword = (senha_recebida, senha) => {
 		return bcrypt.compareSync(senha_recebida, senha);

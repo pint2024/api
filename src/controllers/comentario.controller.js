@@ -35,8 +35,8 @@ export class ComentarioController extends BaseController {
 
 	static #verifyCentro(data, user_centro) {
 		for (let i = data.length - 1; i >= 0; i--) {
-			console.log(data[i].comentario_utilizador.centro, user_centro);
-			if (data[i] && data[i].comentario_utilizador && data[i].comentario_utilizador.centro != user_centro) {
+			console.log(data[i].comentario_conteudo.conteudo_utilizador.centro, user_centro);
+			if (data[i] && data[i].comentario_conteudo.conteudo_utilizador && data[i].comentario_conteudo.conteudo_utilizador.centro != user_centro) {
 				data.splice(i, 1);
 			}
 		}
@@ -61,6 +61,12 @@ export class ComentarioController extends BaseController {
 			{
 				model: models.conteudo,
 				as: "comentario_conteudo",
+				include: [
+					{
+						model: models.utilizador,
+						as: "conteudo_utilizador",
+					},
+				],
 			},
 			{
 				model: models.denuncia,

@@ -3,7 +3,6 @@ import { LoggerMiddleware, AuthMiddleware, ErrorMiddleware } from "../middleware
 import { LogUtils } from "../utils/index.js";
 
 export const RoutingConfig = async (app) => {
-	console.log("oi");
 	app.use(LoggerMiddleware);
 	app.use(AuthMiddleware);
 
@@ -13,3 +12,4 @@ export const RoutingConfig = async (app) => {
 
 	LogUtils.log("Middlewares inicializados!", LogUtils.TIPO.MIDDLEWARES);
 };
+

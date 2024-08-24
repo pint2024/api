@@ -133,10 +133,10 @@ export class ConteudoController extends BaseController {
 			}, ConteudoController.#modelos_adicionais_listagem());
 
 			if (perfil == DataConstants.PERFIL.USER) {
-				ConteudoController.#verifyRevision(responseEspaco);
-				ConteudoController.#verifyRevision(responseAtividade);
-				ConteudoController.#verifyRevision(responseEvento);
-				ConteudoController.#verifyRevision(responseRecomendacao);
+				ConteudoController.#verifyRevision(responseEspaco, req.user.id);
+				ConteudoController.#verifyRevision(responseAtividade, req.user.id);
+				ConteudoController.#verifyRevision(responseEvento, req.user.id);
+				ConteudoController.#verifyRevision(responseRecomendacao, req.user.id);
 			}
 			/*ConteudoController.#verifyCentro(responseEspaco, centro);
 			ConteudoController.#verifyCentro(responseAtividade, centro);
@@ -154,16 +154,19 @@ export class ConteudoController extends BaseController {
 		}
 	}
 
-	static #verifyRevision(data) {
+	static #verifyRevision(data, userId) {
 		for (let i = data.length - 1; i >= 0; i--) {
-			if (
-				data[i] && // Verifica se data[i] está definido
-				data[i].revisao_conteudo && // Verifica se data[i].revisao_conteudo está definido
-				data[i].revisao_conteudo[0] && // Verifica se o primeiro elemento de revisao_conteudo existe
-				(data[i].revisao_conteudo[0].estado == DataConstants.ESTADO.ANALISE ||
-					data[i].revisao_conteudo[0].estado == DataConstants.ESTADO.REJEITADO)
-			) {
-				data.splice(i, 1);
+			const item = data[i];
+			if (item.utilizador != userId) {
+				if (
+					item && // Verifica se data[i] está definido
+					item.revisao_conteudo && // Verifica se data[i].revisao_conteudo está definido
+					item.revisao_conteudo[0] && // Verifica se o primeiro elemento de revisao_conteudo existe
+					(item.revisao_conteudo[0].estado == DataConstants.ESTADO.ANALISE ||
+						item.revisao_conteudo[0].estado == DataConstants.ESTADO.REJEITADO)
+				) {
+					data.splice(i, 1);
+				}
 			}
 		}
 	}

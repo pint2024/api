@@ -59,9 +59,15 @@ export class AuthService {
 	};
 
 	static verifyGoogleLoginToken = async (token) => {
-		const client = new OAuth2Client(GoogleCredentials.GOOGLE_CLIENT_ID);
-		const ticket = await client.verifyIdToken({ idToken: token, audience: GoogleCredentials.GOOGLE_CLIENT_ID });
-		return ticket.getPayload();
+		try {
+			const client = new OAuth2Client(GoogleCredentials.GOOGLE_CLIENT_ID);
+			var ticket = await client.verifyIdToken({ idToken: token, audience: GoogleCredentials.GOOGLE_CLIENT_ID });
+			return ticket.getPayload();
+		} catch {
+			const client = new OAuth2Client(GoogleCredentials.GOOGLE_CLIENT_ID_MOBILE);
+			var ticket = await client.verifyIdToken({ idToken: token, audience: GoogleCredentials.GOOGLE_CLIENT_ID_MOBILE });
+			return ticket.getPayload();
+		}
 	}
 
 	static comparePassword = (senha_recebida, senha) => {

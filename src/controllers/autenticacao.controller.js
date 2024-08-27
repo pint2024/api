@@ -70,10 +70,8 @@ export class AutenticacaoController extends Controller {
 			const { token } = req.body;
 			const dataJson = await AuthService.verifyGoogleLoginToken(token);
 			const { email, picture, given_name, family_name } = dataJson;
-			console.log(dataJson);
 
 			const utilizador = await this.model.findOne({ where: { email: email } });
-			console.log(utilizador);
 			if (!utilizador) {
 				const newUser = await AuthLoginService.criar({
 					email,
@@ -82,10 +80,8 @@ export class AutenticacaoController extends Controller {
 					imagem: picture,
 					verificado: true,
 				});
-				console.log(newUser);
 			} else {
 				const updateVerifiedUser = await this.service.atualizar(utilizador.id, { verificado: true });
-				console.log("utilizador verificado", updateVerifiedUser);
 			}
 			const loggedUser = await AuthLoginService.entrar(email, null, true);
 			if (loggedUser?.contaEstaInativa) {
@@ -99,6 +95,35 @@ export class AutenticacaoController extends Controller {
 			return ResponseService.error(res, error.message);
 		}
 	}
+
+	async github_login(req, res) {
+        try {
+            const { photoURL, displayName, email } = req.body;
+
+            const utilizador = await this.model.findOne({ where: { email: email } });
+            if (!utilizador) {
+                const newUser = await AuthLoginService.criar({
+                    email,
+                    nome: displayName,
+                    sobrenome: " ",
+                    imagem: photoURL,
+                    verificado: true,
+                });
+        	} else {
+                const updateVerifiedUser = await this.service.atualizar(utilizador.id, { verificado: true });
+            }
+            const loggedUser = await AuthLoginService.entrar(email, null, true);
+            if (loggedUser?.contaEstaInativa) {
+            	return ResponseService.unauthorized(res, "A sua conta foi inativada.");
+            } else if (loggedUser.precisaAtualizarSenha) {
+                return ResponseService.message(res, "Precisa alterar a senha.", { token: loggedUser.token });
+            } else {
+            	return ResponseService.success(res, { token: loggedUser.token });
+            }
+        } catch (error) {
+            return ResponseService.error(res, error.message);
+        }            
+    }
 
 	async forgot_password(req, res) {
 		try {

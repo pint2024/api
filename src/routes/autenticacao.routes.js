@@ -9,5 +9,6 @@ export const AutenticacaoRoutes = (controllerClass) => {
 	router.route("/atualizar").get((req, res) => controllerClass.atualizar(req, res));
 	router.route("/entrar").post((req, res) => controllerClass.entrar(req, res));
 	router.route("/external-login").post((req, res) => controllerClass.external_login(req, res));
+	router.route("/github-login").post((req, res) => controllerClass.github_login(req, res));
 	return router;
 };

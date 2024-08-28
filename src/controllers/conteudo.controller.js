@@ -177,9 +177,9 @@ export class ConteudoController extends BaseController {
 				!data[i] || // Verifica se data[i] está definido
 				!data[i].participante_conteudo || // Verifica se participante_conteudo está definido
 				data[i].participante_conteudo.length === 0 || // Verifica se participante_conteudo não está vazio
-				data[i].participante_conteudo[0].utilizador !== id // Verifica se o utilizador não corresponde ao id
+				!data[i].participante_conteudo.some(pc => pc.utilizador === id) // Verifica se algum utilizador corresponde ao id
 			) {
-				data.splice(i, 1);
+				data.splice(i, 1); // Remove o elemento se a condição não for atendida
 			}
 		}
 	}

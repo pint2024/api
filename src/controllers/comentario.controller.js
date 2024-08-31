@@ -35,7 +35,6 @@ export class ComentarioController extends BaseController {
 
 	static #verifyCentro(data, user_centro) {
 		for (let i = data.length - 1; i >= 0; i--) {
-			console.log(data[i].comentario_conteudo.conteudo_utilizador.centro, user_centro);
 			if (data[i] && data[i].comentario_conteudo.conteudo_utilizador && data[i].comentario_conteudo.conteudo_utilizador.centro != user_centro) {
 				data.splice(i, 1);
 			}
